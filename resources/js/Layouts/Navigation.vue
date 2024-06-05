@@ -1,0 +1,107 @@
+<template>
+  <aside class="z-20 hidden w-64 overflow-y-auto bg-purple-900 md:block flex-shrink-0">
+    <div class="py-4 text-white">
+      <Link class="ml-6 text-lg font-bold text-gray-100" :href="route('dashboard')">
+        Refugios
+      </Link>
+
+      <ul class="mt-6">
+        <li class="relative px-6 py-3">
+          <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
+            <template #icon>
+              <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
+                   stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                <path
+                    d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+              </svg>
+            </template>
+            Dashboard
+          </NavLink>
+        </li>
+
+        <li class="relative px-6 py-3">
+          <NavLink :href="route('users.index')" :active="route().current('users.index')">
+            <template #icon>
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                   xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
+              </svg>
+            </template>
+            Usuarios
+          </NavLink>
+        </li>
+
+          <li class="relative px-6 py-3">
+              <NavLink :href="route('refugios.index')" :active="route().current('refugios.index')">
+                  <template #icon>
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 21v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21m0 0h4.5V3.545M12.75 21h7.5V10.75M2.25 21h1.5m18 0h-18M2.25 9l4.5-1.636M18.75 3l-1.5.545m0 6.205 3 1m1.5.5-1.5-.5M6.75 7.364V3h-3v18m3-13.636 10.5-3.819" />
+                      </svg>
+                  </template>
+                  Refugios
+              </NavLink>
+          </li>
+
+          <li class="relative px-6 py-3">
+          <NavLink :href="route('about')" :active="route().current('about')">
+            <template #icon>
+              <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
+                   stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0M3.124 7.5A8.969 8.969 0 0 1 5.292 3m13.416 0a8.969 8.969 0 0 1 2.168 4.5" />
+
+              </svg>
+            </template>
+            Acerca de
+          </NavLink>
+        </li>
+
+        <li class="relative px-6 py-3">
+          <button @click="showingTwoLevelMenu = !showingTwoLevelMenu"
+              class="inline-flex items-center justify-between w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-500"
+              aria-haspopup="true">
+                <span class="inline-flex items-center">
+                    <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
+                         stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                        <path d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
+                    </svg>
+                    <span class="ml-4">Otros</span>
+                </span>
+            <svg class="w-4 h-4" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd"
+                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                    clip-rule="evenodd"></path>
+            </svg>
+          </button>
+            <ul v-show="showingTwoLevelMenu" class="p-2 mt-2 space-y-2 overflow-hidden text-sm font-medium text-gray-500 rounded-md shadow-inner bg-gray-50"
+                aria-label="submenu">
+              <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800">
+                <a class="w-full" href="#">Catálogos</a>
+              </li>
+            </ul>
+        </li>
+      </ul>
+    </div>
+  </aside>
+</template>
+
+<script>
+import NavLink from '@/Components/NavLink.vue'
+import { Link } from '@inertiajs/vue3';
+import { ref } from 'vue'
+
+export default {
+  components: {
+    NavLink,
+    Link,
+  },
+
+  setup() {
+    let showingTwoLevelMenu = ref(false)
+
+    return {
+      showingTwoLevelMenu
+    }
+  },
+}
+</script>
