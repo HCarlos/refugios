@@ -12,14 +12,14 @@ class Refugio extends Model {
     protected $guard_name = 'web'; // or whatever guard you want to use
     protected $table = 'refugios';
     protected $fillable = [
-        'id',
+        'id','numero',
         'refugio','ubicacion','ubicacion_google',
         'enlace','telefonos','observaciones',
         'latitud','longitud','html','infraestructura','capacidad',
         'activado','poligono','categoria',
         'imagen','refugiorutaid',
         ];
-    protected $casts = ['activado'=>'boolean',];
+//    protected $casts = ['activado'=>'boolean',];
 
     public function ruta(){
         return $this->hasOne(RutaRefugio::class,'id','refugiorutaid');

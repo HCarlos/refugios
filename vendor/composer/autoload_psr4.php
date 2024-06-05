@@ -73,6 +73,7 @@ return array(
     'Laravel\\Sail\\' => array($vendorDir . '/laravel/sail/src'),
     'Laravel\\Prompts\\' => array($vendorDir . '/laravel/prompts/src'),
     'Laravel\\Breeze\\' => array($vendorDir . '/laravel/breeze/src'),
+    'LaravelLang\\Lang\\' => array($vendorDir . '/laravel-lang/lang/src'),
     'LaravelDaily\\Larastarters\\' => array($vendorDir . '/laraveldaily/larastarters/src'),
     'Intervention\\Image\\' => array($vendorDir . '/intervention/image/src'),
     'Intervention\\Gif\\' => array($vendorDir . '/intervention/gif/src'),

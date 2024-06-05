@@ -1,5 +1,7 @@
 <template>
-    <button :type="type" class="rounded-lg border border-transparent bg-yellow-900 px-4 py-2 text-center text-sm font-medium leading-5 text-black transition-colors duration-150 hover:bg-purple-700 focus:outline-none focus:ring active:bg-yellow-900">
+    <button :type="type"
+            class="rounded-lg border border-transparent bg-yellow-600 px-4 py-2 text-center text-sm font-medium leading-5 text-white transition-colors duration-150 hover:bg-yellow-500 focus:outline-none focus:ring active:bg-yellow-700"
+        >
         <slot/>
     </button>
 </template>

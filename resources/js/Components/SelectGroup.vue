@@ -9,7 +9,7 @@
                 @input="$emit('update:modelValue', $event.target.value)"
                 ref="input"
             >
-                <option v-if="isLegend" disabled value="">Selecciona una opción</option>
+                <option value="-1" :selected="selected">Selecciona una opción</option>
                 <option v-for="option in opciones" :value="option.id" >
                     {{ option.text }}
                 </option>
@@ -19,13 +19,15 @@
             </div>
         </div>
     </label>
+    <InputError class="mt-1" :message="errors" />
 </template>
 
 <script setup>
 
 import { onMounted, ref } from 'vue';
+import InputError from "@/Components/InputError.vue";
 
-const props = defineProps(['textLabel','opciones','modelValue','isLegend']);
+const props = defineProps(['textLabel','opciones','modelValue','isLegend','errors']);
 const labelText = props.textLabel == null ? '' : props.textLabel;
 // const disabledSelect = props.disabledSelect != null;
 const isLegend = props.isLegend != null;

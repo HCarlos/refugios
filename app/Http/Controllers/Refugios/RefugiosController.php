@@ -21,7 +21,7 @@ class RefugiosController extends Controller {
     public function index()
     {
         return Inertia::render('Refugios/Index', [
-            'Refugios' => Refugio::paginate(1000)
+            'Refugios' => Refugio::query()->orderByDesc('id')->paginate(1000)
         ]);
     }
 
@@ -36,20 +36,33 @@ class RefugiosController extends Controller {
     }
 
     public function save(RefugiosUpdateRequest $request) {
-        $Ref = $request->manage();
-        if (!isset($Ref)) {
-            abort(404);
-        }
 
-        $this->edit($Ref->id);
+        $Ref = $request->manage();
+
+        if (!isset($Ref)) {
+            return redirect('refugio.create/')->with( 'error',json_decode($Ref));
+        }
+        return redirect('refugio.show/'.$Ref->id)->with( 'success','Refugio guardado');
+
     }
 
+    public function show($Id)
+    {
+        $refugio = Refugio::find($Id);
+        $rutas = RutaRefugio::all();
+        return Inertia::render('Refugios/Show', [
+            'Refugio' => $refugio,
+            'Rutas' => $rutas,
+            'ruta' => $refugio->ruta->ruta,
+            'status' => session('status'),
+        ]);
+    }
 
     public function edit($Id)
     {
         $refugio = Refugio::find($Id);
         $rutas = RutaRefugio::all();
-        return Inertia::render('Refugios/Edit', [
+        return Inertia::render('Refugios/Create', [
             'Refugio' => $refugio,
             'Rutas' => $rutas,
             'ruta' => $refugio->ruta->ruta,
@@ -60,10 +73,9 @@ class RefugiosController extends Controller {
     public function update(RefugiosUpdateRequest $request) {
         $Ref = $request->manage();
         if (!isset($Ref)) {
-            abort(404);
+            return redirect('refugio.create/')->with( 'error',json_decode($Ref));
         }
-
-        $this->edit($Ref->id);
+        return redirect('refugio.show/'.$Ref->id)->with( 'success','Refugio actualizado');
     }
 
     public function destroy(Request $request)
@@ -72,7 +84,7 @@ class RefugiosController extends Controller {
         $refugio = Refugio::find($request->id);
         $refugio->delete();
         // return Redirect::to('/');
-        return redirect('refugios')->with('success','Registro eliminado');
+        return redirect('refugios')->with('success','Refugio eliminado');
     }
 
 

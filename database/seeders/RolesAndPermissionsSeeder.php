@@ -95,6 +95,25 @@ class RolesAndPermissionsSeeder extends Seeder
         $F->validImage($user,'profile','profile/');
 
         $user = new User();
+        $user->nombre = 'José Antonio';
+        $user->username = 'jamlp';
+        $user->email = 'jamlp@hotmail.com';
+        $user->password = bcrypt('jamlp');
+        $user->admin = false;
+        $user->empresa_id = $idemp;
+        $user->ip = $ip;
+        $user->host = $host;
+        $user->email_verified_at = now();
+        $user->save();
+        $user->roles()->attach($role_sysop);
+        $user->permissions()->attach($P11);
+        $user->user_adress()->create();
+        $user->user_data_extend()->create();
+        $F->validImage($user,'profile','profile/');
+
+
+
+        $user = new User();
         $user->nombre = 'Invitado';
         $user->username = 'Invitado';
         $user->email = 'invitado@example.com';

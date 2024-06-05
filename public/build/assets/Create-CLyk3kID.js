@@ -1,1 +1,0 @@
-import{o as r,e}from"./app-DmlS2GlT.js";import o from"./Form-DknR4LVp.js";import"./AuthenticatedLayout-FmvJEg43.js";import"./_plugin-vue_export-helper-DlAUqK2U.js";import"./DarkButton-DjB5FxCS.js";import"./InputError-DAgTexwY.js";const _={__name:"Create",props:{Rutas:{type:Object}},setup(t){return(a,p)=>(r(),e(o,{Rutas:t.Rutas},null,8,["Rutas"]))}};export{_ as default};

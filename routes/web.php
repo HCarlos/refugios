@@ -47,6 +47,7 @@ Route::middleware('auth')->group(function () {
     Route::post('refugio.save', [RefugiosController::class, 'save'])->name('refugio.save');
     Route::put('refugio.update', [RefugiosController::class, 'update'])->name('refugio.update');
     Route::post('refugio.destroy', [RefugiosController::class, 'destroy'])->name('refugio.destroy');
+    Route::get('refugio.show/{Id}', [RefugiosController::class, 'show'])->name('refugio.show');
 
 
 });
