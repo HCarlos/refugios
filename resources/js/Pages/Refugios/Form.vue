@@ -7,6 +7,7 @@ import PrimaryButton from "@/Components/PrimaryButton.vue";
 import InputGroup from "@/Components/InputGroup.vue";
 import SelectGroup from "@/Components/SelectGroup.vue";
 import { ref } from "vue"
+import AlertSuccess from "@/Components/AlertSuccess.vue";
 
 const props = defineProps({
     Refugio: {type: Object},
@@ -20,7 +21,7 @@ const form = useForm({
     enlace:'', telefonos:'', observaciones:'',
     latitud:'', longitud:'', html:'', infraestructura:'',
     activado:'0', poligono:'', categoria:'REFUGIO', capacidad:0,
-    imagen:'', refugiorutaid:-1
+    imagen:'1.gif', refugiorutaid:-1
 });
 
 const opcionesRutas = ref([]);
@@ -113,109 +114,92 @@ if (props.Refugio !== 'undefined' && props.Refugio != null){
 
     <AuthenticatedLayout>
         <template #header>
-            <div class="inline-flex overflow-hidden mb-4 w-full">
+            <div class="inline-flex overflow-hidden mb-4 w-full ">
                 {{ title_form }}
-                <NavLink :href="route('refugios.index')">
-                    <DarkButton title="Listado de Refugios">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 21v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21m0 0h4.5V3.545M12.75 21h7.5V10.75M2.25 21h1.5m18 0h-18M2.25 9l4.5-1.636M18.75 3l-1.5.545m0 6.205 3 1m1.5.5-1.5-.5M6.75 7.364V3h-3v18m3-13.636 10.5-3.819" />
-                        </svg>
-                    </DarkButton>
-                </NavLink>
+<!--                <NavLink :href="route('refugios.index')">-->
+<!--                    <DarkButton title="Listado de Refugios">-->
+<!--                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">-->
+<!--                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 21v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21m0 0h4.5V3.545M12.75 21h7.5V10.75M2.25 21h1.5m18 0h-18M2.25 9l4.5-1.636M18.75 3l-1.5.545m0 6.205 3 1m1.5.5-1.5-.5M6.75 7.364V3h-3v18m3-13.636 10.5-3.819" />-->
+<!--                        </svg>-->
+<!--                    </DarkButton>-->
+<!--                </NavLink>-->
             </div>
-            <div class="alert alert-success " :class="classMsj"><p class="text-sm text-gray-600">... {{ msj }}</p></div>
+            <AlertSuccess :class-msg="classMsj" :msg="msj">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                    <path fill-rule="evenodd" d="M9 1.5H5.625c-1.036 0-1.875.84-1.875 1.875v17.25c0 1.035.84 1.875 1.875 1.875h12.75c1.035 0 1.875-.84 1.875-1.875V12.75A3.75 3.75 0 0 0 16.5 9h-1.875a1.875 1.875 0 0 1-1.875-1.875V5.25A3.75 3.75 0 0 0 9 1.5Zm6.61 10.936a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 14.47a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z" clip-rule="evenodd" />
+                    <path d="M12.971 1.816A5.23 5.23 0 0 1 14.25 5.25v1.875c0 .207.168.375.375.375H16.5a5.23 5.23 0 0 1 3.434 1.279 9.768 9.768 0 0 0-6.963-6.963Z" />
+                </svg>
+            </AlertSuccess>
         </template>
 
         <div class="grid gap-6 bg-white mb-8 md:grid-cols-2 border rounded-lg">
             <div class="min-w-0 p-4 rounded-lg shadow-xs">
                 <form class="form-horizontal" @submit.prevent="guardarRefugio">
-                <InputGroup v-model.number="form.numero" :placeholder="'Número'" :errors="form.errors.numero" class="em9 rounded-lg" type="number" >
+                <InputGroup v-model.number="form.numero" :placeholder="'Número'" :errors="form.errors.numero" :classEspecial="'em9'" type="number" :class-especial="'em15 bg-yellow-50'">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 8.25h15m-16.5 7.5h15m-1.8-13.5-3.9 19.5m-2.1-19.5-3.9 19.5" />
                     </svg>
                 </InputGroup>
-<!--                <InputError class="mt-1" :message="form.errors.numero" />-->
-                <InputGroup v-model="form.refugio" :errors="form.errors.refugio" :placeholder="'Refugio'" :type="'text'" >
+                <InputGroup v-model="form.refugio" :errors="form.errors.refugio" :placeholder="'Refugio'" :type="'text'" :class-especial="'bg-yellow-50'">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 21v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21m0 0h4.5V3.545M12.75 21h7.5V10.75M2.25 21h1.5m18 0h-18M2.25 9l4.5-1.636M18.75 3l-1.5.545m0 6.205 3 1m1.5.5-1.5-.5M6.75 7.364V3h-3v18m3-13.636 10.5-3.819" />
                     </svg>
                 </InputGroup>
-<!--                <InputError class="mt-1" :message="form.errors.refugio" />-->
-                <InputGroup v-model="form.ubicacion" :placeholder="'Ubicación'"  :type="'text'" :errors="form.errors.ubicacion">
+                <InputGroup v-model="form.ubicacion" :placeholder="'Ubicación'" :type="'text'" :errors="form.errors.ubicacion" :class-especial="'bg-yellow-50'">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418" />
                     </svg>
                 </InputGroup>
-<!--                <InputError class="mt-1" :message="form.errors.ubicacion" />-->
                 <InputGroup v-model="form.ubicacion_google" :errors="form.errors.ubicacion_google" :placeholder="'Ubicación Google'"  :type="'text'" :disabledInput="'disabled'" >
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418" />
                     </svg>
                 </InputGroup>
-<!--                <InputError class="mt-1" :message="form.errors.ubicacion" />-->
-                <SelectGroup :opciones="opcionesRutas" v-model="form.refugiorutaid" :errors="form.errors.refugiorutaid">
+                <SelectGroup :opciones="opcionesRutas" v-model="form.refugiorutaid" :errors="form.errors.refugiorutaid" :class-especial="'em15 bg-yellow-50'" />
+                <InputGroup v-model="form.capacidad" :errors="form.errors.capacidad" :placeholder="'Capacidad'"  :type="'text'" :class-especial="'em15 bg-yellow-50'">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5" />
                     </svg>
-                </SelectGroup>
+                </InputGroup>
                 <InputGroup v-model="form.infraestructura"  :errors="form.errors.infraestructura" :placeholder="'Infraestructura'"  :type="'text'" >
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5" />
                     </svg>
                 </InputGroup>
-<!--                <InputError class="mt-1" :message="form.errors.ubicacion" />-->
-                <InputGroup v-model="form.capacidad" :errors="form.errors.capacidad" :placeholder="'Capacidad'"  :type="'text'" >
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5" />
-                    </svg>
-                </InputGroup>
-<!--                <InputError class="mt-1" :message="form.errors.ubicacion" />-->
                 <InputGroup v-model="form.enlace" :errors="form.errors.enlace" :placeholder="'Enlace'"  :type="'text'" >
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5" />
                     </svg>
                 </InputGroup>
-<!--                <InputError class="mt-1" :message="form.errors.ubicacion" />-->
                 <InputGroup v-model="form.telefonos" :errors="form.errors.telefonos" :placeholder="'Teléfonos'"  :type="'text'" >
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5" />
                     </svg>
                 </InputGroup>
-<!--                <InputError class="mt-1" :message="form.errors.ubicacion" />-->
-                <SelectGroup :opciones="opcionesCategorias" v-model="form.categoria" :errors="form.errors.categoria">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941" />
-                    </svg>
-                </SelectGroup>
-                <SelectGroup :opciones="opcionesActivado" v-model="form.activado" :errors="form.errors.activado">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941" />
-                    </svg>
-                </SelectGroup>
-                <InputGroup v-model="form.observaciones" :errors="form.errors.observaciones" :placeholder="'Observaciones'"  :type="'text'" >
+                <SelectGroup :opciones="opcionesCategorias" v-model="form.categoria" :errors="form.errors.categoria" :class-especial="'em15 bg-yellow-50'" />
+                <SelectGroup :opciones="opcionesActivado" v-model="form.activado" :errors="form.errors.activado" :class-especial="'em15 bg-yellow-50'" />
+                <InputGroup v-model="form.latitud" :errors="form.errors.latitud" :placeholder="'Latitud'"  :type="'text'" :pattern="cLatitud" :class-especial="'em15 bg-yellow-50'">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5" />
                     </svg>
                 </InputGroup>
-<!--                <InputError class="mt-1" :message="form.errors.ubicacion" />-->
-                <InputGroup v-model="form.latitud" :errors="form.errors.latitud" :placeholder="'Latitud'"  :type="'text'" :pattern="cLatitud" >
+                <InputGroup v-model="form.longitud" :errors="form.errors.longitud" :placeholder="'Longitud'"  :type="'text'" :pattern="cLongitud" :class-especial="'em15 bg-yellow-50'">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5" />
                     </svg>
                 </InputGroup>
-<!--                <InputError class="mt-1" :message="form.errors.ubicacion" />-->
-                <InputGroup v-model="form.longitud" :errors="form.errors.longitud" :placeholder="'Longitud'"  :type="'text'" :pattern="cLongitud" >
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5" />
-                    </svg>
-                </InputGroup>
-<!--                <InputError class="mt-1" :message="form.errors.ubicacion" />-->
                 <InputGroup v-model="form.poligono" :errors="form.errors.poligono" :placeholder="'Polígono'"  :type="'text'" >
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5" />
                     </svg>
                 </InputGroup>
+                <InputGroup v-model="form.observaciones" :errors="form.errors.observaciones" :placeholder="'Observaciones'"  :type="'text'" >
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5" />
+                    </svg>
+                </InputGroup>
                 <input type="hidden" v-model="form.id" value="{{form.id}}" >
+                <input type="hidden" v-model="form.imagen" value="{{form.imagen}}" >
 
 <!--                <InputError class="mt-1" :message="form.errors.ubicacion" />-->
                 <PrimaryButton class="mt-4 float-right" >
@@ -224,7 +208,7 @@ if (props.Refugio !== 'undefined' && props.Refugio != null){
                 </form>
             </div>
             <div class="min-w-0 p-4 rounded-lg shadow-xs">
-                <img :src="srcImg" >
+                <img :src="srcImg"  alt="">
             </div>
         </div>
 

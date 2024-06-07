@@ -84,7 +84,7 @@ class RefugiosController extends Controller {
         $refugio = Refugio::find($request->id);
         $refugio->delete();
         // return Redirect::to('/');
-        return redirect('refugios')->with('success','Refugio eliminado');
+        return redirect('refugios')->with('success','Refugio eliminado con éxito.');
     }
 
 
