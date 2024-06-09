@@ -14,7 +14,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
-use Inertia\Response;
+//use Inertia\Response;
+use Illuminate\Support\Facades\Response;
 
 class RefugiosController extends Controller {
 
@@ -87,6 +88,58 @@ class RefugiosController extends Controller {
         return redirect('refugios')->with('success','Refugio eliminado con éxito.');
     }
 
+    public function indexpublic(Request $request){
+        $Refugios = Refugio::query()
+            ->where('latitud', '>', 0)
+            ->where('activado', 1)
+            ->orderByDesc('id')
+            ->get();
+        return $this->getDataRefugios($Refugios);
+    }
+
+    public function refugiosporruta($Refugiorutaid){
+        $Refugios = Refugio::query()
+            ->where('refugiorutaid', $Refugiorutaid)
+            ->where('activado', 1)
+            ->orderByDesc('id')
+            ->get();
+        return $this->getDataRefugios($Refugios);
+    }
+
+    private function getDataRefugios($Refugios){
+
+        $refArray = array();
+        foreach ($Refugios as $refugio) {
+            $refugio->save();
+            $fill = [
+                'id'=> $refugio->id,
+                'numero' => $refugio->numero,
+                'refugio' => $refugio->refugio,
+                'ubicacion' => $refugio->ubicacion,
+                'ubicacion_google' => $refugio->ubicacion_google,
+                'enlace' => $refugio->enlace,
+                'telefonos' => $refugio->telefonos,
+                'observaciones' => $refugio->observaciones,
+                'latitud' => $refugio->latitud,
+                'longitud' => $refugio->longitud,
+                'html' => $refugio->html,
+                'infraestructura' => $refugio->infraestructura,
+                'capacidad' => $refugio->capacidad,
+                'activado' => $refugio->activado,
+                'poligono' => $refugio->poligono,
+                'categoria' => $refugio->categoria,
+                'imagen' => $refugio->imagen,
+                'refugiorutaid' => $refugio->refugiorutaid,
+                'ruta' => $refugio->ruta->ruta,
+                'zona' => $refugio->ruta->zona,
+            ];
+            // $refArray-> = $fill;
+            $refArray[] = $fill;
+        }
+
+        return Response::json(['mensaje' => 'OK', 'data' => $refArray, 'status' => '200'], 200);
+
+    }
 
 
 }

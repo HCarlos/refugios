@@ -9,8 +9,10 @@ class UserController extends Controller
 {
     public function index()
     {
+        $users = User::query()->paginate(1000);
+        // dd($users->FullName);
         return Inertia::render('Users/Index', [
-            'users' => User::paginate()
+            'users' => $users,
         ]);
     }
 }

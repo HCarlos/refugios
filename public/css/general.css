@@ -1,0 +1,8 @@
+@charset "UTF-8";
+/* CSS Document */
+.logo-arji-w{
+	display:inline-block;
+	background:transparent url(http://platsource.tabascoweb.com/images/logo-arji-blanco.png) top left no-repeat;
+	width:30px;
+	height:30px;
+}

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Refugios\RefugiosController;
+use App\Http\Controllers\Refugios\RutasController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -49,7 +50,10 @@ Route::middleware('auth')->group(function () {
     Route::post('refugio.destroy', [RefugiosController::class, 'destroy'])->name('refugio.destroy');
     Route::get('refugio.show/{Id}', [RefugiosController::class, 'show'])->name('refugio.show');
 
-
 });
+
+Route::get('getrutas', [RutasController::class, 'getrutas'])->name('getrutas');
+Route::get('refugiospublic', [RefugiosController::class, 'indexpublic'])->name('refugiospublic');
+Route::get('refugiosporruta/{Refugiorutaid}', [RefugiosController::class, 'refugiosporruta'])->name('refugiosporruta');
 
 require __DIR__.'/auth.php';

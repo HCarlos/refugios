@@ -42,6 +42,7 @@ var tituloUser = "Usuarios";
 						<thead>
 							<tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase bg-gray-50 border-b">
 								<th class="px-4 py-3">Username</th>
+                                <th class="px-4 py-3">Nombre Completo</th>
 								<th class="px-4 py-3">Email</th>
                                 <th class="px-4 py-3">Género</th>
 							</tr>
@@ -51,11 +52,14 @@ var tituloUser = "Usuarios";
 								<td class="px-4 py-3 text-sm">
 									{{ user.username }}
 								</td>
+                                <td class="px-4 py-3 text-sm">
+                                    {{ user.full_name }}
+                                </td>
 								<td class="px-4 py-3 text-sm">
 									{{ user.email }}
 								</td>
                                 <td class="px-4 py-3 text-sm">
-                                    {{ user.genero === 0 ? 'female' : 'male' }}
+                                    {{ user.genero === 0 ? 'Mujer' : 'Hombre' }}
                                 </td>
 							</tr>
 						</tbody>
