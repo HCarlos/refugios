@@ -40,7 +40,7 @@
                 <li ><a href="/"><span class="badge">MAPA DE UBICACION DE REFUGIOS TEMPORALES</span></a></li>
                 <li id="barda"></li>
             </ul>
-            <div class="pull-right mr-2 mt-05"><a href="https:villahermosa.gob.mx"><img src="images/1.gif" /></a></div>
+            <div class="pull-right mr-2 mt-05 " style="height: 40px !important;" ><a href="https:villahermosa.gob.mx"><img src="images/logo_centro_80_pixeles_002.png" height="20" style="height:40px !important;"> </img></a></div>
         </div>
     </div>
 </header>
@@ -339,7 +339,7 @@ function init(){
 function getDatas(tipo, url){
     beaches = [];
     // alert(url);
-    $.get(url, {  },
+    $.get("https://refugios.villahermosa.gob.mx:445/refugiospublic", {  },
         function(json){
             if (json.mensaje == "OK") {
 
@@ -424,7 +424,7 @@ getDatas(8, urlBase+'refugiospublic');
 function getRutas(){
     $('select[name="refujiorutaid"]').empty();
     $('select[name="refujiorutaid"]').append('<option value="0"  >Filtrar una Ruta</option>');
-    $.get(urlBase+"getrutas", {  },
+    $.get("https://refugios.villahermosa.gob.mx:445/getrutas", {  },
         function(json){
             if (json.data.length > 0) {
                 $.each(json.data, function(i, item) {
