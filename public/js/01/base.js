@@ -5,8 +5,8 @@ function oObject() {
 	var oUser = [0,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
 				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,0];
 	var minHeight = 0;
-    //var pHost = ["https://refugios.villahermosa.gob.mx:445/",/iphone|ipad|ipod|android/i.test(navigator.userAgent), /msie\s6/i.test(navigator.userAgent)];
-    var pHost = ["http://localhost:8000/",/iphone|ipad|ipod|android/i.test(navigator.userAgent), /msie\s6/i.test(navigator.userAgent)];
+    var pHost = ["https://refugios.villahermosa.gob.mx:445/",/iphone|ipad|ipod|android/i.test(navigator.userAgent), /msie\s6/i.test(navigator.userAgent)];
+    // var pHost = ["http://localhost:8000/",/iphone|ipad|ipod|android/i.test(navigator.userAgent), /msie\s6/i.test(navigator.userAgent)];
 	// var pHost = ["http://refugios.tabascoweb.com/",/iphone|ipad|ipod|android/i.test(navigator.userAgent), /msie\s6/i.test(navigator.userAgent)];
 
 	var cat = [];
