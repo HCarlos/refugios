@@ -21,28 +21,31 @@
   <link href="ico/apple-touch-icon-72x72.png" rel="apple-touch-icon" sizes="72x72">
   <link href="ico/apple-touch-icon-114x114.png" rel="apple-touch-icon" sizes="114x114">
 
-  <style type="text/css">
-    .alaPar{display: inline-block; vertical-align: top;}
-  </style>
+    <style type="text/css">
+        .alaPar{display: inline-block; vertical-align: top;}
+        .mr-2{margin-right: 2em !important;}
+        .mt-05{margin-top: 0.5em !important; }
+    </style>
 
 </head>
 <body >
-  <!-- .................................... $header .................................... -->
-  <header class="navbar-fixed-top">
-      <div class="navbar">
-        <div class="navbar-inner">
-          <ul class="nav navbar-nav pull-left">
-            <!-- <li ><a  href="#" id="trazarRuta">Trazar Ruta</a></li> -->
-            <li ><a  href="#" id="filtrarRuta">Filtrar Ruta</a></li>
-            <li ><a  href="#" id="showScreenUbiRef">Ubica tu Refugio</a></li>
-            <li ><a href="/"><span class="badge">MAPA DE UBICACION DE REFUGIOS TEMPORALES</span></a></li>
-            <li id="barda"></li>
-          </ul>
-
+<!-- .................................... $header .................................... -->
+<header class="navbar-fixed-top" style="background-color: #822B30 !important;">
+    <div class="navbar" style="background-color: #822B30 !important;">
+        <div class="navbar-inner" style="background-color: #822B30 !important;">
+            <ul class="nav navbar-nav pull-left" style="background-color: #822B30 !important;">
+                <!-- <li ><a  href="#" id="trazarRuta">Trazar Ruta</a></li> -->
+                <li ><a  href="#" id="filtrarRuta">Filtrar Ruta</a></li>
+                <li ><a  href="#" id="showScreenUbiRef">Ubica tu Refugio</a></li>
+                <li ><a href="/"><span class="badge">MAPA DE UBICACION DE REFUGIOS TEMPORALES</span></a></li>
+                <li id="barda"></li>
+            </ul>
+            <div class="pull-right mr-2 mt-05"><a href="https:villahermosa.gob.mx"><img src="images/1.gif" /></a></div>
         </div>
-      </div>
-  </header>
-    <h6> </h6>
+    </div>
+</header>
+<h6> </h6>
+
 
   <!-- .................................... $Portfolio .................................... -->
  <div class="container">
@@ -173,7 +176,7 @@
         CMI |
         <a href="https://villahermosa.gob.mx" title="Coordinación de Modernización e Innovación">villahermnosa.gob.mx</a>
       </p>
-      <p>H. Ayuntamiento Constitucional de Centro - <?php echo date('Y'); ?> &copy;  Todos los derechos reservados</p>
+      <p>H. Ayuntamiento Constitucional de Centro - 2024 &copy;  Todos los derechos reservados</p>
     </div>
   </div>
 
@@ -203,7 +206,7 @@
 
 
   <script>
-
+var urlBase = "http://localhost:8000/"; //obj.getValue(0);
 var beaches = [];
 var queryString = " where latitud > 0 ";
 var lat;
@@ -379,7 +382,7 @@ function calcRoute() {
     var request = {
         origin:start,
         destination:end,
-         optimizeWaypoints: true,
+        optimizeWaypoints: true,
         travelMode: travelMode
     };
     directionsService.route(request, function(result, status) {
@@ -416,12 +419,12 @@ function attachInstructionText(marker, text) {
 
 
 
-getDatas(8, 'http://localhost:8000/refugiospublic');
+getDatas(8, urlBase+'refugiospublic');
 
 function getRutas(){
     $('select[name="refujiorutaid"]').empty();
     $('select[name="refujiorutaid"]').append('<option value="0"  >Filtrar una Ruta</option>');
-    $.get("http://localhost:8000/getrutas", {  },
+    $.get(urlBase+"getrutas", {  },
         function(json){
             if (json.data.length > 0) {
                 $.each(json.data, function(i, item) {
@@ -515,7 +518,7 @@ $("#showScreenUbiRef").on("click",function(event){
     $('#myModalUbiRef').modal();
 });
 
-$.post(obj.getValue(0)+"getEC/", { o:300, t:1, p:0,c:"" },
+$.post(urlBase+"getEC/", { o:300, t:1, p:0,c:"" },
     function(json){
         //alert(json.length);
        $("select[name=selCombo0]").append('<option value="0">Seleccione una opción</option>');
@@ -549,14 +552,14 @@ $("#btnFiltrar").on("click",function(event){
     switch( parseInt($("#refujiorutaid").val()) ){
       case 0:
             queryString = "where latitud != 0 and activado = 1 ";
-            url = "http://localhost:8000/refugiospublic";
+            url = urlBase+"refugiospublic";
             break;
       case -1:
             queryString = "where numero in (4,10,119,117,131,136) and activado = 1 ";
             break;
       default:
             queryString = "refujiorutaid = "+$("#refujiorutaid").val();
-            url = "http://localhost:8000/refugiosporruta/"+$("#refujiorutaid").val();
+            url = urlBase+"refugiosporruta/"+$("#refujiorutaid").val();
             break;
     }
     getDatas(8,url);
@@ -592,7 +595,7 @@ $("#btnUbiRef").on("click",function(event){
     var idcol1 = $("select[name=listDesde0]").val()
 
     queryString = "where idcol1 = "+idcol1+" and activado = 1 ";
-    getDatas(9,'http://localhost:8000/refugiospublic');
+    getDatas(9,urlBase+'refugiospublic');
 });
 
 

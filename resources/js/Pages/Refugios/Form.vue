@@ -135,7 +135,7 @@ if (props.Refugio !== 'undefined' && props.Refugio != null){
         <div class="grid gap-6 bg-white mb-8 md:grid-cols-2 border rounded-lg">
             <div class="min-w-0 p-4 rounded-lg shadow-xs">
                 <form class="form-horizontal" @submit.prevent="guardarRefugio">
-                <InputGroup v-model.number="form.numero" :placeholder="'Número'" :errors="form.errors.numero" :classEspecial="'em9'" type="number" :class-especial="'em15 bg-yellow-50'">
+                <InputGroup v-model.number="form.numero" :placeholder="'Número'" :errors="form.errors.numero" :classEspecial="'em9'" type="number" :class-especial="'em15 bg-yellow-50 border-gray-700'">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 8.25h15m-16.5 7.5h15m-1.8-13.5-3.9 19.5m-2.1-19.5-3.9 19.5" />
                     </svg>

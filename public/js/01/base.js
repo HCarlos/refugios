@@ -5,11 +5,13 @@ function oObject() {
 	var oUser = [0,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
 				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,0];
 	var minHeight = 0;
-	var pHost = ["http://refugios.tabascoweb.com/",/iphone|ipad|ipod|android/i.test(navigator.userAgent), /msie\s6/i.test(navigator.userAgent)];
-	
+    //var pHost = ["https://refugios.villahermosa.gob.mx:445/",/iphone|ipad|ipod|android/i.test(navigator.userAgent), /msie\s6/i.test(navigator.userAgent)];
+    var pHost = ["http://localhost:8000/",/iphone|ipad|ipod|android/i.test(navigator.userAgent), /msie\s6/i.test(navigator.userAgent)];
+	// var pHost = ["http://refugios.tabascoweb.com/",/iphone|ipad|ipod|android/i.test(navigator.userAgent), /msie\s6/i.test(navigator.userAgent)];
+
 	var cat = [];
 	var index = 0;
-	var height = 100; 
+	var height = 100;
 	var sep = "_devch_";
 	var newPos = "";
 	var dom    = "";
@@ -24,7 +26,7 @@ function oObject() {
 		}
 		return oObject.singletonInstance;
 	}
-	
+
 	var createInstance = function() {
 		return {
 			setDP : function(name) {
@@ -49,7 +51,7 @@ function oObject() {
 			getMinHeight : function() {
 				return minHeight;
 			}
-			
+
 		}
 	}
 
