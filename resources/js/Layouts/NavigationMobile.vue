@@ -58,42 +58,46 @@
                 </ResponsiveNavLink>
             </li>
 
-            <li class="relative px-6 py-3">
-            <ResponsiveNavLink :href="route('about')" :active="route().current('about')">
-              <template #icon>
-                <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
-                     stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0M3.124 7.5A8.969 8.969 0 0 1 5.292 3m13.416 0a8.969 8.969 0 0 1 2.168 4.5" />
-                </svg>
-              </template>
-              Acerca de
-            </ResponsiveNavLink>
-          </li>
 
-        <li class="relative px-6 py-3">
-          <button @click="showingTwoLevelMenu = !showingTwoLevelMenu"
-              class="inline-flex items-center justify-between w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-500"
-              aria-haspopup="true">
-                <span class="inline-flex items-center">
-                    <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
-                         stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
-                        <path d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
-                    </svg>
-                    <span class="ml-4">Otros</span>
-                </span>
-            <svg class="w-4 h-4" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd"
-                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                    clip-rule="evenodd"></path>
-            </svg>
-          </button>
-            <ul v-show="showingTwoLevelMenu" class="p-2 mt-2 space-y-2 overflow-hidden text-sm font-medium text-gray-500 rounded-md shadow-inner bg-gray-50"
-                aria-label="submenu">
-              <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800">
-                <a class="w-full" href="#">Catálogos</a>
-              </li>
-            </ul>
-        </li>
+<!--            <li class="relative px-6 py-3">-->
+<!--            <ResponsiveNavLink :href="route('about')" :active="route().current('about')">-->
+<!--              <template #icon>-->
+<!--                <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"-->
+<!--                     stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">-->
+<!--                    <path strokeLinecap="round" strokeLinejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0M3.124 7.5A8.969 8.969 0 0 1 5.292 3m13.416 0a8.969 8.969 0 0 1 2.168 4.5" />-->
+<!--                </svg>-->
+<!--              </template>-->
+<!--              Acerca de-->
+<!--            </ResponsiveNavLink>-->
+<!--          </li>-->
+
+<!--        <li class="relative px-6 py-3">-->
+<!--          <button @click="showingTwoLevelMenu = !showingTwoLevelMenu"-->
+<!--              class="inline-flex items-center justify-between w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-500"-->
+<!--              aria-haspopup="true">-->
+<!--                <span class="inline-flex items-center">-->
+<!--                    <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"-->
+<!--                         stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">-->
+<!--                        <path d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>-->
+<!--                    </svg>-->
+<!--                    <span class="ml-4">Otros</span>-->
+<!--                </span>-->
+<!--            <svg class="w-4 h-4" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">-->
+<!--              <path fill-rule="evenodd"-->
+<!--                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"-->
+<!--                    clip-rule="evenodd"></path>-->
+<!--            </svg>-->
+<!--          </button>-->
+<!--            <ul v-show="showingTwoLevelMenu" class="p-2 mt-2 space-y-2 overflow-hidden text-sm font-medium text-gray-500 rounded-md shadow-inner bg-gray-50"-->
+<!--                aria-label="submenu">-->
+<!--              <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800">-->
+<!--                <a class="w-full" href="#">Catálogos</a>-->
+<!--              </li>-->
+<!--            </ul>-->
+<!--        </li>-->
+
+
+
         </ul>
       </div>
     </aside>

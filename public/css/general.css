@@ -1,8 +1,8 @@
 @charset "UTF-8";
 /* CSS Document */
-.logo-arji-w{
-	display:inline-block;
-	background:transparent url(http://platsource.tabascoweb.com/images/logo-arji-blanco.png) top left no-repeat;
-	width:30px;
-	height:30px;
-}
+
+.alaPar{display: inline-block; vertical-align: top;}
+.mr-2{margin-right: 2em !important;}
+.mt-05{margin-top: 0.5em !important; }
+li a:hover{background-color: #8D712F !important; color: #eee !important; }
+.fondo-institucional {background-color: #822B30 !important;}

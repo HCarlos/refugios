@@ -22,7 +22,7 @@ class RefugiosController extends Controller {
     public function index()
     {
         return Inertia::render('Refugios/Index', [
-            'Refugios' => Refugio::query()->orderByDesc('id')->paginate(1000)
+            'Refugios' => Refugio::query()->orderBy('numero')->paginate(1000)
         ]);
     }
 

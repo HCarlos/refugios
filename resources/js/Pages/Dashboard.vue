@@ -1,6 +1,7 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
+
 </script>
 
 <template>
@@ -12,7 +13,7 @@ import { Head } from '@inertiajs/vue3';
 		</template>
 
 		<div class="p-4 bg-white rounded-lg shadow-xs">
-			Bienvenido Pancho!
+			Bienvenido {{ $page.props.auth.user.full_name }}!
 		</div>
 	</AuthenticatedLayout>
 </template>

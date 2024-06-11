@@ -1,8 +1,4 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]> <html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]> <html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]> <html lang="en" class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
 
@@ -12,35 +8,31 @@
   <meta content="logydes.com.mx" name="author">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="css/style-t1.css" rel="stylesheet">
+  <link href="css/general.css" rel="stylesheet">
 
 
 
 
-  <link href="ico/favicon.ico" rel="shortcut icon">
-  <link href="ico/apple-touch-icon.png" rel="apple-touch-icon">
-  <link href="ico/apple-touch-icon-72x72.png" rel="apple-touch-icon" sizes="72x72">
-  <link href="ico/apple-touch-icon-114x114.png" rel="apple-touch-icon" sizes="114x114">
+  <link href="ico/favicon.png" rel="shortcut icon">
+  <link href="ico/favicon-72-72.png" rel="apple-touch-icon" sizes="72x72">
+  <link href="ico/favicon-114-114.png" rel="apple-touch-icon" sizes="114x114">
 
-    <style type="text/css">
-        .alaPar{display: inline-block; vertical-align: top;}
-        .mr-2{margin-right: 2em !important;}
-        .mt-05{margin-top: 0.5em !important; }
-    </style>
+
 
 </head>
 <body >
 <!-- .................................... $header .................................... -->
-<header class="navbar-fixed-top" style="background-color: #822B30 !important;">
-    <div class="navbar" style="background-color: #822B30 !important;">
-        <div class="navbar-inner" style="background-color: #822B30 !important;">
-            <ul class="nav navbar-nav pull-left" style="background-color: #822B30 !important;">
+<header class="navbar-fixed-top">
+    <div class="navbar" >
+        <div class="navbar-inner fondo-institucional" >
+            <ul class="nav navbar-nav pull-left fondo-institucional" >
                 <!-- <li ><a  href="#" id="trazarRuta">Trazar Ruta</a></li> -->
                 <li ><a  href="#" id="filtrarRuta">Filtrar Ruta</a></li>
-                <li ><a  href="#" id="showScreenUbiRef">Ubica tu Refugio</a></li>
+<!--                <li ><a  href="#" id="showScreenUbiRef">Ubica tu Refugio</a></li>-->
                 <li ><a href="/"><span class="badge">MAPA DE UBICACION DE REFUGIOS TEMPORALES</span></a></li>
                 <li id="barda"></li>
             </ul>
-            <div class="pull-right mr-2 mt-05 " style="height: 40px !important;" ><a href="https:villahermosa.gob.mx"><img src="images/logo_centro_80_pixeles_002.png" height="20" style="height:40px !important;"> </img></a></div>
+            <div class="pull-right mr-2 mt-05 " style="height: 40px !important;" ><a href="https://villahermosa.gob.mx"><img src="images/logo_centro_80_pixeles_002.png" height="20" style="height:40px !important;"> </img></a></div>
         </div>
     </div>
 </header>
@@ -186,7 +178,7 @@
   <!-- .................................... $scripts .................................... -->
   <script src="js/libs/jquery.min.js"></script>
   <script src="bootstrap/js/bootstrap.min.js"></script>
-  <script src="bootstrap/js/dropdown.js"></script>
+  <script src="bootstrap/js/bootstrap-dropdown.js"></script>
   <script src="js/script.js"></script>
 
   <script src="js/libs/modernizr.min.js"></script>
@@ -200,13 +192,13 @@
 <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 
 <script
-  src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true&libraries=weather&key=AIzaSyB0mmrw3wLssGqd1eUKWAH43GEcn5bm8-s&callback=initMap&v=weekly"
+  src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true&libraries=weather&key=AIzaSyB0mmrw3wLssGqd1eUKWAH43GEcn5bm8-s&callback=init&v=weekly"
 ></script>
 
 
 
   <script>
-var urlBase = "http://localhost:8000/"; //obj.getValue(0);
+var urlBase = obj.getValue(0);
 var beaches = [];
 var queryString = " where latitud > 0 ";
 var lat;
@@ -339,9 +331,9 @@ function init(){
 function getDatas(tipo, url){
     beaches = [];
     // alert(url);
-    $.get("https://refugios.villahermosa.gob.mx:445/refugiospublic", {  },
+    $.get(url, {  },
         function(json){
-            if (json.mensaje == "OK") {
+            if (json.mensaje === "OK") {
 
                 $.each(json.data, function(i, item) {
 
@@ -371,7 +363,7 @@ function calcRoute() {
 
     var travelMode;
 
-    if ($("#drive").val()=="0"){
+    if ($("#drive").val()==="0"){
         travelMode = google.maps.TravelMode.DRIVING;
     }else{
         travelMode = google.maps.TravelMode.WALKING;
@@ -386,7 +378,7 @@ function calcRoute() {
         travelMode: travelMode
     };
     directionsService.route(request, function(result, status) {
-    if (status == google.maps.DirectionsStatus.OK) {
+    if (status === google.maps.DirectionsStatus.OK) {
         directionsDisplay.setDirections(result);
 
         var warnings = document.getElementById("barda");
@@ -419,12 +411,12 @@ function attachInstructionText(marker, text) {
 
 
 
-getDatas(8, urlBase+'refugiospublic');
+getDatas(8, obj.getValue(0)+'refugiospublic');
 
 function getRutas(){
     $('select[name="refujiorutaid"]').empty();
     $('select[name="refujiorutaid"]').append('<option value="0"  >Filtrar una Ruta</option>');
-    $.get("https://refugios.villahermosa.gob.mx:445/getrutas", {  },
+    $.get(obj.getValue(0)+"getrutas", {  },
         function(json){
             if (json.data.length > 0) {
                 $.each(json.data, function(i, item) {
@@ -552,14 +544,15 @@ $("#btnFiltrar").on("click",function(event){
     switch( parseInt($("#refujiorutaid").val()) ){
       case 0:
             queryString = "where latitud != 0 and activado = 1 ";
-            url = urlBase+"refugiospublic";
+            url = obj.getValue(0)+"refugiospublic";
             break;
       case -1:
             queryString = "where numero in (4,10,119,117,131,136) and activado = 1 ";
             break;
       default:
             queryString = "refujiorutaid = "+$("#refujiorutaid").val();
-            url = urlBase+"refugiosporruta/"+$("#refujiorutaid").val();
+            url = obj.getValue(0)+"refugiosporruta/"+$("#refujiorutaid").val();
+            // alert(url);
             break;
     }
     getDatas(8,url);
@@ -571,13 +564,13 @@ $("#btnTrazar").on("click",function(event){
     initRuta = $("#desde").val();
     finRuta = $("#hasta").val();
 
-    if (initRuta=="0"){
+    if (initRuta==="0"){
         alert("Seleccione una Ruta de Inicio")
         $("#desde").focus();
         return false;
     }
 
-    if (finRuta=="0"){
+    if (finRuta==="0"){
         alert("Seleccione una Ruta de Destino")
         $("#hasta").focus();
         return false;
