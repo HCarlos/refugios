@@ -50,10 +50,17 @@ Route::middleware('auth')->group(function () {
     Route::post('refugio.destroy', [RefugiosController::class, 'destroy'])->name('refugio.destroy');
     Route::get('refugio.show/{Id}', [RefugiosController::class, 'show'])->name('refugio.show');
 
+    // Route::get('modificar_punto/{Id}', [RefugiosController::class, 'modificar_punto'])->name('modificar_punto');
+    Route::get('modificar_punto/{Id}', [RefugiosController::class, 'modificar_punto'])->name('modificar_punto');
+
+
 });
 
 Route::get('getrutas', [RutasController::class, 'getrutas'])->name('getrutas');
 Route::get('refugiospublic', [RefugiosController::class, 'indexpublic'])->name('refugiospublic');
 Route::get('refugiosporruta/{Refugiorutaid}', [RefugiosController::class, 'refugiosporruta'])->name('refugiosporruta');
+Route::get('getrefugioShow/{Refugio}', [RefugiosController::class, 'getrefugioShow'])->name('getrefugioShow');
+Route::get('getrefugio/{Id}', [RefugiosController::class, 'getrefugio'])->name('getrefugio');
+Route::get('savenewposition/{dom}/{pos}/{id}', [RefugiosController::class, 'savenewposition'])->name('savenewposition');
 
 require __DIR__.'/auth.php';

@@ -63,9 +63,6 @@ function oObject() {
 var obj = new oObject();
 obj.height = 150;
 obj.sep = "_devch_";
-//alert(obj.height);
-// Evalua si exsite o no una variable
-
 
 function preloader(){
 var htmlPreloader = "";

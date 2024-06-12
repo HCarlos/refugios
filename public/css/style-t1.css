@@ -10109,7 +10109,7 @@ footer .container .row {
   color: #333333;
 }
 .section-color-graydarker {
-  background-color: #222222;
+  background-color: #56585A;
   color: #999999;
 }
 .section-color-graydarker a,
@@ -10324,7 +10324,7 @@ footer .container .row {
   }
 }
 @media (max-width: 480px) {
-  
+
 }
 @media (max-width: 767px) {
   .navbar-fixed-top {

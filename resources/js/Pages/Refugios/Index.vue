@@ -9,6 +9,9 @@ import Modal from "@/Components/Modal.vue";
 import DangerButton from "@/Components/DangerButton.vue";
 import AlertSuccess from "@/Components/AlertSuccess.vue";
 import { ref } from "vue"
+import * as url from "node:url";
+import WarningButton from "@/Components/WarningButton.vue";
+import DarkButton from "@/Components/DarkButton.vue";
 
 const props = defineProps({
 	Refugios: {type: Object},
@@ -112,14 +115,18 @@ var tituloUser = "Refugios";
 						<tbody class="bg-white divide-y">
 							<tr v-for="Refugio in Refugios.data" :key="Refugio.id" class="text-gray-700">
 								<td class="px-4 py-3 text-sm">
-                                    <NavLink :href="route('refugio.edit',Refugio.id)">
+                                    <NavLink :href="route('refugio.edit',Refugio.id)" >
                                         <SecondaryButton title="Editar refugio">
                                             {{ Refugio.numero }}
                                         </SecondaryButton>
                                     </NavLink>
                                 </td>
 								<td class="px-4 py-3 text-sm">
-									{{ Refugio.refugio }}
+                                    <a :href="'getrefugioShow/'+Refugio.id">
+                                        <DarkButton title="Editar refugio">
+                                            {{ Refugio.refugio }}
+                                        </DarkButton>
+                                    </a>
 								</td>
                                 <td class="px-4 py-3 text-sm">
                                     {{ Refugio.ubicacion }}

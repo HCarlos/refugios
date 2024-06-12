@@ -1,12 +1,10 @@
 <script setup>
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { Head, useForm } from "@inertiajs/vue3";
-import NavLink from "@/Components/NavLink.vue";
-import DarkButton from "@/Components/DarkButton.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import InputGroup from "@/Components/InputGroup.vue";
 import SelectGroup from "@/Components/SelectGroup.vue";
-import { ref } from "vue"
+import { ref } from "vue";
 import AlertSuccess from "@/Components/AlertSuccess.vue";
 
 const props = defineProps({
@@ -110,27 +108,12 @@ if (props.Refugio !== 'undefined' && props.Refugio != null){
 </script>
 
 <template>
-    <Head title="Editar" />
-
-    <AuthenticatedLayout>
-        <template #header>
-            <div class="inline-flex overflow-hidden mb-4 w-full ">
-                {{ title_form }}
-<!--                <NavLink :href="route('refugios.index')">-->
-<!--                    <DarkButton title="Listado de Refugios">-->
-<!--                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">-->
-<!--                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 21v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21m0 0h4.5V3.545M12.75 21h7.5V10.75M2.25 21h1.5m18 0h-18M2.25 9l4.5-1.636M18.75 3l-1.5.545m0 6.205 3 1m1.5.5-1.5-.5M6.75 7.364V3h-3v18m3-13.636 10.5-3.819" />-->
-<!--                        </svg>-->
-<!--                    </DarkButton>-->
-<!--                </NavLink>-->
-            </div>
             <AlertSuccess :class-msg="classMsj" :msg="msj">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
                     <path fill-rule="evenodd" d="M9 1.5H5.625c-1.036 0-1.875.84-1.875 1.875v17.25c0 1.035.84 1.875 1.875 1.875h12.75c1.035 0 1.875-.84 1.875-1.875V12.75A3.75 3.75 0 0 0 16.5 9h-1.875a1.875 1.875 0 0 1-1.875-1.875V5.25A3.75 3.75 0 0 0 9 1.5Zm6.61 10.936a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 14.47a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z" clip-rule="evenodd" />
                     <path d="M12.971 1.816A5.23 5.23 0 0 1 14.25 5.25v1.875c0 .207.168.375.375.375H16.5a5.23 5.23 0 0 1 3.434 1.279 9.768 9.768 0 0 0-6.963-6.963Z" />
                 </svg>
             </AlertSuccess>
-        </template>
 
         <div class="grid gap-6 bg-white mb-8 md:grid-cols-2 border rounded-lg">
             <div class="min-w-0 p-4 rounded-lg shadow-xs">
@@ -212,5 +195,4 @@ if (props.Refugio !== 'undefined' && props.Refugio != null){
             </div>
         </div>
 
-    </AuthenticatedLayout>
 </template>

@@ -106,11 +106,21 @@ class RefugiosController extends Controller {
         return $this->getDataRefugios($Refugios);
     }
 
+    public function getrefugioShow($Refugio){
+        $refugio = Refugio::find($Refugio);
+        return redirect()->away('/refugios-getPosition.php?id=' . $refugio->id);
+    }
+    public function getrefugio($Id){
+            $Refugio = Refugio::query()->where('id',$Id)->get();
+            return  $this->getDataRefugios($Refugio);
+    }
+
+
     private function getDataRefugios($Refugios){
 
         $refArray = array();
         foreach ($Refugios as $refugio) {
-            $refugio->save();
+            //$refugio->save();
             $fill = [
                 'id'=> $refugio->id,
                 'numero' => $refugio->numero,
@@ -138,6 +148,31 @@ class RefugiosController extends Controller {
         }
 
         return Response::json(['mensaje' => 'OK', 'data' => $refArray, 'status' => '200'], 200);
+
+    }
+
+    public function modificar_punto($Id){
+        $refugio = Refugio::find($Id);
+        $rutas = RutaRefugio::all();
+        return Inertia::render('Refugios/Pointer', [
+            'Refugio' => $refugio,
+            'Rutas' => $rutas,
+            'ruta' => $refugio->ruta->ruta,
+            'status' => session('status'),
+        ]);
+    }
+
+    public function savenewposition($dom, $pos, $id) {
+
+        $pos = explode(",",$pos) ;
+
+        $Ref = Refugio::find($id);
+        $Ref->latitud = str_replace('(','',$pos[0]);
+        $Ref->longitud = str_replace(')','',$pos[1]);
+        $Ref->ubicacion_google = $dom;
+        $Ref->save();
+
+        return Response::json(['mensaje' => 'OK', 'data' => "Cambios efectudos con éxito", 'status' => '200'], 200);
 
     }
 

@@ -1,5 +1,8 @@
 import './bootstrap';
 import '../css/app.css';
+import 'https://polyfill.io/v3/polyfill.min.js?features=default';
+import 'https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true&libraries=weather&key=AIzaSyB0mmrw3wLssGqd1eUKWAH43GEcn5bm8-s&callback=initMap&v=weekly';
+import $ from "jquery";
 
 import { createApp, h } from 'vue';
 import { createInertiaApp } from '@inertiajs/vue3';
