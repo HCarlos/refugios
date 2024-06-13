@@ -1,5 +1,4 @@
 <script setup>
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { Head, useForm } from "@inertiajs/vue3";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import InputGroup from "@/Components/InputGroup.vue";
@@ -10,7 +9,8 @@ import AlertSuccess from "@/Components/AlertSuccess.vue";
 const props = defineProps({
     Refugio: {type: Object},
     Rutas: {type: Object},
-    Ruta: {type: String}
+    Ruta: {type: String},
+    flash: {type: Object}
 })
 
 const form = useForm({
@@ -19,68 +19,16 @@ const form = useForm({
     enlace:'', telefonos:'', observaciones:'',
     latitud:'', longitud:'', html:'', infraestructura:'',
     activado:'0', poligono:'', categoria:'REFUGIO', capacidad:0,
-    imagen:'1.gif', refugiorutaid:-1
+    imagen:'', refugiorutaid:-1
 });
 
-const opcionesRutas = ref([]);
-const opcionesCategorias = ref([]);
-const opcionesActivado = ref([]);
-
-props.Rutas.map( (row) => (
-    opcionesRutas.value.push({'id':row.id, 'text':row.ruta})
-));
-opcionesCategorias.value.push({'id':'REFUGIO','text':'REFUGIO'});
-opcionesCategorias.value.push({'id':'CENTRO DE ACOPIO','text':'CENTRO DE ACOPIO'});
-
-opcionesActivado.value.push({'id':1,'text':'SI'});
-opcionesActivado.value.push({'id':0,'text':'NO'});
-
-const title_form = ref(
-    (props.Refugio == null) ? 'Nuevo Refugio' : 'Editando el refugio',
-);
-
-// console.log(props.Refugio)
-
-// const req = ref('required');
 const srcImg = ref('../storage/externo/1.gif');
 const msj = ref('');
 const classMsj = ref('hidden');
 const cLatitud = ref('/^(\+|-)?(?:90(?:(?:\.0{1,6})?)|(?:[0-9]|[1-8][0-9])(?:(?:\.[0-9]{1,6})?))$/');
 const cLongitud = ref('/^(\+|-)?(?:180(?:(?:\.0{1,6})?)|(?:[0-9]|[1-9][0-9]|1[0-7][0-9])(?:(?:\.[0-9]{1,6})?))$/');
 
-const guardarRefugio = () =>{
-    if (props.Refugio == null){
-        form.post(route('refugio.save'), {
-            onSuccess : () => {
-                ok('Refugio creado con éxito');
-            },
-            onError: (response) => {
-                console.log(response);
-                form.errors = response;
-            }
-        });
-    }else{
-        form.put(route('refugio.update'), {
-            onSuccess : () => {
-                ok('Refugio actualizado con éxito');
-            },
-            onError: () => {
-                console.log(data.toString);
-            }
-        });
-
-    }
-}
-
-const ok = (m) =>{
-    form.reset();
-    msj.value=m;
-    classMsj.value = 'block';
-    setTimeout(()=>{
-        classMsj.value = 'hidden'
-        msj.value='';
-    },800);
-}
+console.log(props.Refugio);
 
 
 if (props.Refugio !== 'undefined' && props.Refugio != null){
@@ -105,6 +53,74 @@ if (props.Refugio !== 'undefined' && props.Refugio != null){
     srcImg.value = '../storage/externo/' + props.Refugio.imagen;
 }
 
+
+const opcionesRutas = ref([]);
+const opcionesCategorias = ref([]);
+const opcionesActivado = ref([]);
+
+props.Rutas.map( (row) => (
+    opcionesRutas.value.push({'id':row.id, 'text':row.ruta})
+));
+opcionesCategorias.value.push({'id':'REFUGIO','text':'REFUGIO'});
+opcionesCategorias.value.push({'id':'CENTRO DE ACOPIO','text':'CENTRO DE ACOPIO'});
+
+opcionesActivado.value.push({'id':1,'text':'SI'});
+opcionesActivado.value.push({'id':0,'text':'NO'});
+
+const title_form = ref(
+    (props.Refugio == null) ? 'Nuevo Refugio' : 'Editando el refugio',
+);
+
+// console.log(props.Refugio)
+
+// const req = ref('required');
+
+const guardarRefugio = () =>{
+    if (props.Refugio == null){
+        form.post(route('refugio.save'), {
+            onSuccess : () => {
+                ok(props.flash.success);
+            },
+            onError: (response) => {
+                console.log(response);
+                form.errors = response;
+            }
+        });
+    }else{
+        form.post(route('refugio.update'), {
+            onSuccess : () => {
+                ok(props.flash.success);
+            },
+            onError: (response) => {
+                form.errors = response;
+            console.log(response);
+            }
+        });
+
+    }
+}
+
+const ok = (m) =>{
+    form.reset();
+    msj.value=m;
+    classMsj.value = 'block';
+    setTimeout(()=>{
+        classMsj.value = 'hidden'
+        msj.value='';
+    },800);
+}
+
+
+console.log(props.Refugio);
+
+
+const showImg = (e) => {
+    // console.log(e.target.files[0]);
+    form.imagen = e.target.files[0];
+    srcImg.value = URL.createObjectURL(e.target.files[0]);
+}
+
+
 </script>
 
 <template>
@@ -117,7 +133,7 @@ if (props.Refugio !== 'undefined' && props.Refugio != null){
 
         <div class="grid gap-6 bg-white mb-8 md:grid-cols-2 border rounded-lg">
             <div class="min-w-0 p-4 rounded-lg shadow-xs">
-                <form class="form-horizontal" @submit.prevent="guardarRefugio">
+                <form class="form-horizontal" @submit.prevent="guardarRefugio" enctype="multipart/form-data">
                 <InputGroup v-model.number="form.numero" :placeholder="'Número'" :errors="form.errors.numero" :classEspecial="'em9'" type="number" :class-especial="'em15 bg-yellow-50 border-gray-700'">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 8.25h15m-16.5 7.5h15m-1.8-13.5-3.9 19.5m-2.1-19.5-3.9 19.5" />
@@ -181,8 +197,18 @@ if (props.Refugio !== 'undefined' && props.Refugio != null){
                         <path stroke-linecap="round" stroke-linejoin="round" d="m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5" />
                     </svg>
                 </InputGroup>
+                <InputGroup v-if="props.Refugio == null" @change="showImg($event)" :errors="form.errors.imagen"  :type="'file'" :accept="'image/*'" required="'required'" >
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                        <path fill-rule="evenodd" d="M1.5 6a2.25 2.25 0 0 1 2.25-2.25h16.5A2.25 2.25 0 0 1 22.5 6v12a2.25 2.25 0 0 1-2.25 2.25H3.75A2.25 2.25 0 0 1 1.5 18V6ZM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0 0 21 18v-1.94l-2.69-2.689a1.5 1.5 0 0 0-2.12 0l-.88.879.97.97a.75.75 0 1 1-1.06 1.06l-5.16-5.159a1.5 1.5 0 0 0-2.12 0L3 16.061Zm10.125-7.81a1.125 1.125 0 1 1 2.25 0 1.125 1.125 0 0 1-2.25 0Z" clip-rule="evenodd" />
+                    </svg>
+                </InputGroup>
+                <Input v-else @change="showImg($event)" @blur="showImg($event)"  :type="'file'" :accept="'image/*'" name="imagen" id="imagen">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                        <path fill-rule="evenodd" d="M1.5 6a2.25 2.25 0 0 1 2.25-2.25h16.5A2.25 2.25 0 0 1 22.5 6v12a2.25 2.25 0 0 1-2.25 2.25H3.75A2.25 2.25 0 0 1 1.5 18V6ZM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0 0 21 18v-1.94l-2.69-2.689a1.5 1.5 0 0 0-2.12 0l-.88.879.97.97a.75.75 0 1 1-1.06 1.06l-5.16-5.159a1.5 1.5 0 0 0-2.12 0L3 16.061Zm10.125-7.81a1.125 1.125 0 1 1 2.25 0 1.125 1.125 0 0 1-2.25 0Z" clip-rule="evenodd" />
+                    </svg>
+                </Input>
                 <input type="hidden" v-model="form.id" value="{{form.id}}" >
-                <input type="hidden" v-model="form.imagen" value="{{form.imagen}}" >
+<!--                <input type="hidden" v-model="form.imagen" value="{{form.imagen}}" >-->
 
 <!--                <InputError class="mt-1" :message="form.errors.ubicacion" />-->
                 <PrimaryButton class="mt-4 float-right" >
@@ -191,7 +217,7 @@ if (props.Refugio !== 'undefined' && props.Refugio != null){
                 </form>
             </div>
             <div class="min-w-0 p-4 rounded-lg shadow-xs">
-                <img :src="srcImg"  alt="">
+                <img :src="srcImg" width="500"  alt="">
             </div>
         </div>
 

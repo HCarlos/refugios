@@ -8,8 +8,9 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
-use Intervention\Image\Facades\Image;
-//use Intervention\Image\Image;
+use Intervention\Image\Drivers\Gd\Driver;
+use Intervention\Image\Image;
+use Intervention\Image\ImageManager;
 
 
 class FuncionesController extends Controller {
@@ -123,12 +124,11 @@ class FuncionesController extends Controller {
         return ["fecha_inicial" => $f1." 00:00:00", "fecha_final" => $f2." 23:59:59"];
     }
 
-
     public function validImage($model, $storage, $root, $type=1){
-        $ext = config('refugios.images_type_extension');
+        $ext = config('pigsei.images_type_extension');
 //        for ($i=0;$i < count($ext);$i++){
-        for ($i=0, $iMax = count($ext); $i < $iMax; $i++){
-            $p1 = $model->id.'.'.$ext[$i];
+        foreach ($ext as $iValue) {
+            $p1 = $model->id.'.'. $iValue;
             $p2 = '_'.$model->id.'.png';
             $p3 = '_thumb_'.$model->id.'.png';
             $e1 = Storage::disk($storage)->exists($p1);
@@ -160,17 +160,16 @@ class FuncionesController extends Controller {
 
     public function fitImage($imagePath, $filename, $W, $H, $IsRounded, $disk="profile", $profile_root="PROFILE_ROOT", $extension="png"){
         try{
-            $image = Image::make($imagePath)
-                ->fit($W,$H);
+            $manager = new ImageManager(Driver::class);
+
+            // reading jpeg image
+            $image = $manager->read($imagePath);
             if ($IsRounded){
-                $image->encode($extension);
-                $width = $image->getWidth();
-                $height = $image->getHeight();
-                $mask = Image::canvas($width, $height);
-                $mask->circle($width, $width/2, $height/2, function ($draw) {
+                $image->scale($W, $H);
+                $image->drawCircle( $W/2, $H/2, function ($draw) {
+                    $draw->radius(150);
                     $draw->background('#fff');
                 });
-                $image->mask($mask, false);
                 $filePath = public_path(env($profile_root)).'/'.$filename;
                 $image->save($filePath);
                 Storage::disk($disk)->put($filename, $image);

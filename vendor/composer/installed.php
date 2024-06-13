@@ -3,7 +3,7 @@
         'name' => 'laravel/laravel',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '4f800b45537706f08c4757c1b614df7978f67e46',
+        'reference' => '2b7d6278231efd1124928b5a08fab023c0991bc0',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -365,9 +365,9 @@
             ),
         ),
         'inertiajs/inertia-laravel' => array(
-            'pretty_version' => 'v1.2.0',
-            'version' => '1.2.0.0',
-            'reference' => '5675663d9619528544cc2dca60e0f8b9603980ae',
+            'pretty_version' => 'v1.3.0',
+            'version' => '1.3.0.0',
+            'reference' => '36730d13b1dab9017069004fd458b3e67449a326',
             'type' => 'library',
             'install_path' => __DIR__ . '/../inertiajs/inertia-laravel',
             'aliases' => array(),
@@ -427,7 +427,7 @@
         'laravel/laravel' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '4f800b45537706f08c4757c1b614df7978f67e46',
+            'reference' => '2b7d6278231efd1124928b5a08fab023c0991bc0',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -875,7 +875,7 @@
         'roave/security-advisories' => array(
             'pretty_version' => 'dev-latest',
             'version' => 'dev-latest',
-            'reference' => 'cac81dc38cb1ea099552433245d0790b6e172211',
+            'reference' => 'c1fa2bf9896d5ce592bd78a9d01dc6ba836da82f',
             'type' => 'metapackage',
             'install_path' => null,
             'aliases' => array(

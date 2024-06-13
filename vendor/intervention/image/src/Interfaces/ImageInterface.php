@@ -16,7 +16,7 @@ use IteratorAggregate;
 /**
  * @extends IteratorAggregate<FrameInterface>
  */
-interface ImageInterface extends IteratorAggregate, Countable
+interface ImageInterface extends IteratorAggregate, Countable, \Psr\Http\Message\StreamInterface
 {
     /**
      * Return driver of current image

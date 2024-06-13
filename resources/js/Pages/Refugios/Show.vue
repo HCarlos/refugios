@@ -46,9 +46,10 @@ const props = defineProps({
                 <p>Polígono: <span class="text-gray-900 font-semibold">{{ Refugio.poligono }}</span></p>
                 <p>Latitud: <span class="text-gray-900 font-semibold">{{ Refugio.latitud }}</span></p>
                 <p>Longitud: <span class="text-gray-900 font-semibold">{{ Refugio.longitud }}</span></p>
+                <p>Imagen: <span class="text-gray-900 font-semibold">{{ Refugio.imagen }}</span></p>
 			</div>
             <div class="min-w-0 p-4 rounded-lg shadow-xs">
-                <img :src="'../storage/externo/'+ Refugio.imagen " :alt="Refugio.refugio">
+                <img :src="'../storage/externo/'+ Refugio.imagen " :alt="Refugio.imagen">
             </div>
 		</div>
 

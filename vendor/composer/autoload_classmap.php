@@ -2316,6 +2316,7 @@ return array(
     'Illuminate\\View\\ViewFinderInterface' => $vendorDir . '/laravel/framework/src/Illuminate/View/ViewFinderInterface.php',
     'Illuminate\\View\\ViewName' => $vendorDir . '/laravel/framework/src/Illuminate/View/ViewName.php',
     'Illuminate\\View\\ViewServiceProvider' => $vendorDir . '/laravel/framework/src/Illuminate/View/ViewServiceProvider.php',
+    'Inertia\\AlwaysProp' => $vendorDir . '/inertiajs/inertia-laravel/src/AlwaysProp.php',
     'Inertia\\Commands\\CreateMiddleware' => $vendorDir . '/inertiajs/inertia-laravel/src/Commands/CreateMiddleware.php',
     'Inertia\\Commands\\StartSsr' => $vendorDir . '/inertiajs/inertia-laravel/src/Commands/StartSsr.php',
     'Inertia\\Commands\\StopSsr' => $vendorDir . '/inertiajs/inertia-laravel/src/Commands/StopSsr.php',

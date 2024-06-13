@@ -58,22 +58,34 @@ return [
 
         'profile' => [
             'driver' => env('PROFILE_DRIVER'),
-            'root' => public_path().env('PROFILE_ROOT'),
+            'root' => storage_path(env('PROFILE_ROOT_LOCAL')),
             'url' => env('APP_URL').env('PROFILE_URL'),
             'visibility' => env('PROFILE_VISIBILITY'),
+            'throw' => true,
         ],
 
         'externo' => [
             'driver' => env('EXTERNO_DRIVER'),
-            'root' => public_path().env('EXTERNO_ROOT'),
+            'root' => storage_path(env('EXTERNO_ROOT_LOCAL')),
             'url' => env('APP_URL').env('EXTERNO_URL'),
             'visibility' => env('EXTERNO_VISIBILITY'),
+            'throw' => true,
         ],
 
 
 
-
     ],
+
+
+//        'externo' => [
+//            'driver' => env('EXTERNO_DRIVER'),
+//            'root' => storage_path(env('EXTERNO_ROOT_LOCAL')),
+//            'url' => env('APP_URL').env('EXTERNO_URL'),
+//            'visibility' => env('EXTERNO_VISIBILITY'),
+//            'throw' => true,
+//        ],
+
+
 
     /*
     |--------------------------------------------------------------------------
@@ -89,5 +101,7 @@ return [
     'links' => [
         public_path('storage') => storage_path('app/public'),
     ],
+//    public_path('profile') => storage_path('app/public/profile'),
+//    public_path('externo') => storage_path('app/public/externo'),
 
 ];

@@ -12,7 +12,9 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 //use Inertia\Response;
 use Illuminate\Support\Facades\Response;
@@ -72,10 +74,13 @@ class RefugiosController extends Controller {
     }
 
     public function update(RefugiosUpdateRequest $request) {
+
+        //dd($request->all());
         $Ref = $request->manage();
         if (!isset($Ref)) {
             return redirect('refugio.create/')->with( 'error',json_decode($Ref));
         }
+
         return redirect('refugio.show/'.$Ref->id)->with( 'success','Refugio actualizado');
     }
 

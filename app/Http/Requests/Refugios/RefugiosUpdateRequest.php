@@ -4,8 +4,8 @@ namespace App\Http\Requests\Refugios;
 
 use App\Models\Refugio;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class RefugiosUpdateRequest extends FormRequest
 {
@@ -34,9 +34,9 @@ class RefugiosUpdateRequest extends FormRequest
             'activado' => ['required', 'min:0','numeric'],
             'categoria' => ['required', 'string'],
             'refugiorutaid' => ['required', 'min:1', 'numeric'],
+            'imagen' => ['required','image','file','mimes:jpeg,png,jpg,gif,svg'],
         ];
     }
-
     protected function prepareForValidation()
     {
         if ($this->refugio == null) {
@@ -62,10 +62,9 @@ class RefugiosUpdateRequest extends FormRequest
             'categoria' => $this->categoria,
             'refugiorutaid' => (int)$this->refugiorutaid,
             'poligono' => $this->poligono ?? '',
-            'imagen' => $this->imagen,
         ];
 
-        // dd($Item);
+        //dd($this->file('imagen'));
 
         $Id = (int)$this->id;
 
@@ -75,6 +74,20 @@ class RefugiosUpdateRequest extends FormRequest
             $ref = Refugio::find($this->id);
             $ref->update($Item);
         }
+        try {
+            if ($this->hasFile('imagen')){
+                $imgName = $ref->numero.'.'.$this->file('imagen')->getClientOriginalExtension();
+                Storage::disk('externo')->delete($ref->imagen);
+                $file = $this->file('imagen');
+                $path = Storage::disk("externo")->put($imgName,File::get($file), 'public');
+                $path = Storage::url($path);
+                $ref->imagen = $imgName;
+                $ref->save();
+            }
+        }catch (\Exception $e){
+            dd($e->getMessage());
+        }
+
         return $ref;
 
     }
