@@ -114,6 +114,11 @@ class RefugiosController extends Controller {
     public function getrefugioShow($Refugio){
         $refugio = Refugio::find($Refugio);
         return redirect()->away('/refugios-getPosition.php?id=' . $refugio->id);
+//        return redirect()->away("window.open(www.google.com');");
+
+//        $triggersms = file_get_contents('/refugios-getPosition.php?id=' . $refugio->id);
+//        return $triggersms;
+
     }
     public function getrefugio($Id){
             $Refugio = Refugio::query()->where('id',$Id)->get();

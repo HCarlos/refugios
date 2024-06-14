@@ -25,7 +25,7 @@ class RefugiosUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'numero' => ['required', 'numeric'],
+            'numero' => ['required', 'numeric','unique:refugios,numero'],
             'refugio' => ['required', 'string'],
             'ubicacion' => ['required', 'string'],
             'latitud' => ['required', 'numeric'],
@@ -34,7 +34,7 @@ class RefugiosUpdateRequest extends FormRequest
             'activado' => ['required', 'min:0','numeric'],
             'categoria' => ['required', 'string'],
             'refugiorutaid' => ['required', 'min:1', 'numeric'],
-            'imagen' => ['required','image','file','mimes:jpeg,png,jpg,gif,svg'],
+            'imagen' => ['required','file','mimes:jpeg,png,jpg,gif,svg'],
         ];
     }
     protected function prepareForValidation()
@@ -77,7 +77,9 @@ class RefugiosUpdateRequest extends FormRequest
         try {
             if ($this->hasFile('imagen')){
                 $imgName = $ref->numero.'.'.$this->file('imagen')->getClientOriginalExtension();
-                Storage::disk('externo')->delete($ref->imagen);
+                if($Id > 0) {
+                    Storage::disk('externo')->delete($ref->imagen);
+                }
                 $file = $this->file('imagen');
                 $path = Storage::disk("externo")->put($imgName,File::get($file), 'public');
                 $path = Storage::url($path);

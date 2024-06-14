@@ -49,7 +49,13 @@ const eliminarRefugio = () => {
     });
 };
 
-const ok = (m) =>{
+const editMapPointRefugio = (r) => {
+    window.open("/refugios-getPosition.php?id=" + r.id);
+};
+
+
+
+const ok = (m) =>{º
     closeModalEliminar();
     form.reset();
     msg.value = m;
@@ -101,7 +107,8 @@ var tituloUser = "Refugios";
 					<table class="w-full whitespace-no-wrap">
 						<thead>
 							<tr class="text-xs font-bold tracking-wide text-left text-blue-500 uppercase bg-gray-300 border-b">
-								<th class="px-4 py-3">#</th>
+								<th class="px-4 py-3">ID</th>
+                                <th class="px-4 py-3">Número</th>
                                 <th class="px-4 py-3">Refugio</th>
 								<th class="px-4 py-3">Ubicación</th>
                                 <th class="px-4 py-3">Infraestructra</th>
@@ -114,6 +121,9 @@ var tituloUser = "Refugios";
 						</thead>
 						<tbody class="bg-white divide-y">
 							<tr v-for="Refugio in Refugios.data" :key="Refugio.id" class="text-gray-700">
+                                <td class="px-4 py-3 text-sm">
+                                    {{ Refugio.id }}
+                                </td>
 								<td class="px-4 py-3 text-sm">
                                     <NavLink :href="route('refugio.edit',Refugio.id)" >
                                         <SecondaryButton title="Editar refugio">
@@ -122,11 +132,9 @@ var tituloUser = "Refugios";
                                     </NavLink>
                                 </td>
 								<td class="px-4 py-3 text-sm">
-                                    <a :href="'getrefugioShow/'+Refugio.id">
-                                        <DarkButton title="Editar refugio">
-                                            {{ Refugio.refugio }}
-                                        </DarkButton>
-                                    </a>
+                                    <DarkButton @click="editMapPointRefugio(Refugio)" title="Cambiar la geolocalización">
+                                        {{ Refugio.refugio }}
+                                    </DarkButton>
 								</td>
                                 <td class="px-4 py-3 text-sm">
                                     {{ Refugio.ubicacion }}

@@ -12,6 +12,7 @@
                 :disabled=disabledInput
                 :pattern="pattern"
                 @input="$emit('update:modelValue', $event.target.value)"
+                @change="$emit('change', $event)"
                 ref="input"
                 :class="classEspecial"
             />
@@ -20,6 +21,7 @@
             </div>
         </div>
     </label>
+    <small class="text-muted text-xs text-gray-400">{{mensajeMiniatura}}</small>
     <InputError class="mt-1" :message="errors" />
 </template>
 
@@ -28,22 +30,17 @@
 import { onMounted, ref } from 'vue';
 import InputError from "@/Components/InputError.vue";
 
-
-const props = defineProps(['textLabel','text','placeholder','accept','required','type','modelValue','errors','disabledInput','pattern','classEspecial']);
+const props = defineProps(
+    ['textLabel','text','placeholder','accept','required','type','modelValue',
+        'change','errors','disabledInput','pattern','classEspecial',
+        'mensajeMiniatura'
+    ]);
+defineEmits(['update:modelValue','change']);
 
 
 
 const labelText = props.textLabel == null ? '' : props.textLabel;
 const disabledInput = props.disabledInput != null;
-
-
-// console.log(props.textLabel);
-// console.log(props.placeholder);
-// console.log(props.required);
-// console.log(props.type);
-
-
-defineEmits(['update:modelValue']);
 
 const input = ref(null);
 
@@ -51,6 +48,10 @@ onMounted(() => {
     if (input.value.hasAttribute('autofocus')) {
         input.value.focus();
     }
+
+
+
+
 });
 
 </script>

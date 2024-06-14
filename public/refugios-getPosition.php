@@ -278,8 +278,8 @@ function inicio() {
   $("#closeWindowMap").on("click",function(event){
       event.preventDefault();
       window.close();
+      return false;
   });
-
 }
 
 
