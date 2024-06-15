@@ -15,6 +15,9 @@
                 @change="$emit('change', $event)"
                 ref="input"
                 :class="classEspecial"
+                :name="nameObject"
+                :id="nameObject"
+                :src="src"
             />
             <div class="absolute inset-y-0 flex items-center ml-2 pointer-events-none">
                 <slot />
@@ -33,7 +36,7 @@ import InputError from "@/Components/InputError.vue";
 const props = defineProps(
     ['textLabel','text','placeholder','accept','required','type','modelValue',
         'change','errors','disabledInput','pattern','classEspecial',
-        'mensajeMiniatura'
+        'mensajeMiniatura','nameObject','src'
     ]);
 defineEmits(['update:modelValue','change']);
 

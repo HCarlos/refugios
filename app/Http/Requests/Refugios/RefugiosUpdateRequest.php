@@ -25,7 +25,7 @@ class RefugiosUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'numero' => ['required', 'numeric','unique:refugios,numero'],
+            'numero' => ['required', 'numeric','unique:refugios,numero,'.(int)$this->id],
             'refugio' => ['required', 'string'],
             'ubicacion' => ['required', 'string'],
             'latitud' => ['required', 'numeric'],
@@ -34,9 +34,11 @@ class RefugiosUpdateRequest extends FormRequest
             'activado' => ['required', 'min:0','numeric'],
             'categoria' => ['required', 'string'],
             'refugiorutaid' => ['required', 'min:1', 'numeric'],
-            'imagen' => ['required','file','mimes:jpeg,png,jpg,gif,svg'],
         ];
     }
+
+//'imagen' => ['file','mimes:png,jpeg,jpg,gif,svg'],
+
     protected function prepareForValidation()
     {
         if ($this->refugio == null) {
@@ -68,6 +70,8 @@ class RefugiosUpdateRequest extends FormRequest
 
         $Id = (int)$this->id;
 
+        // dd($this->id);
+
         if($Id <= 0){
             $ref = Refugio::create($Item);
         }else{
@@ -78,7 +82,10 @@ class RefugiosUpdateRequest extends FormRequest
             if ($this->hasFile('imagen')){
                 $imgName = $ref->numero.'.'.$this->file('imagen')->getClientOriginalExtension();
                 if($Id > 0) {
-                    Storage::disk('externo')->delete($ref->imagen);
+                    $e1 = Storage::disk('externo')->exists($ref->imagen);
+                    if ($e1) {
+                        Storage::disk('externo')->delete($ref->imagen);
+                    }
                 }
                 $file = $this->file('imagen');
                 $path = Storage::disk("externo")->put($imgName,File::get($file), 'public');

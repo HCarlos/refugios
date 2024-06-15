@@ -3,7 +3,7 @@ import { Head, useForm } from "@inertiajs/vue3";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import InputGroup from "@/Components/InputGroup.vue";
 import SelectGroup from "@/Components/SelectGroup.vue";
-import { ref } from "vue";
+import {computed, ref} from "vue";
 import AlertSuccess from "@/Components/AlertSuccess.vue";
 
 const props = defineProps({
@@ -48,9 +48,12 @@ if (props.Refugio !== 'undefined' && props.Refugio != null){
     form.poligono = props.Refugio.poligono;
     form.categoria = props.Refugio.categoria;
     form.capacidad = props.Refugio.capacidad;
-    form.imagen = props.Refugio.imagen;
     form.refugiorutaid = props.Refugio.refugiorutaid;
     srcImg.value = '../storage/externo/' + props.Refugio.imagen;
+    form.imagen = srcImg.value ;
+    //form.imagen = new URL(srcImg.value).href
+    //document.getElementById('srcImgID').value = srcImg.value;
+
 }
 
 
@@ -117,6 +120,7 @@ console.log(props.Refugio);
 const showImg = (e) => {
     form.imagen = e.target.files[0];
     srcImg.value = URL.createObjectURL(e.target.files[0]);
+    console.log(srcImg.value);
 }
 
 
@@ -201,7 +205,7 @@ const showImg = (e) => {
                         <path fill-rule="evenodd" d="M1.5 6a2.25 2.25 0 0 1 2.25-2.25h16.5A2.25 2.25 0 0 1 22.5 6v12a2.25 2.25 0 0 1-2.25 2.25H3.75A2.25 2.25 0 0 1 1.5 18V6ZM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0 0 21 18v-1.94l-2.69-2.689a1.5 1.5 0 0 0-2.12 0l-.88.879.97.97a.75.75 0 1 1-1.06 1.06l-5.16-5.159a1.5 1.5 0 0 0-2.12 0L3 16.061Zm10.125-7.81a1.125 1.125 0 1 1 2.25 0 1.125 1.125 0 0 1-2.25 0Z" clip-rule="evenodd" />
                     </svg>
                 </InputGroup>
-                <InputGroup v-else @change="showImg" :errors="form.errors.imagen" :type="'file'" :accept="'image/*'" :placeholder="form.imagen" :mensajeMiniatura="form.imagen">
+                <InputGroup v-else @change="showImg" :errors="form.errors.imagen" :type="'file'" :accept="'image/*'" :placeholder="form.imagen" :mensajeMiniatura="form.imagen" :nameObject="'srcImgID'" :src="'srcImg'">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
                         <path fill-rule="evenodd" d="M1.5 6a2.25 2.25 0 0 1 2.25-2.25h16.5A2.25 2.25 0 0 1 22.5 6v12a2.25 2.25 0 0 1-2.25 2.25H3.75A2.25 2.25 0 0 1 1.5 18V6ZM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0 0 21 18v-1.94l-2.69-2.689a1.5 1.5 0 0 0-2.12 0l-.88.879.97.97a.75.75 0 1 1-1.06 1.06l-5.16-5.159a1.5 1.5 0 0 0-2.12 0L3 16.061Zm10.125-7.81a1.125 1.125 0 1 1 2.25 0 1.125 1.125 0 0 1-2.25 0Z" clip-rule="evenodd" />
                     </svg>
@@ -216,7 +220,7 @@ const showImg = (e) => {
                 </form>
             </div>
             <div class="min-w-0 p-4 rounded-lg shadow-xs">
-                <img :src="srcImg" width="500"  alt="">
+                <img :src="srcImg" width="500"  alt="" >
             </div>
         </div>
 
