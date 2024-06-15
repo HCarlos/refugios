@@ -3,7 +3,7 @@
         'name' => 'laravel/laravel',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '2b7d6278231efd1124928b5a08fab023c0991bc0',
+        'reference' => '9f737f24d2d8c9b60243cbfccd9c4a5382e36b4c',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -427,7 +427,7 @@
         'laravel/laravel' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '2b7d6278231efd1124928b5a08fab023c0991bc0',
+            'reference' => '9f737f24d2d8c9b60243cbfccd9c4a5382e36b4c',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -875,7 +875,7 @@
         'roave/security-advisories' => array(
             'pretty_version' => 'dev-latest',
             'version' => 'dev-latest',
-            'reference' => 'c1fa2bf9896d5ce592bd78a9d01dc6ba836da82f',
+            'reference' => '2e530fa2b00d046ceb5660f3139af583170ea7f9',
             'type' => 'metapackage',
             'install_path' => null,
             'aliases' => array(

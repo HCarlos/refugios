@@ -9,8 +9,6 @@ import Modal from "@/Components/Modal.vue";
 import DangerButton from "@/Components/DangerButton.vue";
 import AlertSuccess from "@/Components/AlertSuccess.vue";
 import { ref } from "vue"
-import * as url from "node:url";
-import WarningButton from "@/Components/WarningButton.vue";
 import DarkButton from "@/Components/DarkButton.vue";
 
 const props = defineProps({
@@ -55,9 +53,8 @@ const editMapPointRefugio = (r) => {
 
 
 
-const ok = (m) =>{º
+const ok = (m) =>{
     closeModalEliminar();
-    form.reset();
     msg.value = m;
     console.log(msg.value);
     classMsj.value = 'block';
@@ -115,7 +112,6 @@ var tituloUser = "Refugios";
                                 <th class="px-4 py-3">Capacidad</th>
                                 <th class="px-4 py-3">Enlace</th>
                                 <th class="px-4 py-3">Teléfonos</th>
-                                <th class="px-4 py-3">Observaciones</th>
                                 <th class="px-4 py-3"></th>
 							</tr>
 						</thead>
@@ -150,9 +146,6 @@ var tituloUser = "Refugios";
                                 </td>
                                 <td class="px-4 py-3 text-xs">
                                     {{ Refugio.telefonos }}
-                                </td>
-                                <td class="px-4 py-3 text-xs">
-                                    {{ Refugio.observaciones }}
                                 </td>
                                 <td class="px-4 py-3 text-sm">
                                     <DangerButton @click="openModalEliminar(Refugio)" title="Eliminar refugio">
