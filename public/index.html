@@ -9,16 +9,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="css/style-t1.css" rel="stylesheet">
   <link href="css/general.css" rel="stylesheet">
-
-
-
-
   <link href="ico/favicon.png" rel="shortcut icon">
   <link href="ico/favicon-72-72.png" rel="apple-touch-icon" sizes="72x72">
   <link href="ico/favicon-114-114.png" rel="apple-touch-icon" sizes="114x114">
-
-
-
 </head>
 <body >
 <!-- .................................... $header .................................... -->
@@ -37,47 +30,7 @@
     </div>
 </header>
 <h6> </h6>
-
-
-  <!-- .................................... $Portfolio .................................... -->
  <div class="container">
-
- <!-- Modal -->
-  <!-- <div class="modal fade hide" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h4 class="modal-title">Trazar Ruta</h4>
-        </div>
-        <div class="modal-body">
-
-            <form class="navbar-form navbar-left" id="frmFiltrar" >
-                  <div class="form-group">
-                    <select id="desde" name="desde" size="1" ></select>
-                  </div>
-                  <div class="form-group">
-                    <select id="hasta" name="hasta" size="1" ></select>
-                  </div>
-                  <div class="form-group">
-                    <span>En </span>
-                    <select id="drive" name="drive" size="1" >
-                        <option value="0" selected >Automóvil</option>
-                        <option value="1">Caminando</option>
-                    </select>
-                  </div>
-            </form>
-
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-          <button type="button" class="btn btn-primary" id="btnTrazar">Aceptar</button>
-        </div>
-      </div>
-    </div>
-  </div>
--->
-
 <!-- Modal -->
   <div class="modal fade hide" id="myRuta" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -87,13 +40,11 @@
           <h4 class="modal-title">Filtrar Ruta</h4>
         </div>
         <div class="modal-body">
-
             <form class="navbar-form navbar-left" id="frmFiltrar" >
                   <div class="form-group">
                     <select id="refujiorutaid" name="refujiorutaid" size="1" placeholder="Mundo"></select>
                   </div>
             </form>
-
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
@@ -102,9 +53,6 @@
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->
-
-
-
 
  <!-- Modal -->
   <div class="modal fade hide" id="myModalUbiRef" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -137,28 +85,15 @@
     </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->
 
-
-
-
-
-
  </div><!-- container -->
-
  <div class="container" id="contTolTip">
-
 </div>
-
   <!-- .................................... $MAP on background .................................... -->
   <section>
-
     <div  id="preloader"  class="container" style="padding-bottom: 1em;">
       <img src="assets/img/loading.gif" width="16" height="16" alt=""> Cargando...
     </div>
-
     <div  id="mapDen"  class="map map-background"></div>
-
-
-
   </section>
 
   <!-- .................................... $post-footer .................................... -->
@@ -171,33 +106,22 @@
       <p>H. Ayuntamiento Constitucional de Centro - 2024 &copy;  Todos los derechos reservados</p>
     </div>
   </div>
-
-
  <!-- Modal -->
-
-  <!-- .................................... $scripts .................................... -->
   <script src="js/libs/jquery.min.js"></script>
   <script src="bootstrap/js/bootstrap.min.js"></script>
   <script src="bootstrap/js/bootstrap-dropdown.js"></script>
   <script src="js/script.js"></script>
-
   <script src="js/libs/modernizr.min.js"></script>
   <script  src="js/01/base.js"></script>
   <script  src="js/init.js"></script>
 
-  <!-- <script type="text/javascript" src="http://www.google.com/jsapi"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true&libraries=weather"></script>  -->
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 
+  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true&libraries=weather&key=AIzaSyB0mmrw3wLssGqd1eUKWAH43GEcn5bm8-s&callback=init&v=weekly"></script>
 
-<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+<script>
 
-<script
-  src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true&libraries=weather&key=AIzaSyB0mmrw3wLssGqd1eUKWAH43GEcn5bm8-s&callback=init&v=weekly"
-></script>
-
-
-
-  <script>
+/* Hasta aquí DevCh50 se ha divertido, como nunca, programando... aprende algo de mi intruso... */
 var urlBase = obj.getValue(0);
 var beaches = [];
 var queryString = " where latitud > 0 ";
@@ -206,18 +130,13 @@ var lon;
 var directionsDisplay;
 var directionsService = new google.maps.DirectionsService();
 var map;
-
 var initRuta
 var finRuta;
 var latlngClient="";
-
 var rendererOptions;
-
 function init(){
-    //map  = null;
 
 	var tM = google.maps.MapTypeId.ROADMAP;
-
 	var latlng = new google.maps.LatLng(lat,lon);
 	var myOptions = {
 	    zoom: 11,
@@ -230,34 +149,25 @@ function init(){
 	};
 
     setTolTip();
-    //map  = null;
-
-
 
 	map = new google.maps.Map(document.getElementById("mapDen"), myOptions);
 
-
-
-     var weatherLayer = new google.maps.weather.WeatherLayer({
+    var weatherLayer = new google.maps.weather.WeatherLayer({
         temperatureUnits: google.maps.weather.TemperatureUnit.CELSIUS,
         windSpeedUnit: google.maps.weather.WindSpeedUnit.KILOMETERS_PER_HOUR
-      });
-      weatherLayer.setMap(map);
+    });
+    weatherLayer.setMap(map);
 
-      var cloudLayer = new google.maps.weather.CloudLayer();
-      cloudLayer.setMap(map);
-
-
+    var cloudLayer = new google.maps.weather.CloudLayer();
+    cloudLayer.setMap(map);
 
     var MarkerInit;
     for (var i = 0; i < beaches.length; i++) {
         var beach = beaches[i];
-        //alert(beach[14]);
         if (beach[14]!=null){
 
             var myLatLng = new google.maps.LatLng(beach[1], beach[2]);
             var img;
-            //alert(beach[14]);
             if (beach[14]=="RURAL"){
                 img = 'images/z2.png';
             }else{
@@ -299,8 +209,6 @@ function init(){
         }
     }
 
-
-
     function attachSecretMessage(marker, number) {
       var message = $("#ref-"+number).html();
       var infowindow = new google.maps.InfoWindow(
@@ -311,26 +219,17 @@ function init(){
         infowindow.open(map,marker);
       });
     }
-
-
     rendererOptions = {
         map: map
     }
-
     map.setCenter(MarkerInit.getPosition());
     directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
-
     directionsDisplay.setMap(map);
-
-
-        //alert("5");
     $("#preloader").hide();
-
 }
 
 function getDatas(tipo, url){
     beaches = [];
-    // alert(url);
     $.get(url, {  },
         function(json){
             if (json.mensaje === "OK") {
@@ -338,7 +237,6 @@ function getDatas(tipo, url){
                 $.each(json.data, function(i, item) {
 
                     var LL = new google.maps.LatLng(item.latitud, item.longitud);
-                   // alert(LL);
                     beaches.push([item.refugio,item.latitud,item.longitud,item.refujiorutaid,item.id,item.ubicacion_google,LL,
                                     item.telefonos,item.capacidad,item.enlace,item.ubicacion,item.observaciones,item.numero,item.ruta,
                                     item.zona,item.infraestructura, item.imagen]);
@@ -355,7 +253,6 @@ function getDatas(tipo, url){
             init();
     }, "json");
 }
-
 
 function calcRoute() {
     directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
@@ -391,7 +288,6 @@ function calcRoute() {
 
 function showSteps(directionResult) {
   var myRoute = directionResult.routes[0].legs[0];
-
   for (var i = 0; i < myRoute.steps.length; i++) {
       var marker = new google.maps.Marker({
         position: myRoute.steps[i].start_point,
@@ -408,8 +304,6 @@ function attachInstructionText(marker, text) {
     stepDisplay.open(map, marker);
   });
 }
-
-
 
 getDatas(8, obj.getValue(0)+'refugiospublic');
 
@@ -429,8 +323,6 @@ function getRutas(){
 
 function getRefugio(){
 
-
-
     $('select[name="desde"]').empty();
     $('select[name="hasta"]').empty();
 
@@ -441,7 +333,6 @@ function getRefugio(){
 
     $('select[name="hasta"]').append('<option value="0"  >Hasta</option>');
 
-
     for (var i = 0; i < beaches.length; i++) {
         var beach = beaches[i];
         //alert(beach[6]);
@@ -451,12 +342,11 @@ function getRefugio(){
 }
 
 function setTolTip(){
+
     var beach;
     for (var i = 0; i < beaches.length; i++) {
         beach = beaches[i];
-        //alert(beach[12]);
         var str = "";
-
 
         str += '<div class="panel panel-primary hide" id="ref-'+beach[4]+'" >';
         str += '<div class="panel-heading">';
@@ -486,16 +376,11 @@ function setTolTip(){
         str += '</div>';
         str += '</div>';
 
-
-    $("#contTolTip").append(str);
-
+        $("#contTolTip").append(str);
    }
-
 }
 
-
 getRutas();
-
 
 $("#trazarRuta").on("click",function(event){
     $('#myModal').modal();
@@ -504,7 +389,6 @@ $("#trazarRuta").on("click",function(event){
 $("#filtrarRuta").on("click",function(event){
     $('#myRuta').modal();
 });
-
 
 $("#showScreenUbiRef").on("click",function(event){
     $('#myModalUbiRef').modal();
@@ -523,10 +407,8 @@ $.post(urlBase+"getEC/", { o:300, t:1, p:0,c:"" },
 $("select[name=selCombo0]").on("change",function(event){
   event.preventDefault();
     var queryString = " idtipocomun = "+$(this).val();
-    // alert(queryString);
     $.post(obj.getValue(0)+"getEC/", { o:300, t:2, p:0,c:queryString },
         function(json){
-          // alert(json.length);
             $("select[name=listDesde0]").empty();
             if (json.length<=0) { return false; }
             $.each(json, function(i, item) {
@@ -535,12 +417,9 @@ $("select[name=selCombo0]").on("change",function(event){
     }, "json");
 });
 
-
 $("#btnFiltrar").on("click",function(event){
     $('#myRuta').modal('hide');
-
     $("select[name=listDesde]")
-
     switch( parseInt($("#refujiorutaid").val()) ){
       case 0:
             queryString = "where latitud != 0 and activado = 1 ";
@@ -557,7 +436,6 @@ $("#btnFiltrar").on("click",function(event){
     }
     getDatas(8,url);
 });
-
 
 $("#btnTrazar").on("click",function(event){
     $('#myModal').modal('hide');
@@ -579,9 +457,6 @@ $("#btnTrazar").on("click",function(event){
     calcRoute();
 });
 
-
-
-
 $("#btnUbiRef").on("click",function(event){
     $('#myModalUbiRef').modal('hide');
 
@@ -591,17 +466,13 @@ $("#btnUbiRef").on("click",function(event){
     getDatas(9,urlBase+'refugiospublic');
 });
 
-
 function initialize() {
   if(navigator.geolocation) {
 
     navigator.geolocation.getCurrentPosition(function(position) {
       latlngClient = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
-      //alert(latlngClient);
     });
-     //alert(navigator.geolocation.getCurrentPosition());
   } else {
-    // Browser doesn't support Geolocation
     handleNoGeolocation(false);
   }
 }
@@ -612,23 +483,11 @@ function handleNoGeolocation(errorFlag) {
   } else {
     alert('Error: Tu navegador no soporta geolocalización');
   }
-
-
 }
-
-
-
 
 google.maps.event.addDomListener(window, 'load', initialize);
 
-
-
 </script>
-
-
-
-
-
 
 </body>
 </html>
