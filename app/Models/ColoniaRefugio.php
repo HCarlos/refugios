@@ -14,11 +14,14 @@ class ColoniaRefugio extends Model{
     protected $appends = ['full_comunidad',];
 
     protected $fillable = [
-        'id','refugio_id',
-        'refugioruta_id','ruta','colonia_id',
-        'colonia','comunidad_id','comunidad',
+        'id','refugio_id', 'numero', 'latitud', 'longitud',
+        'activado', 'refugiocolonia_id', 'zona',
+        'refugioruta_id','ruta', 'colonia1_id', 'colonia1',
+        'colonia_id', 'colonia','comunidad_id','comunidad',
         'tipocomunidad_id','tipocomunidad',
     ];
+
+    protected $casts = ['activado' => 'boolean'];
 
     public function getFullComunidadAttribute(){
         return "{$this->ruta} {$this->comunidad}";

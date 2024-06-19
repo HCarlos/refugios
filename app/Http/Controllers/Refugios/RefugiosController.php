@@ -98,7 +98,7 @@ class RefugiosController extends Controller {
     public function refugiosporruta($Refugiorutaid){
         $Refugios = Refugio::query()
             ->where('refugiorutaid', $Refugiorutaid)
-            ->where('activado', 1)
+            ->where('activado','=',1)
             ->orderByDesc('id')
             ->get();
         return $this->getDataRefugios($Refugios);
@@ -114,58 +114,120 @@ class RefugiosController extends Controller {
 
     }
     public function getrefugio($Id){
-            $Refugio = Refugio::query()->where('id',$Id)->get();
+            $Refugio = Refugio::query()
+                ->where('id',$Id)
+                ->where('activado','=',1)
+                ->get();
             return  $this->getDataRefugios($Refugio);
     }
 
     public function getrefugiosfromcolonias($colonia_id)
     {
         $qry = ColoniaRefugio::query()
-            ->select('refugio_id','refugioruta_id')
             ->where('colonia_id', $colonia_id)
             ->get();
 
         $arr = [];
         foreach ($qry as $q) {
-            $arr[] = $q->refugioruta_id;
+            $arr[] = $q->numero;
         }
-        $qry = Refugio::query()->whereIn('refugiorutaid', $arr)->get();
-        return  $this->getDataRefugios($qry);
+        $qry = Refugio::query()
+            ->whereIn('numero', $arr)
+            ->where('activado','=',1)
+            ->distinct()
+            ->get();
+
+        if (count($qry) > 0) {
+            return  $this->getDataRefugios($qry);
+        }else{
+            return $this->getrefugiosfromcomunidad($colonia_id);
+        }
+
+    }
+
+    public function getrefugiosfromcomunidad($colonia_id)
+    {
+        $comunidad = ColoniaRefugio::query()
+            ->select('comunidad_id')
+            ->where('colonia_id',$colonia_id)
+            ->first();
+
+        $comunidad_id = $comunidad->comunidad_id;
+
+        //dd($comunidad_id);
+
+        $qry = ColoniaRefugio::query()
+            ->where('comunidad_id', $comunidad_id)
+            ->get();
+
+
+        $arr = [];
+        foreach ($qry as $q) {
+            $arr[] = $q->numero;
+        }
+
+
+        if ( count($arr) > 0 ) {
+
+            $qry = Refugio::query()
+                ->whereIn('numero', $arr)
+                ->distinct()
+                ->get();
+
+//            dd($qry);
+
+            if (count($qry) > 0) {
+                return $this->getDataRefugios($qry);
+            } else {
+                return Response::json(['mensaje' => 'No existen datos', 'data' => null, 'status' => '200'], 200);
+            }
+        }else{
+            return Response::json(['mensaje' => 'No existen datos', 'data' => null, 'status' => '200'], 200);
+        }
 
     }
 
     private function getDataRefugios($Refugios){
 
         $refArray = array();
-        foreach ($Refugios as $refugio) {
-            //$refugio->save();
-            $fill = [
-                'id'=> $refugio->id,
-                'numero' => $refugio->numero,
-                'refugio' => $refugio->refugio,
-                'ubicacion' => $refugio->ubicacion,
-                'ubicacion_google' => $refugio->ubicacion_google,
-                'enlace' => $refugio->enlace,
-                'telefonos' => $refugio->telefonos,
-                'observaciones' => $refugio->observaciones,
-                'latitud' => $refugio->latitud,
-                'longitud' => $refugio->longitud,
-                'html' => $refugio->html,
-                'infraestructura' => $refugio->infraestructura,
-                'capacidad' => $refugio->capacidad,
-                'activado' => $refugio->activado,
-                'poligono' => $refugio->poligono,
-                'categoria' => $refugio->categoria,
-                'imagen' => $refugio->imagen,
-                'refugiorutaid' => $refugio->refugiorutaid,
-                'ruta' => $refugio->ruta->ruta,
-                'zona' => $refugio->ruta->zona,
-            ];
-            // $refArray-> = $fill;
-            $refArray[] = $fill;
-        }
 
-        return Response::json(['mensaje' => 'OK', 'data' => $refArray, 'status' => '200'], 200);
+//        dd(count($Refugios));
+
+        if (count($Refugios) > 0) {
+
+            foreach ($Refugios as $refugio) {
+                //$refugio->save();
+                $fill = [
+                    'id'=> $refugio->id,
+                    'numero' => $refugio->numero,
+                    'refugio' => $refugio->refugio,
+                    'ubicacion' => $refugio->ubicacion,
+                    'ubicacion_google' => $refugio->ubicacion_google,
+                    'enlace' => $refugio->enlace,
+                    'telefonos' => $refugio->telefonos,
+                    'observaciones' => $refugio->observaciones,
+                    'latitud' => $refugio->latitud,
+                    'longitud' => $refugio->longitud,
+                    'html' => $refugio->html,
+                    'infraestructura' => $refugio->infraestructura,
+                    'capacidad' => $refugio->capacidad,
+                    'activado' => $refugio->activado,
+                    'poligono' => $refugio->poligono,
+                    'categoria' => $refugio->categoria,
+                    'imagen' => $refugio->imagen,
+                    'refugiorutaid' => $refugio->refugiorutaid,
+                    'ruta' => $refugio->ruta->ruta,
+                    'zona' => $refugio->ruta->zona,
+                ];
+                // $refArray-> = $fill;
+                $refArray[] = $fill;
+            }
+
+            return Response::json(['mensaje' => 'OK', 'data' => $refArray, 'status' => '200'], 200);
+
+        }else{
+            return Response::json(['mensaje' => 'No existen datos', 'data' => null, 'status' => '200'], 200);
+        }
 
     }
 

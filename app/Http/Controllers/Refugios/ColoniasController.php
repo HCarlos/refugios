@@ -14,9 +14,11 @@ class ColoniasController extends Controller{
 
     public function getcolonias(){
         $qry = ColoniaRefugio::query()
-            ->select('colonia_id','colonia')
+            ->select('colonia_id','colonia','comunidad')
             ->orderBy('colonia')
+            ->distinct()
             ->get();
+
         return Response::json(['mensaje' => 'OK', 'data' => $qry, 'status' => '200'], 200);
     }
 
