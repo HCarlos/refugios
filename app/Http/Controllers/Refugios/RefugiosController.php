@@ -3,23 +3,16 @@
 namespace App\Http\Controllers\Refugios;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ProfileUpdateRequest;
 use App\Http\Requests\Refugios\RefugiosUpdateRequest;
+use App\Models\ColoniaRefugio;
 use App\Models\Refugio;
 use App\Models\RutaRefugio;
-use App\Models\User;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
-//use Inertia\Response;
 use Illuminate\Support\Facades\Response;
 
 class RefugiosController extends Controller {
+    protected $tableName = "refugios";
 
     public function index()
     {
@@ -125,6 +118,21 @@ class RefugiosController extends Controller {
             return  $this->getDataRefugios($Refugio);
     }
 
+    public function getrefugiosfromcolonias($colonia_id)
+    {
+        $qry = ColoniaRefugio::query()
+            ->select('refugio_id','refugioruta_id')
+            ->where('colonia_id', $colonia_id)
+            ->get();
+
+        $arr = [];
+        foreach ($qry as $q) {
+            $arr[] = $q->refugioruta_id;
+        }
+        $qry = Refugio::query()->whereIn('refugiorutaid', $arr)->get();
+        return  $this->getDataRefugios($qry);
+
+    }
 
     private function getDataRefugios($Refugios){
 

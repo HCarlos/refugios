@@ -8,13 +8,35 @@ import PrimaryButton from "@/Components/PrimaryButton.vue";
 import Modal from "@/Components/Modal.vue";
 import DangerButton from "@/Components/DangerButton.vue";
 import AlertSuccess from "@/Components/AlertSuccess.vue";
-import { ref } from "vue"
+import {onMounted, ref} from "vue"
 import DarkButton from "@/Components/DarkButton.vue";
 
 const props = defineProps({
 	Refugios: {type: Object},
     flash: {type: Object}
 })
+
+// const columns = [
+//     {data: 'id', title: 'ID'},
+//     {data: 'numero', title: '#'},
+//     {data: 'refugio', title: 'REFUGIO'},
+//     {data: 'ubicacion', title: 'UBICACION'},
+//     {data: 'infraestructura', title: 'INFRAESTRUCTURA'},
+//     {data: 'capacidad', title: 'CAPACIDAD'},
+//     {data: 'enlace', title: 'ENLACE'},
+//     {data: 'telefonos', title: 'TELEFONOS'}
+// ];
+
+// props.Refugios.data.map(function(value, key) {
+//     data.value.push(value);
+// });
+
+
+
+// onMounted(function () {
+//     dt = table.value.dt;
+// });
+
 const form = useForm({
     id:'',
     refugio:'',ubicacion:'',ubicacion_google:'',
@@ -27,6 +49,7 @@ const form = useForm({
 const showModalEliminar = ref(false);
 const msg = ref( (props.flash.success != null) ? props.flash.success : '');
 const classMsj = ref( (props.flash.success != null) ? '' : 'hidden');
+const table = ref();
 
 const openModalEliminar = (b) => {
     form.id = b.id;
@@ -74,7 +97,21 @@ var tituloUser = "Refugios";
 	<AuthenticatedLayout>
 		<template #header>
             {{ tituloUser }}
+
+
 		</template>
+<!--        <div>-->
+<!--        <DataTable-->
+<!--            class="display"-->
+<!--            :columns="columns"-->
+<!--            :data="data"-->
+<!--            :options="{ select: true }"-->
+<!--            ref="table"-->
+<!--        />-->
+<!--        </div>-->
+
+
+
 
 		<div class="p-4 bg-white rounded-lg shadow-xs">
 			<div class="inline-flex overflow-hidden mb-4 w-full bg-white rounded-lg shadow-md">
@@ -179,3 +216,7 @@ var tituloUser = "Refugios";
         </Modal>
 	</AuthenticatedLayout>
 </template>
+<!--<style>-->
+<!--@import 'datatables.net-bs5';-->
+<!--@import 'datatables.net-dt';-->
+<!--</style>-->

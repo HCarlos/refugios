@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Refugios\ColoniasController;
 use App\Http\Controllers\Refugios\RefugiosController;
 use App\Http\Controllers\Refugios\RutasController;
 use App\Http\Controllers\UserController;
@@ -62,5 +63,7 @@ Route::get('refugiosporruta/{Refugiorutaid}', [RefugiosController::class, 'refug
 Route::get('getrefugioShow/{Refugio}', [RefugiosController::class, 'getrefugioShow'])->name('getrefugioShow');
 Route::get('getrefugio/{Id}', [RefugiosController::class, 'getrefugio'])->name('getrefugio');
 Route::get('savenewposition/{dom}/{pos}/{id}', [RefugiosController::class, 'savenewposition'])->name('savenewposition');
+Route::get('getcolonias', [ColoniasController::class, 'getcolonias'])->name('getcolonias');
+Route::get('getrefugiosfromcolonias/{colonia_id}', [RefugiosController::class, 'getrefugiosfromcolonias'])->name('getrefugiosfromcolonias');
 
 require __DIR__.'/auth.php';

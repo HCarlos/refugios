@@ -21,7 +21,7 @@
             <ul class="nav navbar-nav pull-left fondo-institucional" >
                 <!-- <li ><a  href="#" id="trazarRuta">Trazar Ruta</a></li> -->
                 <li ><a  href="#" id="filtrarRuta">Filtrar Ruta</a></li>
-<!--                <li ><a  href="#" id="showScreenUbiRef">Ubica tu Refugio</a></li>-->
+                <li ><a  href="#" id="showScreenUbiRef">Ubica tu Refugio</a></li>
                 <li ><a href="/"><span class="badge">MAPA DE UBICACION DE REFUGIOS TEMPORALES</span></a></li>
                 <li id="barda"></li>
             </ul>
@@ -67,10 +67,10 @@
             <div class="span4">
                 <div class="panel panel-success">
                   <div class="panel-body">
-                        <label for="selCombo0" class="lblH2cmb">1.- Selecciona el Tipo de Comunidad donde vives </label>
-                        <select name="selCombo0" class="span3" size="1" >
-                        </select>
-                        <label for="listDesde0" class="lblH2">2.- Selecciona tu Comunidad</label>
+<!--                        <label for="selCombo0" class="lblH2cmb">1.- Selecciona el Tipo de Comunidad donde vives </label>-->
+<!--                        <select name="selCombo0" class="span3" size="1" >-->
+<!--                        </select>-->
+                        <label for="listDesde0" class="lblH2">Selecciona tu Comunidad</label>
                         <select class="listDesde0 span3" name="listDesde0" size="1" > </select>
                    </div>
                 </div>
@@ -240,7 +240,7 @@ function getDatas(tipo, url){
                     beaches.push([item.refugio,item.latitud,item.longitud,item.refujiorutaid,item.id,item.ubicacion_google,LL,
                                     item.telefonos,item.capacidad,item.enlace,item.ubicacion,item.observaciones,item.numero,item.ruta,
                                     item.zona,item.infraestructura, item.imagen]);
-                    if(i==0){
+                    if(i=== 0 ){
                         lat = item.latitud;
                         lon = item.longitud;
                     }
@@ -404,18 +404,18 @@ $.post(urlBase+"getEC/", { o:300, t:1, p:0,c:"" },
         });
 }, "json");
 
-$("select[name=selCombo0]").on("change",function(event){
-  event.preventDefault();
-    var queryString = " idtipocomun = "+$(this).val();
-    $.post(obj.getValue(0)+"getEC/", { o:300, t:2, p:0,c:queryString },
+// $("select[name=selCombo0]").on("change",function(event){
+//   event.preventDefault();
+//     var queryString = " idtipocomun = "+$(this).val();
+    $.get(obj.getValue(0)+"getcolonias", {  },
         function(json){
             $("select[name=listDesde0]").empty();
-            if (json.length<=0) { return false; }
-            $.each(json, function(i, item) {
-                $("select[name=listDesde0]").append('<option value="'+item.data+'">'+item.label+'</option>');
+            // if (json.length<=0) { return false; }
+            $.each(json.data, function(i, item) {
+                $("select[name=listDesde0]").append('<option value="'+item.colonia_id+'">'+item.colonia+' - '+item.colonia_id+'</option>');
             });
     }, "json");
-});
+// });
 
 $("#btnFiltrar").on("click",function(event){
     $('#myRuta').modal('hide');
@@ -462,8 +462,8 @@ $("#btnUbiRef").on("click",function(event){
 
     var idcol1 = $("select[name=listDesde0]").val()
 
-    queryString = "where idcol1 = "+idcol1+" and activado = 1 ";
-    getDatas(9,urlBase+'refugiospublic');
+    // queryString = "where idcol1 = "+idcol1+" and activado = 1 ";
+    getDatas(9,obj.getValue(0)+'getrefugiosfromcolonias/'+idcol1);
 });
 
 function initialize() {
