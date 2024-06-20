@@ -7,6 +7,7 @@
                 class="block w-full pl-10 mt-1 text-sm cols-1 text-dark text-dark-100 border-gray-700 bg-gray-50 focus:border-gray-700 focus:outline-none focus:shadow-outline-gray gray:focus:shadow-outline-gray form-input rounded-md "
                 :value="modelValue"
                 @input="$emit('update:modelValue', $event.target.value)"
+                @change="$emit('change', $event)"
                 ref="input"
                 :class="classEspecial"
             >
@@ -30,12 +31,16 @@
 import { onMounted, ref } from 'vue';
 import InputError from "@/Components/InputError.vue";
 
-const props = defineProps(['textLabel','opciones','modelValue','isLegend','errors','classEspecial']);
+const props = defineProps(
+    ['textLabel','opciones','modelValue','isLegend','errors','classEspecial','change']
+);
+
 const labelText = props.textLabel == null ? '' : props.textLabel;
 // const disabledSelect = props.disabledSelect != null;
 const isLegend = props.isLegend != null;
 
-defineEmits(['update:modelValue']);
+// defineEmits(['update:modelValue']);
+defineEmits(['update:modelValue','change']);
 
 const input = ref(null);
 onMounted(() => {

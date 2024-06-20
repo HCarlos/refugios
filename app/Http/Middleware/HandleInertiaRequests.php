@@ -39,7 +39,13 @@ class HandleInertiaRequests extends Middleware
             ],
             'flash' => function () use ($request) {
                 return [
+                    'mensaje' => fn () => $request->session()->get('mensaje'),
+                    'error' => fn () => $request->session()->get('error'),
                     'success' => $request->session()->get('success'),
+                    'data' => fn () => $request->session()->get('data'),
+                    'refugios' => fn () => $request->session()->get('refugios'),
+                    'colonias' => fn () => $request->session()->get('colonias'),
+                    'coloniasrefugios' => fn () => $request->session()->get('coloniasrefugios'),
                 ];
             },
             'showingMobileMenu' => false,

@@ -8,6 +8,7 @@ use App\Models\ColoniaRefugio;
 use App\Models\Refugio;
 use App\Models\RutaRefugio;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Response;
 
@@ -121,11 +122,32 @@ class RefugiosController extends Controller {
             return  $this->getDataRefugios($Refugio);
     }
 
-    public function getrefugiosfromcolonias($colonia_id)
-    {
+    public function getRefugiosFromColoniasAuth(Request $request){
+
+//       Aplica con Axios
+        $refugios =  $this->getrefugiosfromcolonias($request->colonia_id);
+        $colonia = ColoniaRefugio::query()->where('colonia_id',$request->colonia_id)->first();
+
+        return Response::json(['mensaje' => 'OK', 'refugios' => $refugios, 'colonia' => $colonia, 'status' => '200'], 200);
+
+
+//       Aplica con Vue3
+//        $datos =  $this->getrefugiosfromcolonias($request->colonia_id);
+//        return redirect()->back()
+//            ->with('mensaje', 'OK')
+//            ->with('success', 'Settings saved successfully')
+//            ->with('data', $datos);
+
+
+
+    }
+
+    public function getrefugiosfromcolonias($colonia_id){
         $qry = ColoniaRefugio::query()
             ->where('colonia_id', $colonia_id)
             ->get();
+
+//        dd($qry);
 
         $arr = [];
         foreach ($qry as $q) {
@@ -137,11 +159,11 @@ class RefugiosController extends Controller {
             ->distinct()
             ->get();
 
+
         if (count($qry) > 0) {
             return  $this->getDataRefugios($qry);
-        }else{
-            return $this->getrefugiosfromcomunidad($colonia_id);
         }
+        return $this->getrefugiosfromcomunidad($colonia_id);
 
     }
 
@@ -178,20 +200,15 @@ class RefugiosController extends Controller {
 
             if (count($qry) > 0) {
                 return $this->getDataRefugios($qry);
-            } else {
-                return Response::json(['mensaje' => 'No existen datos', 'data' => null, 'status' => '200'], 200);
             }
-        }else{
             return Response::json(['mensaje' => 'No existen datos', 'data' => null, 'status' => '200'], 200);
         }
-
+        return Response::json(['mensaje' => 'No existen datos', 'data' => null, 'status' => '200'], 200);
     }
 
     private function getDataRefugios($Refugios){
 
         $refArray = array();
-
-//        dd(count($Refugios));
 
         if (count($Refugios) > 0) {
 
@@ -222,12 +239,10 @@ class RefugiosController extends Controller {
                 // $refArray-> = $fill;
                 $refArray[] = $fill;
             }
-
             return Response::json(['mensaje' => 'OK', 'data' => $refArray, 'status' => '200'], 200);
 
-        }else{
-            return Response::json(['mensaje' => 'No existen datos', 'data' => null, 'status' => '200'], 200);
         }
+        return Response::json(['mensaje' => 'No existen datos', 'data' => null, 'status' => '200'], 200);
 
     }
 

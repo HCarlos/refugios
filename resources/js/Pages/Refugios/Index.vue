@@ -10,6 +10,15 @@ import DangerButton from "@/Components/DangerButton.vue";
 import AlertSuccess from "@/Components/AlertSuccess.vue";
 import {onMounted, ref} from "vue"
 import DarkButton from "@/Components/DarkButton.vue";
+// import DataTable from 'datatables.net-vue3';
+//    // import {DataTablesCore, DataTablesLib} from 'datatables.net';
+// import DataTablesLib from 'datatables.net';
+// import DataTablesCore from 'datatables.net-bs5';
+//
+// import 'datatables.net-select';
+// import 'datatables.net-responsive';
+//
+// DataTable.use(DataTablesCore);
 
 const props = defineProps({
 	Refugios: {type: Object},
