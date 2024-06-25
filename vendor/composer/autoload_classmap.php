@@ -30,6 +30,7 @@ return array(
     'App\\Http\\Requests\\Auth\\LoginRequest' => $baseDir . '/app/Http/Requests/Auth/LoginRequest.php',
     'App\\Http\\Requests\\ProfileUpdateRequest' => $baseDir . '/app/Http/Requests/ProfileUpdateRequest.php',
     'App\\Http\\Requests\\Refugios\\RefugiosUpdateRequest' => $baseDir . '/app/Http/Requests/Refugios/RefugiosUpdateRequest.php',
+    'App\\Models\\Colonia' => $baseDir . '/app/Models/Colonia.php',
     'App\\Models\\ColoniaRefugio' => $baseDir . '/app/Models/ColoniaRefugio.php',
     'App\\Models\\Imagene' => $baseDir . '/app/Models/Imagene.php',
     'App\\Models\\Permission' => $baseDir . '/app/Models/Permission.php',

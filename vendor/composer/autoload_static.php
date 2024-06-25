@@ -608,6 +608,7 @@ class ComposerStaticInitda9b7a1dc1dd923105198c572cc7df8d
         'App\\Http\\Requests\\Auth\\LoginRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Auth/LoginRequest.php',
         'App\\Http\\Requests\\ProfileUpdateRequest' => __DIR__ . '/../..' . '/app/Http/Requests/ProfileUpdateRequest.php',
         'App\\Http\\Requests\\Refugios\\RefugiosUpdateRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Refugios/RefugiosUpdateRequest.php',
+        'App\\Models\\Colonia' => __DIR__ . '/../..' . '/app/Models/Colonia.php',
         'App\\Models\\ColoniaRefugio' => __DIR__ . '/../..' . '/app/Models/ColoniaRefugio.php',
         'App\\Models\\Imagene' => __DIR__ . '/../..' . '/app/Models/Imagene.php',
         'App\\Models\\Permission' => __DIR__ . '/../..' . '/app/Models/Permission.php',

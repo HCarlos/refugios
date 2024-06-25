@@ -13,16 +13,7 @@ class RutasController extends Controller{
 
     public function getrutas(Request $request){
         $item = RutaRefugio::query()->orderBy('ruta')->get();
-
-        // dd($request);
-
         return Response::json(['mensaje' => 'OK', 'data' => $item, 'status' => '200'], 200);
-
-        //return Response::json(['mensaje' => 'Error', 'data' => $item, 'status' => '200'], 200);
-
-//        return Inertia::render('Refugios/Index', [
-//            'rutas' => $item
-//        ]);
 
 
     }

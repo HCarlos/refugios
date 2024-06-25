@@ -8,12 +8,13 @@
                 :value="modelValue"
                 @input="$emit('update:modelValue', $event.target.value)"
                 @change="$emit('change', $event)"
-                ref="input"
+                ref="select"
                 :class="classEspecial"
             >
-                <option value="-1" :selected="selected">Selecciona una opción</option>
-                <option v-for="option in opciones" :value="option.id" >
-                    {{ option.text }}
+<!--                <option value="-1" :selected="selected">Selecciona una opción</option>-->
+                <option value="-1" selected>Selecciona una opción</option>
+                <option v-for="(item, index) in opciones" :key="index" :value="item.id" >
+                    {{ item.text }}
                 </option>
             </select>
             <div class="absolute inset-y-0 flex items-center ml-2 pointer-events-none">
@@ -42,13 +43,13 @@ const isLegend = props.isLegend != null;
 // defineEmits(['update:modelValue']);
 defineEmits(['update:modelValue','change']);
 
-const input = ref(null);
+const select = ref(null);
 onMounted(() => {
-    if (input.value.hasAttribute('autofocus')) {
-        input.value.focus();
+    if (select.value.hasAttribute('autofocus')) {
+        select.value.focus();
     }
     if (!isLegend) {
-        input.selected = true;
+        select.selected = true;
     }
 });
 

@@ -25,8 +25,8 @@ const form = useForm({
 const srcImg = ref('../storage/externo/1.gif');
 const msj = ref('');
 const classMsj = ref('hidden');
-const cLatitud = ref('/^(\+|-)?(?:90(?:(?:\.0{1,6})?)|(?:[0-9]|[1-8][0-9])(?:(?:\.[0-9]{1,6})?))$/');
-const cLongitud = ref('/^(\+|-)?(?:180(?:(?:\.0{1,6})?)|(?:[0-9]|[1-9][0-9]|1[0-7][0-9])(?:(?:\.[0-9]{1,6})?))$/');
+const cLatitud = ref('(?:[0-8]\d|90)(?:[0-5]\d)(?:[0-5]\d)[NS]');
+const cLongitud = ref('(?:0\d{2}|1[0-7]\d|180)(?:[0-5]\d)(?:[0-5]\d)[EW]');
 
 console.log(props.Refugio);
 

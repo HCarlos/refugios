@@ -19,11 +19,21 @@ class Refugio extends Model {
         'activado','poligono','categoria',
         'imagen','refugiorutaid',
         ];
-//    protected $casts = ['activado'=>'boolean',];
+    protected $casts = ['activado'=>'boolean',];
 
     public function ruta(){
         return $this->hasOne(RutaRefugio::class,'id','refugiorutaid');
+
     }
+
+    public function colonias(){
+//        return $this->belongsToMany(Colonia::class);
+        return $this->belongsToMany(Refugio::class,'colonia_refugio');
+    }
+
+
+
+
 
 
 

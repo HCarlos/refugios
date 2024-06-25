@@ -115,6 +115,8 @@ return [
             'denuncia_firma'                        => 'denuncia_firma',
             'logs'                                  => 'logs',
             'refugios'                              => 'refugios',
+            'colonias'                              => 'colonias',
+            'colonia_refugio'                       => 'colonia_refugio',
             'refugios_ruta'                         => 'refugios_ruta',
         ],
         'domicilios' => [

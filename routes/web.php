@@ -56,6 +56,9 @@ Route::middleware('auth')->group(function () {
     Route::get('modificar_punto/{Id}', [RefugiosController::class, 'modificar_punto'])->name('modificar_punto');
 
     Route::get('colonias', [ColoniasController::class, 'index'])->name('colonias');
+    Route::post('getRefugiosFromColoniasAuth', [RefugiosController::class, 'getRefugiosFromColoniasAuth'])->name('getRefugiosFromColoniasAuth');
+    Route::post('coloniarefugio.destroy', [ColoniasController::class, 'destroy'])->name('coloniarefugio.destroy');
+    Route::post('coloniarefugio.add', [ColoniasController::class, 'add'])->name('coloniarefugio.add');
 
 });
 
@@ -68,7 +71,6 @@ Route::get('savenewposition/{dom}/{pos}/{id}', [RefugiosController::class, 'save
 Route::get('getcolonias', [ColoniasController::class, 'getcolonias'])->name('getcolonias');
 Route::get('getrefugiosfromcolonias/{colonia_id}', [RefugiosController::class, 'getrefugiosfromcolonias'])->name('getrefugiosfromcolonias');
 
-Route::post('getRefugiosFromColoniasAuth', [RefugiosController::class, 'getRefugiosFromColoniasAuth'])->name('getRefugiosFromColoniasAuth');
 
 require __DIR__.'/auth.php';
 

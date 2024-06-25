@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Refugios;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Refugios\RefugiosUpdateRequest;
+use App\Models\Colonia;
 use App\Models\ColoniaRefugio;
 use App\Models\Refugio;
 use App\Models\RutaRefugio;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
@@ -50,7 +52,7 @@ class RefugiosController extends Controller {
         return Inertia::render('Refugios/Show', [
             'Refugio' => $refugio,
             'Rutas' => $rutas,
-            'ruta' => $refugio->ruta->ruta,
+            'Ruta' => $refugio->ruta->ruta,
             'status' => session('status'),
         ]);
     }
@@ -62,7 +64,7 @@ class RefugiosController extends Controller {
         return Inertia::render('Refugios/Create', [
             'Refugio' => $refugio,
             'Rutas' => $rutas,
-            'ruta' => $refugio->ruta->ruta,
+            'Ruta' => $refugio->ruta->ruta,
             'status' => session('status'),
         ]);
     }
@@ -78,8 +80,7 @@ class RefugiosController extends Controller {
         return redirect('refugio.show/'.$Ref->id)->with( 'success','Refugio actualizado');
     }
 
-    public function destroy(Request $request)
-    {
+    public function destroy(Request $request){
         //dd($request->id);
         $refugio = Refugio::find($request->id);
         $refugio->delete();
@@ -91,7 +92,7 @@ class RefugiosController extends Controller {
         $Refugios = Refugio::query()
             ->where('latitud', '>', 0)
             ->where('activado', 1)
-            ->orderByDesc('id')
+            ->orderBy('refugio')
             ->get();
         return $this->getDataRefugios($Refugios);
     }
@@ -126,7 +127,7 @@ class RefugiosController extends Controller {
 
 //       Aplica con Axios
         $refugios =  $this->getrefugiosfromcolonias($request->colonia_id);
-        $colonia = ColoniaRefugio::query()->where('colonia_id',$request->colonia_id)->first();
+        $colonia = Colonia::query()->where('colonia_id',$request->colonia_id)->first();
 
         return Response::json(['mensaje' => 'OK', 'refugios' => $refugios, 'colonia' => $colonia, 'status' => '200'], 200);
 
@@ -143,11 +144,13 @@ class RefugiosController extends Controller {
     }
 
     public function getrefugiosfromcolonias($colonia_id){
-        $qry = ColoniaRefugio::query()
-            ->where('colonia_id', $colonia_id)
-            ->get();
 
-//        dd($qry);
+        $qry = Refugio::query()
+            ->whereHas('colonias', function ( Builder $q) use ($colonia_id) {
+                $q->where("colonia_id", '=', $colonia_id);
+            })->get();
+
+//dd( $qry->count() );
 
         $arr = [];
         foreach ($qry as $q) {
@@ -159,7 +162,6 @@ class RefugiosController extends Controller {
             ->distinct()
             ->get();
 
-
         if (count($qry) > 0) {
             return  $this->getDataRefugios($qry);
         }
@@ -167,18 +169,17 @@ class RefugiosController extends Controller {
 
     }
 
-    public function getrefugiosfromcomunidad($colonia_id)
-    {
-        $comunidad = ColoniaRefugio::query()
+    public function getrefugiosfromcomunidad($colonia_id){
+        $comunidad = Colonia::query()
             ->select('comunidad_id')
-            ->where('colonia_id',$colonia_id)
+            ->where("colonia_id", $colonia_id)
             ->first();
 
         $comunidad_id = $comunidad->comunidad_id;
 
         //dd($comunidad_id);
 
-        $qry = ColoniaRefugio::query()
+        $qry = Colonia::query()
             ->where('comunidad_id', $comunidad_id)
             ->get();
 

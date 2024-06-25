@@ -9684,16 +9684,16 @@ article img {
 }
 .map-background {
   position: absolute;
-  top: 0;
+  top: 46px !important;
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 1;
+  z-index: 1 !important;
 }
 .section-contact-background [class^="span"],
 .section-contact-background [class*=" span"] {
   position: relative;
-  z-index: 2;
+  z-index: 6 !important;
 }
 .faq-item {
   margin-bottom: 2.5em;
@@ -10236,6 +10236,14 @@ footer .container .row {
   .btn-group > .btn {
     font-size: 18px;
   }
+    .map-background {
+        position: relative;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 80%;
+        z-index: 1 !important;
+    }
 }
 @media (min-width: 768px) and (max-width: 979px) {
   html {
@@ -10247,7 +10255,17 @@ footer .container .row {
   .btn-group > .btn {
     font-size: 11px;
   }
+    .map-background {
+        position: relative;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 80%;
+        z-index: 1 !important;
+    }
+
 }
+
 @media (max-width: 767px) {
   body {
     padding-left: 0;
@@ -10322,8 +10340,26 @@ footer .container .row {
   .tab-content .tab-pane {
     display: block;
   }
+    .map-background {
+        position: relative;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 80%;
+        z-index: 1 !important;
+    }
+
+
 }
 @media (max-width: 480px) {
+    .map-background {
+        position: relative;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 80%;
+        z-index: 1 !important;
+    }
 
 }
 @media (max-width: 767px) {
@@ -10370,4 +10406,14 @@ footer .container .row {
   .navbar .nav-collapse .dropdown-menu a:focus {
     background-color: transparent;
   }
+
+    .map-background {
+        position: relative;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 80%;
+        z-index: 1 !important;
+    }
+
 }

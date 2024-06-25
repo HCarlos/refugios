@@ -20,23 +20,30 @@ const frmColoniaRefugio = useForm({
     activado:0, refugiocolonia_id:0, zona:'',
     refugioruta_id:0, ruta:'', colonia1_id:0, colonia1:'',
     colonia_id:0, colonia:'', comunidad_id:0, comunidad:'',
-    tipocomunidad_id:0, tipocomunidad:0
+    tipocomunidad_id:0, tipocomunidad:0, nuevo_refugio_id:0
 });
 
 
 const props = defineProps({
     Colonias: {type: Object},
+    Refugios: {type: Object},
     flash: {type: Object}
 })
 
 const opcionesColonias = ref([]);
+const opcionesRefugios = ref([]);
 const opcionesCategorias = ref([]);
 const opcionesActivado = ref([]);
 let Refugios = ref([]);
 let ColoniaRefugio = ref([]);
+let nuevoRefugio = ref(0)
 
 props.Colonias.map( (row) => (
-    opcionesColonias.value.push({'id':row.colonia_id, 'text':row.colonia+' '+row.comunidad})
+    opcionesColonias.value.push({'id':row.colonia_id, 'text':row.colonia+' '+row.comunidad+' '+row.colonia_id})
+));
+
+props.Refugios.map( (row) => (
+    opcionesRefugios.value.push({'id':row.id, 'text':row.refugio+' ('+row.numero+')'})
 ));
 
 const showModalEliminar = ref(false);
@@ -46,12 +53,19 @@ const classMsjNoHayDatos = ref(  'hidden');
 const table = ref();
 const cr = ref();
 
+const showModalAgregarRefugio = ref(false);
+
 // Con AXIOS
 
-const getRefugios = async (e) => {
+const getRefugios = (e) => {
     classMsjNoHayDatos.value = 'hidden';
     Refugios.value = [];
     frmColoniaRefugio.colonia_id = e.target.value;
+    console.log(frmColoniaRefugio.colonia_id);
+    getRefugiosFromDB();
+};
+
+const getRefugiosFromDB = async () => {
     console.log(frmColoniaRefugio.colonia_id);
     try {
         const response = await axios.post("getRefugiosFromColoniasAuth", frmColoniaRefugio)
@@ -74,6 +88,9 @@ const getRefugios = async (e) => {
     }
 };
 
+
+
+
 const llenarColoniaRefugio = (cr) => {
     frmColoniaRefugio.id = cr.id;
     frmColoniaRefugio.numero = cr.numero;
@@ -94,6 +111,15 @@ const llenarColoniaRefugio = (cr) => {
     frmColoniaRefugio.latitud = cr.latitud;
     frmColoniaRefugio.longitud = cr.longitud;
 
+};
+
+
+
+const comboRefugios = async (e) => {
+    classMsjNoHayDatos.value = 'hidden';
+    nuevoRefugio.value = e.target.value;
+    frmColoniaRefugio.nuevo_refugio_id = nuevoRefugio.value;
+    console.log(frmColoniaRefugio.nuevo_refugio_id);
 };
 
 
@@ -137,15 +163,51 @@ const openModalEliminar = (b) => {
     showModalEliminar.value = true;
 };
 
+const openModalAgregarRefugio = (b) => {
+    frmColoniaRefugio.id = b.id;
+    frmColoniaRefugio.numero = b.numero;
+    frmColoniaRefugio.refugio = b.refugio;
+    showModalAgregarRefugio.value = true;
+};
+
 const closeModalEliminar = () => {
     showModalEliminar.value = false;
 };
 
+const closeModalAgregarRefugio = () => {
+    showModalAgregarRefugio.value = false;
+};
+
 
 const eliminarRefugio = () => {
+    console.log(frmColoniaRefugio.numero+' '+frmColoniaRefugio.colonia_id);
     frmColoniaRefugio.post(route('coloniarefugio.destroy',frmColoniaRefugio),{
         onSuccess: () => {
-            ok(props.flash.success);
+            if ( props.flash.mensaje === 'OK' ){
+                ok(props.flash.success);
+            }else{
+                ok(props.flash.error);
+            }
+        },
+        onError: () => {
+            ok(props.flash.error);
+        }
+    });
+};
+
+const agregarRefugio = () => {
+    console.log(frmColoniaRefugio.nuevo_refugio_id+' '+frmColoniaRefugio.colonia_id);
+    frmColoniaRefugio.post(route('coloniarefugio.add',frmColoniaRefugio),{
+        onSuccess: () => {
+            if ( props.flash.mensaje === 'OK' ){
+                ok(props.flash.success);
+                // getRefugios().refresh();
+            }else{
+                ok(props.flash.error);
+            }
+        },
+        onError: () => {
+            ok(props.flash.error);
         }
     });
 };
@@ -155,17 +217,19 @@ const eliminarRefugio = () => {
 
 const ok = (m) =>{
     closeModalEliminar();
+    closeModalAgregarRefugio();
     msg.value = m;
     console.log(msg.value);
-    classAlertMsg.value = 'block';
+    classAlertMsg.value = 'block bg-warning-800';
     setTimeout(()=>{
         classAlertMsg.value = 'hidden'
         msg.value='';
+        getRefugiosFromDB();
     },4200);
 }
 
 const editMapPointRefugio = (r) => {
-    window.open("/Refugios-getPosition.php?id=" + r.id);
+    window.open("/refugios-getPosition.php?id=" + r.id);
 };
 
 
@@ -197,13 +261,19 @@ var tituloUser = "Colonias";
 
         <div class="p-4 bg-white rounded-lg shadow-xs">
             <div class="inline-flex overflow-hidden mb-4 w-full bg-white rounded-lg shadow-md">
-
                 <div class="px-4 py-2 -mx-3">
                     <div class="mx-3">
-                        <SelectGroup :opciones="opcionesColonias"  @change="getRefugios($event)" :errors="frmColoniaRefugio.errors.colonia_id" :class-especial="'em15 bg-yellow-50'" />
-                        <span class="span">Haz seleccionado la colonia <small>{{frmColoniaRefugio.colonia_id}}</small></span>
+                        <SelectGroup :opciones="opcionesColonias"  @change="getRefugios($event)" :errors="frmColoniaRefugio.errors.colonia_id" :class-especial="'em25 bg-yellow-50'" />
+<!--                        <span class="span">Haz seleccionado la colonia <small>{{frmColoniaRefugio.colonia_id}}</small></span>-->
                     </div>
                 </div>
+                <PrimaryButton  @click="openModalAgregarRefugio(frmColoniaRefugio)" title="Agregar refugio" :type="'default'" :class-btn="'px-3 py-2 mt-3 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-emerald-600 border border-transparent rounded-lg active:bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:shadow-outline-emerald'">
+                    <slot name="icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                            <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 9a.75.75 0 0 0-1.5 0v2.25H9a.75.75 0 0 0 0 1.5h2.25V15a.75.75 0 0 0 1.5 0v-2.25H15a.75.75 0 0 0 0-1.5h-2.25V9Z" clip-rule="evenodd" />
+                        </svg>
+                    </slot>
+                </PrimaryButton>
             </div>
             <AlertSuccess :classMsg="classAlertMsg" :Msg="msg" classIcon="text-green-800">
                 <slot name="icon">
@@ -271,20 +341,16 @@ var tituloUser = "Colonias";
                                 </DangerButton>
                             </td>
                         </tr>
-                        <AlertWarning :classMsg="classMsjNoHayDatos" :Msg="'No se encontraron Refugios'" classIcon="text-orange-800">
-                            <slot name="icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
-                                    <path fill-rule="evenodd" d="M9.401 3.003c1.155-2 4.043-2 5.197 0l7.355 12.748c1.154 2-.29 4.5-2.599 4.5H4.645c-2.309 0-3.752-2.5-2.598-4.5L9.4 3.003ZM12 8.25a.75.75 0 0 1 .75.75v3.75a.75.75 0 0 1-1.5 0V9a.75.75 0 0 1 .75-.75Zm0 8.25a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z" clip-rule="evenodd" />
-                                </svg>
-                            </slot>
-                        </AlertWarning>
                         </tbody>
                     </table>
+                    <AlertWarning :classMsg="classMsjNoHayDatos" :Msg="'No se encontraron Refugios'" classIcon="text-orange-800">
+                        <slot name="icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                                <path fill-rule="evenodd" d="M9.401 3.003c1.155-2 4.043-2 5.197 0l7.355 12.748c1.154 2-.29 4.5-2.599 4.5H4.645c-2.309 0-3.752-2.5-2.598-4.5L9.4 3.003ZM12 8.25a.75.75 0 0 1 .75.75v3.75a.75.75 0 0 1-1.5 0V9a.75.75 0 0 1 .75-.75Zm0 8.25a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z" clip-rule="evenodd" />
+                            </svg>
+                        </slot>
+                    </AlertWarning>
                 </div>
-<!--                <div-->
-<!--                    class="px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase bg-gray-50 border-t sm:grid-cols-9">-->
-<!--                    <pagination :links="Refugios.links" />-->
-<!--                </div>-->
             </div>
 
 
@@ -294,16 +360,38 @@ var tituloUser = "Colonias";
         <Modal :show="showModalEliminar" @close="closeModalEliminar">
             <div class="p-6">
                 <p>
-                    Quiéres eliminar este refugio
-                    <span class="text-2x1 font-medium text-gray-900">{{frmColoniaRefugio.refugio}} ? </span>
+                    ¿Quiéres quitar
+                    <span class="text-2x1 font-medium text-orange-700">{{ColoniaRefugio.colonia}} </span>
+                    del refugio
+                    <span class="text-2x1 font-medium text-purple-800">{{frmColoniaRefugio.refugio}} </span> ?
                 </p>
 
             </div>
             <div class="m-6 flex justify-end">
-                <PrimaryButton @click="eliminarRefugio" class="mr-4">Si, eliminalo</PrimaryButton>
+                <PrimaryButton @click="eliminarRefugio" class="mr-4">Si, elimínalo</PrimaryButton>
                 <SecondaryButton @click="closeModalEliminar">Cancelar</SecondaryButton>
             </div>
         </Modal>
+
+        <Modal :show="showModalAgregarRefugio" @close="closeModalAgregarRefugio">
+            <div class="p-6">
+                <SelectGroup :opciones="opcionesRefugios" @change="comboRefugios($event)" :errors="frmColoniaRefugio.errors.refugio" :class-especial="'em25 bg-yellow-50'" />
+                <br/>
+                <br/>
+                <p>
+                    ¿Quiéres agregar
+                    <span class="text-2x1 font-medium text-orange-700">{{frmColoniaRefugio.nuevo_refugio_id}} </span>
+                    a la colonia
+                    <span class="text-2x1 font-medium text-purple-800">{{ColoniaRefugio.colonia}} </span> ?
+                </p>
+
+            </div>
+            <div class="m-6 flex justify-end">
+                <PrimaryButton @click="agregarRefugio" class="mr-4">Agregar</PrimaryButton>
+                <SecondaryButton @click="closeModalAgregarRefugio">Cancelar</SecondaryButton>
+            </div>
+        </Modal>
+
     </AuthenticatedLayout>
 </template>
 <!--<style>-->
