@@ -28,7 +28,6 @@ class ColoniasController extends Controller{
 
     private function getQueryColonias(){
         return Colonia::query()
-            ->select('colonia_id','colonia','comunidad')
             ->orderBy('colonia')
             ->distinct()
             ->get();
@@ -36,16 +35,19 @@ class ColoniasController extends Controller{
 
     public function add(Request $request){
 
-        $colonia_id = $request->colonia_id;
+        $colonia_id = $request->id;
         $nuevo_refugio_id = $request->nuevo_refugio_id;
         $paso = false;
 
         $Col = Colonia::find($colonia_id);
-        if ($Col){
+
+        if ($Col !== null){
             try {
-                $Col->refugios()->attach($nuevo_refugio_id);
+                $ref = Refugio::find($nuevo_refugio_id);
+                $Col->refugios()->attach($ref->id);
+                $paso = true;
             }catch (\Exception $e){ }
-            $paso = true;
+//            dd($e->getMessage());
         }
         if ($paso){
             return redirect()->back()
@@ -61,9 +63,9 @@ class ColoniasController extends Controller{
 
     public function destroy(Request $request){
 
-        $colonia_id = $request->colonia_id;
+        $colonia_id = $request->id;
         $numero     = $request->numero;
-        $Id         = $request->id;
+        $Id         = $request->refugio_id;
         $paso       = false;
 
         $Col = Colonia::find($colonia_id);

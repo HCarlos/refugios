@@ -20,7 +20,8 @@ const frmColoniaRefugio = useForm({
     activado:0, refugiocolonia_id:0, zona:'',
     refugioruta_id:0, ruta:'', colonia1_id:0, colonia1:'',
     colonia_id:0, colonia:'', comunidad_id:0, comunidad:'',
-    tipocomunidad_id:0, tipocomunidad:0, nuevo_refugio_id:0
+    tipocomunidad_id:0, tipocomunidad:0, nuevo_refugio_id:0,
+    nuevo_refugio:''
 });
 
 
@@ -36,10 +37,10 @@ const opcionesCategorias = ref([]);
 const opcionesActivado = ref([]);
 let Refugios = ref([]);
 let ColoniaRefugio = ref([]);
-let nuevoRefugio = ref(0)
+let NuevoRefugio = ref([])
 
 props.Colonias.map( (row) => (
-    opcionesColonias.value.push({'id':row.colonia_id, 'text':row.colonia+' '+row.comunidad+' '+row.colonia_id})
+    opcionesColonias.value.push({'id':row.id, 'text':row.colonia+' '+row.comunidad+' '+row.id})
 ));
 
 props.Refugios.map( (row) => (
@@ -60,20 +61,20 @@ const showModalAgregarRefugio = ref(false);
 const getRefugios = (e) => {
     classMsjNoHayDatos.value = 'hidden';
     Refugios.value = [];
-    frmColoniaRefugio.colonia_id = e.target.value;
-    console.log(frmColoniaRefugio.colonia_id);
+    frmColoniaRefugio.id = e.target.value;
+    console.log(frmColoniaRefugio.id);
     getRefugiosFromDB();
 };
 
 const getRefugiosFromDB = async () => {
-    console.log(frmColoniaRefugio.colonia_id);
+    console.log(frmColoniaRefugio.id);
     try {
         const response = await axios.post("getRefugiosFromColoniasAuth", frmColoniaRefugio)
             .then(response => {
                 console.log("Datos recibidos:", response.data.refugios.original.mensaje);
                 if (response.data.refugios.original.mensaje === 'OK') {
                     Refugios.value = response.data.refugios.original;
-                    console.log("Colonia recibida:", response.data.colonia.colonia1);
+                    console.log("Colonia recibida:", response.data.colonia.colonia);
                     ColoniaRefugio.value = response.data.colonia;
                     llenarColoniaRefugio(ColoniaRefugio.value);
                 }else {
@@ -117,56 +118,21 @@ const llenarColoniaRefugio = (cr) => {
 
 const comboRefugios = async (e) => {
     classMsjNoHayDatos.value = 'hidden';
-    nuevoRefugio.value = e.target.value;
-    frmColoniaRefugio.nuevo_refugio_id = nuevoRefugio.value;
-    console.log(frmColoniaRefugio.nuevo_refugio_id);
+    NuevoRefugio.nuevo_refugio_id = e.target.value;
+    NuevoRefugio.nuevo_refugio = e.target.text;
+    frmColoniaRefugio.nuevo_refugio_id = e.target.value;
+    frmColoniaRefugio.nuevo_refugio = NuevoRefugio.nuevo_refugio;
+    console.log(frmColoniaRefugio.nuevo_refugio_id+'_'+frmColoniaRefugio.colonia_id);
 };
 
-
-// Con VUE3
-
-// const getRefugios = async (e) => {
-//     frmColoniaRefugio.colonia_id = e.target.value;
-//     console.log(frmColoniaRefugio.colonia_id);
-//     classMsjNoHayDatos.value = 'hidden';
-//     Refugios.value = [];
-//     try {
-//         frmColoniaRefugio.post(route("getRefugiosFromColoniasAuth", frmColoniaRefugio),{
-//             onSuccess: (response) => {
-//                 console.log("Datos recibidos:", response.props.flash.refugios.original.mensaje);
-//                 Refugios.value = response.props.flash.refugios.original;
-//                    if (response.props.flash.refugios.original.mensaje === 'OK') {
-//                        Refugios.value = response.props.flash.refugios.original;
-//                    }else {
-//                        classMsjNoHayDatos.value = 'block';
-//                    }
-//             },
-//             onError: (response) => {
-//                 console.log(response.props.flash.data.original.mensaje);
-//             }
-//         });
-//     } catch (error) {
-//         console.error("Error al obtener los datos: ", error);
-//     }
-// };
-
-
-
-
-
-
-
 const openModalEliminar = (b) => {
-    frmColoniaRefugio.id = b.id;
+    frmColoniaRefugio.refugio_id = b.id;
     frmColoniaRefugio.numero = b.numero;
     frmColoniaRefugio.refugio = b.refugio;
     showModalEliminar.value = true;
 };
 
 const openModalAgregarRefugio = (b) => {
-    frmColoniaRefugio.id = b.id;
-    frmColoniaRefugio.numero = b.numero;
-    frmColoniaRefugio.refugio = b.refugio;
     showModalAgregarRefugio.value = true;
 };
 
@@ -180,7 +146,7 @@ const closeModalAgregarRefugio = () => {
 
 
 const eliminarRefugio = () => {
-    console.log(frmColoniaRefugio.numero+' '+frmColoniaRefugio.colonia_id);
+    console.log(frmColoniaRefugio.refugio_id+' '+frmColoniaRefugio.id);
     frmColoniaRefugio.post(route('coloniarefugio.destroy',frmColoniaRefugio),{
         onSuccess: () => {
             if ( props.flash.mensaje === 'OK' ){
@@ -196,12 +162,11 @@ const eliminarRefugio = () => {
 };
 
 const agregarRefugio = () => {
-    console.log(frmColoniaRefugio.nuevo_refugio_id+' '+frmColoniaRefugio.colonia_id);
+    console.log(frmColoniaRefugio.nuevo_refugio_id+' '+frmColoniaRefugio.id);
     frmColoniaRefugio.post(route('coloniarefugio.add',frmColoniaRefugio),{
         onSuccess: () => {
             if ( props.flash.mensaje === 'OK' ){
                 ok(props.flash.success);
-                // getRefugios().refresh();
             }else{
                 ok(props.flash.error);
             }
@@ -379,10 +344,10 @@ var tituloUser = "Colonias";
                 <br/>
                 <br/>
                 <p>
-                    ¿Quiéres agregar
-                    <span class="text-2x1 font-medium text-orange-700">{{frmColoniaRefugio.nuevo_refugio_id}} </span>
+                    ¿Quiéres agregar el refugio
+                    <span class="text-2x1 font-medium text-orange-700">{{frmColoniaRefugio.nuevo_refugio}} </span>
                     a la colonia
-                    <span class="text-2x1 font-medium text-purple-800">{{ColoniaRefugio.colonia}} </span> ?
+                    <span class="text-2x1 font-medium text-purple-800">{{frmColoniaRefugio.colonia}} </span> ?
                 </p>
 
             </div>

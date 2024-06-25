@@ -92,7 +92,7 @@ class RefugiosController extends Controller {
         $Refugios = Refugio::query()
             ->where('latitud', '>', 0)
             ->where('activado', 1)
-            ->orderBy('refugio')
+            ->orderByDesc('id')
             ->get();
         return $this->getDataRefugios($Refugios);
     }
@@ -126,8 +126,8 @@ class RefugiosController extends Controller {
     public function getRefugiosFromColoniasAuth(Request $request){
 
 //       Aplica con Axios
-        $refugios =  $this->getrefugiosfromcolonias($request->colonia_id);
-        $colonia = Colonia::query()->where('colonia_id',$request->colonia_id)->first();
+        $refugios =  $this->getrefugiosfromcolonias($request->id);
+        $colonia = Colonia::query()->where('id',$request->id)->first();
 
         return Response::json(['mensaje' => 'OK', 'refugios' => $refugios, 'colonia' => $colonia, 'status' => '200'], 200);
 
@@ -172,7 +172,7 @@ class RefugiosController extends Controller {
     public function getrefugiosfromcomunidad($colonia_id){
         $comunidad = Colonia::query()
             ->select('comunidad_id')
-            ->where("colonia_id", $colonia_id)
+            ->where("id", $colonia_id)
             ->first();
 
         $comunidad_id = $comunidad->comunidad_id;
@@ -196,8 +196,6 @@ class RefugiosController extends Controller {
                 ->whereIn('numero', $arr)
                 ->distinct()
                 ->get();
-
-//            dd($qry);
 
             if (count($qry) > 0) {
                 return $this->getDataRefugios($qry);
