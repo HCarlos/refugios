@@ -1,6 +1,5 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import Pagination from '@/Components/Pagination.vue';
 import {Head, useForm} from '@inertiajs/vue3';
 import NavLink from "@/Components/NavLink.vue";
 import SecondaryButton from "@/Components/SecondaryButton.vue";
@@ -8,12 +7,25 @@ import PrimaryButton from "@/Components/PrimaryButton.vue";
 import Modal from "@/Components/Modal.vue";
 import DangerButton from "@/Components/DangerButton.vue";
 import AlertSuccess from "@/Components/AlertSuccess.vue";
-import {onMounted, ref} from "vue"
+import {ref} from "vue"
 import DarkButton from "@/Components/DarkButton.vue";
 import SelectGroup from "@/Components/SelectGroup.vue";
-import InputGroup from "@/Components/InputGroup.vue";
 import axios from 'axios'
 import AlertWarning from "@/Components/AlertWarning.vue";
+
+const opcionesColonias = ref([]);
+const opcionesRefugios = ref([]);
+const opcionesCategorias = ref([]);
+const opcionesActivado = ref([]);
+let Refugios = ref([]);
+let ColoniaRefugio = ref([]);
+// let NuevoRefugio = ref([])
+
+const props = defineProps({
+    Colonias: {type: Object},
+    Refugios: {type: Object},
+    flash: {type: Object}
+})
 
 const frmColoniaRefugio = useForm({
     id:0, refugio_id:0, numero:0, latitud:0.00, longitud:0.00,
@@ -24,21 +36,6 @@ const frmColoniaRefugio = useForm({
     nuevo_refugio:''
 });
 
-
-const props = defineProps({
-    Colonias: {type: Object},
-    Refugios: {type: Object},
-    flash: {type: Object}
-})
-
-const opcionesColonias = ref([]);
-const opcionesRefugios = ref([]);
-const opcionesCategorias = ref([]);
-const opcionesActivado = ref([]);
-let Refugios = ref([]);
-let ColoniaRefugio = ref([]);
-let NuevoRefugio = ref([])
-
 props.Colonias.map( (row) => (
     opcionesColonias.value.push({'id':row.id, 'text':row.colonia+' '+row.comunidad+' '+row.id})
 ));
@@ -48,13 +45,11 @@ props.Refugios.map( (row) => (
 ));
 
 const showModalEliminar = ref(false);
-const msg = ref( (props.flash.success != null) ? props.flash.success : '');
+const showModalAgregarRefugio = ref(false);
 const classAlertMsg = ref( (props.flash.success != null) ? '' : 'hidden');
 const classMsjNoHayDatos = ref(  'hidden');
-const table = ref();
-const cr = ref();
+const msg = ref( (props.flash.success != null) ? props.flash.success : '');
 
-const showModalAgregarRefugio = ref(false);
 
 // Con AXIOS
 
@@ -111,24 +106,22 @@ const llenarColoniaRefugio = (cr) => {
     frmColoniaRefugio.zona = cr.zona;
     frmColoniaRefugio.latitud = cr.latitud;
     frmColoniaRefugio.longitud = cr.longitud;
-
 };
-
-
 
 const comboRefugios = async (e) => {
     classMsjNoHayDatos.value = 'hidden';
-    NuevoRefugio.nuevo_refugio_id = e.target.value;
-    NuevoRefugio.nuevo_refugio = e.target.text;
+    // NuevoRefugio.nuevo_refugio_id = e.target.value;
+    // NuevoRefugio.nuevo_refugio = e.target.text;
     frmColoniaRefugio.nuevo_refugio_id = e.target.value;
-    frmColoniaRefugio.nuevo_refugio = NuevoRefugio.nuevo_refugio;
+    // frmColoniaRefugio.nuevo_refugio = NuevoRefugio.nuevo_refugio;
+    frmColoniaRefugio.nuevo_refugio = e.target.text;
     console.log(frmColoniaRefugio.nuevo_refugio_id+'_'+frmColoniaRefugio.colonia_id);
 };
 
 const openModalEliminar = (b) => {
     frmColoniaRefugio.refugio_id = b.id;
-    frmColoniaRefugio.numero = b.numero;
-    frmColoniaRefugio.refugio = b.refugio;
+    // frmColoniaRefugio.numero = b.numero;
+    // frmColoniaRefugio.refugio = b.refugio;
     showModalEliminar.value = true;
 };
 
@@ -190,7 +183,7 @@ const ok = (m) =>{
         classAlertMsg.value = 'hidden'
         msg.value='';
         getRefugiosFromDB();
-    },4200);
+    },3000);
 }
 
 const editMapPointRefugio = (r) => {
@@ -208,31 +201,15 @@ var tituloUser = "Colonias";
     <AuthenticatedLayout>
         <template #header>
             {{ tituloUser }}
-
-
         </template>
-        <!--        <div>-->
-        <!--        <DataTable-->
-        <!--            class="display"-->
-        <!--            :columns="columns"-->
-        <!--            :data="data"-->
-        <!--            :options="{ select: true }"-->
-        <!--            ref="table"-->
-        <!--        />-->
-        <!--        </div>-->
-
-
-
-
         <div class="p-4 bg-white rounded-lg shadow-xs">
             <div class="inline-flex overflow-hidden mb-4 w-full bg-white rounded-lg shadow-md">
                 <div class="px-4 py-2 -mx-3">
                     <div class="mx-3">
                         <SelectGroup :opciones="opcionesColonias"  @change="getRefugios($event)" :errors="frmColoniaRefugio.errors.colonia_id" :class-especial="'em25 bg-yellow-50'" />
-<!--                        <span class="span">Haz seleccionado la colonia <small>{{frmColoniaRefugio.colonia_id}}</small></span>-->
                     </div>
                 </div>
-                <PrimaryButton  @click="openModalAgregarRefugio(frmColoniaRefugio)" title="Agregar refugio" :type="'default'" :class-btn="'px-3 py-2 mt-3 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-emerald-600 border border-transparent rounded-lg active:bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:shadow-outline-emerald'">
+                <PrimaryButton  @click="openModalAgregarRefugio(frmColoniaRefugio)" title="Agregar refugio" :type="'default'" :classBtn="'px-3 py-2 mt-3 text-sm font-medium leading-5 text-white transition-colors duration-150 rojo-morena border border-transparent rounded-lg active:bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:shadow-outline-emerald'">
                     <slot name="icon">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
                             <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 9a.75.75 0 0 0-1.5 0v2.25H9a.75.75 0 0 0 0 1.5h2.25V15a.75.75 0 0 0 1.5 0v-2.25H15a.75.75 0 0 0 0-1.5h-2.25V9Z" clip-rule="evenodd" />
@@ -333,7 +310,7 @@ var tituloUser = "Colonias";
 
             </div>
             <div class="m-6 flex justify-end">
-                <PrimaryButton @click="eliminarRefugio" class="mr-4">Si, elimínalo</PrimaryButton>
+                <PrimaryButton @click="eliminarRefugio" class="mr-4" :class-btn="'rojo-morena'">Si, elimínalo</PrimaryButton>
                 <SecondaryButton @click="closeModalEliminar">Cancelar</SecondaryButton>
             </div>
         </Modal>
@@ -352,7 +329,7 @@ var tituloUser = "Colonias";
 
             </div>
             <div class="m-6 flex justify-end">
-                <PrimaryButton @click="agregarRefugio" class="mr-4">Agregar</PrimaryButton>
+                <PrimaryButton @click="agregarRefugio" class="mr-4" :class-btn="'rojo-morena'">Agregar</PrimaryButton>
                 <SecondaryButton @click="closeModalAgregarRefugio">Cancelar</SecondaryButton>
             </div>
         </Modal>
