@@ -90,9 +90,6 @@
                 <div class="span4">
                     <div class="panel panel-success">
                         <div class="panel-body">
-                            <!--                        <label for="selCombo0" class="lblH2cmb">1.- Selecciona el Tipo de Comunidad donde vives </label>-->
-                            <!--                        <select name="selCombo0" class="span3" size="1" >-->
-                            <!--                        </select>-->
                             <label for="listDesde0" class="lblH2">Selecciona tu Comunidad</label>
                             <select class="listDesde0 span3" name="listDesde0" size="1" > </select>
                         </div>
@@ -387,7 +384,7 @@
                     ) {
                         Colonia = Colonia + ' ' + item.comunidad;
                     }
-                    $("select[name=listDesde0]").append('<option value="' + item.colonia_id + '">' + Colonia + '</option>');
+                    $("select[name=listDesde0]").append('<option value="' + item.id + '">' + Colonia + '</option>');
                 });
             }else{
                 alert(json.mensaje);
