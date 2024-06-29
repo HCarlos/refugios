@@ -232,8 +232,8 @@ class RefugiosController extends Controller {
                     'categoria' => $refugio->categoria,
                     'imagen' => $refugio->imagen,
                     'refugiorutaid' => $refugio->refugiorutaid,
-                    'ruta' => $refugio->ruta->ruta,
-                    'zona' => $refugio->ruta->zona,
+                    'ruta' => $refugio->ruta->ruta ?? '',
+                    'zona' => $refugio->ruta->zona ?? '',
                 ];
                 // $refArray-> = $fill;
                 $refArray[] = $fill;

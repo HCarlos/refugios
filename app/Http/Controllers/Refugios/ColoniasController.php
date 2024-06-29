@@ -21,6 +21,14 @@ class ColoniasController extends Controller{
         ]);
     }
 
+    public function indexDT(){
+        $Refugios = Refugio::query()->orderBy('refugio')->get();
+        return Inertia::render('Refugios/ListaColoniasDT', [
+            'Colonias' => $this->getQueryColonias(),
+            'Refugios' => $Refugios,
+        ]);
+    }
+
 
     public function getcolonias(){
         return Response::json(['mensaje' => 'OK', 'data' => $this->getQueryColonias(), 'status' => '200'], 200);
