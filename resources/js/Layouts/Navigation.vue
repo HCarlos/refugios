@@ -2,7 +2,7 @@
   <aside class="z-20 hidden w-64 overflow-y-auto bg-purple-900 md:block flex-shrink-0" style="background-color: #822B30 !important;">
     <div class="py-4 text-white">
       <Link class="ml-6 text-lg font-bold text-gray-100" :href="route('dashboard')">
-        Refugios
+          {{ publicEnvVar }}
       </Link>
 
       <ul class="mt-6">
@@ -83,11 +83,14 @@ export default {
     Link,
   },
 
+
   setup() {
     let showingTwoLevelMenu = ref(false)
+      const publicEnvVar = import.meta.env.VITE_APP_NAME;
 
     return {
-      showingTwoLevelMenu
+      showingTwoLevelMenu,
+        publicEnvVar
     }
   },
 }
