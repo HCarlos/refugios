@@ -17,10 +17,11 @@ use Illuminate\Support\Facades\Response;
 class RefugiosController extends Controller {
     protected $tableName = "refugios";
 
-    public function index()
-    {
+    public function index(){
+        $refugios = Refugio::all()->sortBy('numero');
+        //dd($refugios);
         return Inertia::render('Refugios/Index', [
-            'Refugios' => Refugio::query()->orderBy('numero')->paginate(1000)
+            'Refugios' => Refugio::query()->orderBy('numero')->get(),
         ]);
     }
 
@@ -81,10 +82,8 @@ class RefugiosController extends Controller {
     }
 
     public function destroy(Request $request){
-        //dd($request->id);
         $refugio = Refugio::find($request->id);
         $refugio->delete();
-        // return Redirect::to('/');
         return redirect('refugios')->with('success','Refugio eliminado con éxito.');
     }
 
@@ -109,10 +108,6 @@ class RefugiosController extends Controller {
     public function getrefugioShow($Refugio){
         $refugio = Refugio::find($Refugio);
         return redirect()->away('/refugios-getPosition.php?id=' . $refugio->id);
-//        return redirect()->away("window.open(www.google.com');");
-
-//        $triggersms = file_get_contents('/refugios-getPosition.php?id=' . $refugio->id);
-//        return $triggersms;
 
     }
     public function getrefugio($Id){
@@ -130,16 +125,6 @@ class RefugiosController extends Controller {
         $colonia = Colonia::query()->where('id',$request->id)->first();
 
         return Response::json(['mensaje' => 'OK', 'refugios' => $refugios, 'colonia' => $colonia, 'status' => '200'], 200);
-
-
-//       Aplica con Vue3
-//        $datos =  $this->getrefugiosfromcolonias($request->colonia_id);
-//        return redirect()->back()
-//            ->with('mensaje', 'OK')
-//            ->with('success', 'Settings saved successfully')
-//            ->with('data', $datos);
-
-
 
     }
 

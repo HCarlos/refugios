@@ -10,6 +10,7 @@ import {onMounted, ref} from "vue"
 import SelectGroup from "@/Components/SelectGroup.vue";
 import axios from 'axios'
 import AlertWarning from "@/Components/AlertWarning.vue";
+import AceptarButton from "@/Components/AceptarButton.vue";
 import DataTable from 'datatables.net-vue3';
 // import {DataTablesCore, DataTablesLib} from 'datatables.net';
 import DataTablesLib from 'datatables.net';
@@ -24,8 +25,6 @@ DataTable.use(DataTablesLib);
 
 const opcionesColonias = ref([]);
 const opcionesRefugios = ref([]);
-const opcionesCategorias = ref([]);
-const opcionesActivado = ref([]);
 let Refugios = ref([]);
 let ColoniaRefugio = ref([]);
 
@@ -56,7 +55,8 @@ const showModalEliminar = ref(false);
 const showModalAgregarRefugio = ref(false);
 const showButtonAgregar = ref(false);
 const showButtonPoint = ref(false);
-const classAlertMsg = ref( (props.flash.success != null) ? '' : 'hidden');
+// const classAlertMsg = ref( (props.flash.success != null) ? '' : 'hidden');
+const classAlertMsg = ref( 'hidden');
 const classMsjNoHayDatos = ref(  'hidden');
 const msg = ref( (props.flash.success != null) ? props.flash.success : '');
 const table = ref();
@@ -68,7 +68,6 @@ onMounted(function () {
 });
 
 
-// Con AXIOS
 
 const getRefugios = (e) => {
     classMsjNoHayDatos.value = 'hidden';
@@ -78,6 +77,7 @@ const getRefugios = (e) => {
     getRefugiosFromDB();
 };
 
+// Con AXIOS
 const getRefugiosFromDB = async () => {
     showButtonAgregar.value = false;
     showButtonPoint.value = false;
@@ -148,10 +148,7 @@ const llenarColoniaRefugio = (cr) => {
 
 const comboRefugios = async (e) => {
     classMsjNoHayDatos.value = 'hidden';
-    // NuevoRefugio.nuevo_refugio_id = e.target.value;
-    // NuevoRefugio.nuevo_refugio = e.target.text;
     frmColoniaRefugio.nuevo_refugio_id = e.target.value;
-    // frmColoniaRefugio.nuevo_refugio = NuevoRefugio.nuevo_refugio;
     frmColoniaRefugio.nuevo_refugio = e.target.text;
     console.log(frmColoniaRefugio.nuevo_refugio_id+'_'+frmColoniaRefugio.colonia_id);
 };
@@ -307,9 +304,9 @@ var tituloUser = "Colonias DT";
                         :options="options"
                         ref="table"
                         @select="itemSeleccionado"
+                        @deselect="itemSeleccionado"
                         class="table table-striped table-bordered table-hover w-full whitespace-no-wrap display"
                     >
-<!--                        class="w-full whitespace-no-wrap display"-->
                         <thead>
                         <tr class="text-xs font-bold tracking-wide text-left text-blue-500 uppercase bg-gray-300 border-b">
                             <th class="px-4 py-3">ID</th>
@@ -345,8 +342,8 @@ var tituloUser = "Colonias DT";
 
             </div>
             <div class="m-6 flex justify-end ">
-                <PrimaryButton :show="true" @click="eliminarRefugio" class="mr-4" :class-btn="'px-3 py-2 mt-3 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-lg active:bg-red-600 hover:bg-red-700 focus:outline-none focus:shadow-outline-red'">Si, elimínalo</PrimaryButton>
-                <SecondaryButton @click="closeModalEliminar">Cancelar</SecondaryButton>
+                <AceptarButton @click="eliminarRefugio">Si, elimínalo</AceptarButton>
+                <SecondaryButton @click="closeModalEliminar" class="ml-4">Cancelar</SecondaryButton>
             </div>
         </Modal>
 
@@ -363,8 +360,8 @@ var tituloUser = "Colonias DT";
                 </p>
             </div>
             <div class="m-6 flex justify-end">
-                <PrimaryButton :show="true" @click="agregarRefugio" class="mr-4" :class-btn="'px-3 py-2 mt-3 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-lg active:bg-red-600 hover:bg-red-700 focus:outline-none focus:shadow-outline-red rojo-morena'">Agregar</PrimaryButton>
-                <SecondaryButton @click="closeModalAgregarRefugio">Cancelar</SecondaryButton>
+                <AceptarButton @click="agregarRefugio" >Agregar</AceptarButton>
+                <SecondaryButton @click="closeModalAgregarRefugio" class="ml-4">Cancelar</SecondaryButton>
             </div>
         </Modal>
     </AuthenticatedLayout>

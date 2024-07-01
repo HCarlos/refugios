@@ -5,6 +5,7 @@ import InputGroup from "@/Components/InputGroup.vue";
 import SelectGroup from "@/Components/SelectGroup.vue";
 import {computed, ref} from "vue";
 import AlertSuccess from "@/Components/AlertSuccess.vue";
+import AceptarButton from "@/Components/AceptarButton.vue";
 
 const props = defineProps({
     Refugio: {type: Object},
@@ -214,9 +215,9 @@ const showImg = (e) => {
 <!--                <input type="hidden" v-model="form.imagen" value="{{form.imagen}}" >-->
 
 <!--                <InputError class="mt-1" :message="form.errors.ubicacion" />-->
-                <PrimaryButton class="mt-4 float-right" >
+                <AceptarButton class="mt-4 float-right " >
                     Guardar
-                </PrimaryButton>
+                </AceptarButton>
                 </form>
             </div>
             <div class="min-w-0 p-4 rounded-lg shadow-xs">
