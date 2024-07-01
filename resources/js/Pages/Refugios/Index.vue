@@ -1,18 +1,13 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import Pagination from '@/Components/Pagination.vue';
 import {Head, useForm} from '@inertiajs/vue3';
 import NavLink from "@/Components/NavLink.vue";
 import SecondaryButton from "@/Components/SecondaryButton.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import Modal from "@/Components/Modal.vue";
-import DangerButton from "@/Components/DangerButton.vue";
 import AlertSuccess from "@/Components/AlertSuccess.vue";
 import {onMounted, ref} from "vue"
-import DarkButton from "@/Components/DarkButton.vue";
 import DataTable from 'datatables.net-vue3';
-   // import {DataTablesCore, DataTablesLib} from 'datatables.net';
-import DataTablesLib from 'datatables.net';
 import DataTablesCore from 'datatables.net-bs5';
 
 import 'datatables.net-select';

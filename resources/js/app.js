@@ -1,15 +1,16 @@
 import './bootstrap';
 import '../css/app.css';
-// import 'https://polyfill.io/v3/polyfill.min.js?features=default';
-// import 'https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true&libraries=weather&key=AIzaSyB0mmrw3wLssGqd1eUKWAH43GEcn5bm8-s&callback=initMap&v=weekly';
-// import $ from "jquery";
 
 import { createApp, h } from 'vue';
 import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy';
+import { useFavicon } from '@vueuse/core'
 
-const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
+const appName = import.meta.env.VITE_APP_NAME || 'Danger-DevCH';
+
+const icon = useFavicon()
+icon.value = 'favicon.png'
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
