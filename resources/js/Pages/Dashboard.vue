@@ -21,7 +21,7 @@ const props = defineProps({
 		</template>
 
 		<div class="p-4 bg-white rounded-lg shadow-xs">
-			Bienvenido {{ $page.props.auth.user.full_name }}!
+			Bienvenido <strong class="text-green-800 uppercase">{{ $page.props.auth.user.full_name }}</strong>!
 		</div>
         <div class="p-4 bg-white rounded-lg shadow-xs">
 

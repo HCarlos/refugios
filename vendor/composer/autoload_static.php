@@ -343,13 +343,13 @@ class ComposerStaticInitda9b7a1dc1dd923105198c572cc7df8d
         ),
         'Spatie\\LaravelIgnition\\' => 
         array (
-            0 => __DIR__ . '/..' . '/spatie/laravel-ignition/src',
-            1 => __DIR__ . '/..' . '/spatie/error-solutions/legacy/laravel-ignition',
+            0 => __DIR__ . '/..' . '/spatie/error-solutions/legacy/laravel-ignition',
+            1 => __DIR__ . '/..' . '/spatie/laravel-ignition/src',
         ),
         'Spatie\\Ignition\\' => 
         array (
-            0 => __DIR__ . '/..' . '/spatie/ignition/src',
-            1 => __DIR__ . '/..' . '/spatie/error-solutions/legacy/ignition',
+            0 => __DIR__ . '/..' . '/spatie/error-solutions/legacy/ignition',
+            1 => __DIR__ . '/..' . '/spatie/ignition/src',
         ),
         'Spatie\\FlareClient\\' => 
         array (
@@ -587,6 +587,7 @@ class ComposerStaticInitda9b7a1dc1dd923105198c572cc7df8d
         'App\\Classes\\FuncionesController' => __DIR__ . '/../..' . '/app/Classes/FuncionesController.php',
         'App\\Classes\\MessageAlertClass' => __DIR__ . '/../..' . '/app/Classes/MessageAlertClass.php',
         'App\\Classes\\MyPassword' => __DIR__ . '/../..' . '/app/Classes/MyPassword.php',
+        'App\\Console\\Commands\\LogTimeCommand' => __DIR__ . '/../..' . '/app/Console/Commands/LogTimeCommand.php',
         'App\\Filters\\Common\\QueryFilter' => __DIR__ . '/../..' . '/app/Filters/Common/QueryFilter.php',
         'App\\Filters\\User\\UserFilter' => __DIR__ . '/../..' . '/app/Filters/User/UserFilter.php',
         'App\\Http\\Controllers\\Auth\\AuthenticatedSessionController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/AuthenticatedSessionController.php',
@@ -605,6 +606,7 @@ class ComposerStaticInitda9b7a1dc1dd923105198c572cc7df8d
         'App\\Http\\Controllers\\Refugios\\RutasController' => __DIR__ . '/../..' . '/app/Http/Controllers/Refugios/RutasController.php',
         'App\\Http\\Controllers\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/UserController.php',
         'App\\Http\\Middleware\\HandleInertiaRequests' => __DIR__ . '/../..' . '/app/Http/Middleware/HandleInertiaRequests.php',
+        'App\\Http\\Middleware\\TestMiddleware' => __DIR__ . '/../..' . '/app/Http/Middleware/TestMiddleware.php',
         'App\\Http\\Requests\\Auth\\LoginRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Auth/LoginRequest.php',
         'App\\Http\\Requests\\ProfileUpdateRequest' => __DIR__ . '/../..' . '/app/Http/Requests/ProfileUpdateRequest.php',
         'App\\Http\\Requests\\Refugios\\RefugiosUpdateRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Refugios/RefugiosUpdateRequest.php',
@@ -621,6 +623,7 @@ class ComposerStaticInitda9b7a1dc1dd923105198c572cc7df8d
         'App\\Notifications\\MyResetPassword' => __DIR__ . '/../..' . '/app/Notifications/MyResetPassword.php',
         'App\\Notifications\\SendEmailAPIVerificationNotification' => __DIR__ . '/../..' . '/app/Notifications/SendEmailAPIVerificationNotification.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
+        'App\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/app/Providers/RouteServiceProvider.php',
         'App\\Traits\\ImageneTrait' => __DIR__ . '/../..' . '/app/Traits/ImageneTrait.php',
         'App\\Traits\\UserAttributes' => __DIR__ . '/../..' . '/app/Traits/UserAttributes.php',
         'App\\Traits\\UserImport' => __DIR__ . '/../..' . '/app/Traits/UserImport.php',

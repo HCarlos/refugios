@@ -48,7 +48,7 @@ var tituloUser = "Usuarios";
 							</tr>
 						</thead>
 						<tbody class="bg-white divide-y">
-							<tr v-for="user in users.data" :key="user.id" class="text-gray-700">
+							<tr v-for="user in users" :key="user.id" class="text-gray-700">
 								<td class="px-4 py-3 text-sm">
 									{{ user.username }}
 								</td>

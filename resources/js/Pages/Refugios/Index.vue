@@ -35,8 +35,18 @@ const columns = [
 
 const options = {
     dom: 'Bftip',
+    language: {
+        url: 'https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-MX.json'
+    },
     responsive: true,
     select: true,
+    serverSide: false,
+    processing: true,
+    paging: true,
+    infoEmpty: false,
+    infoPostFix: false,
+    infoFiltered: false,
+    lengthChange: true
 };
 
 

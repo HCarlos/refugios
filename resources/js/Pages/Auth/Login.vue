@@ -3,7 +3,7 @@ import Checkbox from '@/Components/Checkbox.vue';
 import GuestLayout from '@/Layouts/GuestLayout.vue';
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
+import AceptarButton from '@/Components/AceptarButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
 
@@ -18,7 +18,7 @@ defineProps({
 
 const form = useForm({
 	username: '',
-	password: '',
+    password: '',
 	remember: false
 });
 
@@ -53,7 +53,7 @@ const submit = () => {
 						</div>
 
 						<div class="mt-4">
-							<InputLabel for="password" value="Password" />
+							<InputLabel for="password" value="Contraseña" />
 							<TextInput id="password" type="password" class="block w-full mt-1" v-model="form.password" required autocomplete="current-password" />
 							<InputError class="mt-2" :message="form.errors.password" />
 						</div>
@@ -66,12 +66,12 @@ const submit = () => {
 
 						<div class="flex items-center justify-end mt-4">
 							<Link v-if="canResetPassword" :href="route('password.request')" class="text-sm text-gray-600 underline  hover:text-gray-900">
-								Olvidó su password?
+								Olvidó su Contraseña?
 							</Link>
 
-							<PrimaryButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+							<AceptarButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
 								Ingresar
-							</PrimaryButton>
+							</AceptarButton>
 						</div>
 					</form>
 				</div>

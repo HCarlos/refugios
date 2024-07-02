@@ -5,6 +5,7 @@ use App\Http\Controllers\Refugios\RefugiosController;
 use App\Http\Controllers\Refugios\RutasController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Middleware\TestMiddleware;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -27,7 +28,7 @@ Route::get('/', function () {
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
-});
+})->middleware([TestMiddleware::class]);
 
 //Route::get('/dashboard', function () {
 //    return Inertia::render('Dashboard');
