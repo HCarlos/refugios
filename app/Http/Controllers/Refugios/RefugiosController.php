@@ -18,10 +18,10 @@ class RefugiosController extends Controller {
     protected $tableName = "refugios";
 
     public function index(){
-        $refugios = Refugio::all()->sortBy('numero');
+        $refugios = Refugio::query()->orderBy('numero')->get();
         //dd($refugios);
         return Inertia::render('Refugios/Index', [
-            'Refugios' => Refugio::query()->orderBy('numero')->get(),
+            'Refugios' => $refugios,
         ]);
     }
 

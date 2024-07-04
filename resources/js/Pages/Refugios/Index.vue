@@ -6,15 +6,29 @@ import SecondaryButton from "@/Components/SecondaryButton.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import Modal from "@/Components/Modal.vue";
 import AlertSuccess from "@/Components/AlertSuccess.vue";
+import AceptarButton from "@/Components/AceptarButton.vue";
 import {onMounted, ref} from "vue"
 import DataTable from 'datatables.net-vue3';
 import DataTablesCore from 'datatables.net-bs5';
+import Buttons from 'datatables.net-buttons';
+
+// import DataTablesLib from 'datatables.net';
 
 import 'datatables.net-select';
 import 'datatables.net-responsive';
-import AceptarButton from "@/Components/AceptarButton.vue";
+import 'datatables.net-buttons';
+import 'datatables.net-buttons/js/buttons.html5';
+
+// import jszip from 'jszip';
+
+// import * as XLSX from 'xlsx';
+// import * as fs from 'fs';
+// XLSX.set_fs(fs);
 
 DataTable.use(DataTablesCore);
+DataTable.use(Buttons);
+
+// DataTable.use(jszip);
 
 const props = defineProps({
 	Refugios: {type: Object},
@@ -33,22 +47,22 @@ const columns = [
 ];
 
 
-const options = {
-    dom: 'Bftip',
+let options = {
+    dom: 'Bfrtip',
     language: {
         url: 'https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-MX.json'
     },
+    buttons: ['csv', 'excel', 'pdf', 'print'],
     responsive: true,
     select: true,
-    serverSide: false,
     processing: true,
     paging: true,
-    infoEmpty: false,
-    infoPostFix: false,
-    infoFiltered: false,
-    lengthChange: true
+    lengthMenu: [
+        [10, 25, 50, 75, 100, -1],
+        ['10', '25', '50', '75', '100', 'Todos']
+    ],
+    displayLength: 10
 };
-
 
 
 const form = useForm({
@@ -62,6 +76,7 @@ const form = useForm({
 
 const showModalEliminar = ref(false);
 const showButtonPoint = ref(false);
+const showButtonXLSX = ref(props.Refugios.length > 0);
 const msg = ref( (props.flash.success != null) ? props.flash.success : '');
 const classMsj = ref( (props.flash.success != null) ? '' : 'hidden');
 const data = ref([]);
@@ -120,8 +135,6 @@ function itemSeleccionado() {
     });
 }
 
-
-
 const ok = (m) =>{
     closeModalEliminar();
     msg.value = m;
@@ -132,6 +145,42 @@ const ok = (m) =>{
         msg.value='';
     },4200);
 }
+
+const exportXSLX = (e) => {
+    // const XLSX = require('xlsx');
+
+/*
+    let public_path = process.env.NODE_ENV  ===  'production'  ?  './'  :  '/'
+
+    const workbook = XLSX.readFile("refugios.xlsx");
+    let first_sheet_name = workbook.SheetNames[0];
+    let worksheet = workbook.Sheets[first_sheet_name];
+    let cell = worksheet['D4'].v;
+    console.log(cell)
+    worksheet['D4'].v = 'NEW VALUE from NODE';
+    XLSX.utils.sheet_add_aoa(worksheet, [['NEW VALUE from NODE']], {origin: 'D4'});
+    XLSX.writeFile(workbook, 'test2.xlsx');
+*/
+
+
+    // let workbook = XLSX.readFile("refugios.xlsx");
+/*
+
+    var table_elt = document.getElementById("my-table-id");
+    var workbook = XLSX.utils.table_to_book(table_elt);
+    var ws = workbook.Sheets["Sheet1"];
+    XLSX.utils.sheet_add_aoa(ws, [["Created "+new Date().toISOString()]], {origin:-5});
+    XLSX.writeFile(workbook, "Report.xlsx");
+
+*/
+
+    window.open("/ListaRefugios");
+
+}
+
+
+
+
 
 var tituloUser = "Refugios";
 
@@ -170,7 +219,18 @@ var tituloUser = "Refugios";
                         </slot>
                     </PrimaryButton>
                 </NavLink>
-                <PrimaryButton :show="showButtonPoint" @click="editRefugio(select_refugio_id)" title="Editar refugio" class="ml-1 mt-1" :type="'default'" :classBtn="'px-3 py-2 mt-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-emerald-600 border border-transparent rounded-lg active:bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:shadow-outline-emerald'">
+
+                <PrimaryButton :show="showButtonXLSX" @click="exportXSLX($event)" title="Editar refugio" class="ml-1 mt-1" :type="'default'" :classBtn="'px-3 py-2 mt-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-emerald-600 border border-transparent rounded-lg active:bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:shadow-outline-emerald'">
+                    <slot name="icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                            <path fill-rule="evenodd" d="M1.5 5.625c0-1.036.84-1.875 1.875-1.875h17.25c1.035 0 1.875.84 1.875 1.875v12.75c0 1.035-.84 1.875-1.875 1.875H3.375A1.875 1.875 0 0 1 1.5 18.375V5.625ZM21 9.375A.375.375 0 0 0 20.625 9h-7.5a.375.375 0 0 0-.375.375v1.5c0 .207.168.375.375.375h7.5a.375.375 0 0 0 .375-.375v-1.5Zm0 3.75a.375.375 0 0 0-.375-.375h-7.5a.375.375 0 0 0-.375.375v1.5c0 .207.168.375.375.375h7.5a.375.375 0 0 0 .375-.375v-1.5Zm0 3.75a.375.375 0 0 0-.375-.375h-7.5a.375.375 0 0 0-.375.375v1.5c0 .207.168.375.375.375h7.5a.375.375 0 0 0 .375-.375v-1.5ZM10.875 18.75a.375.375 0 0 0 .375-.375v-1.5a.375.375 0 0 0-.375-.375h-7.5a.375.375 0 0 0-.375.375v1.5c0 .207.168.375.375.375h7.5ZM3.375 15h7.5a.375.375 0 0 0 .375-.375v-1.5a.375.375 0 0 0-.375-.375h-7.5a.375.375 0 0 0-.375.375v1.5c0 .207.168.375.375.375Zm0-3.75h7.5a.375.375 0 0 0 .375-.375v-1.5A.375.375 0 0 0 10.875 9h-7.5A.375.375 0 0 0 3 9.375v1.5c0 .207.168.375.375.375Z" clip-rule="evenodd" />
+                        </svg>
+                    </slot>
+                </PrimaryButton>
+
+
+
+                <PrimaryButton :show="showButtonPoint" @click="editRefugio(select_refugio_id)" title="Editar refugio" class="ml-2 mt-1" :type="'default'" :classBtn="'px-3 py-2 mt-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple'">
                     <slot name="icon">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
                             <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32l8.4-8.4Z" />
@@ -201,7 +261,7 @@ var tituloUser = "Refugios";
 
 			<div class="overflow-hidden mb-8 w-full rounded-lg border shadow-xs">
 				<div class="overflow-x-auto w-full">
-                    <DataTable
+                    <DataTable id="my-table-id"
                         class="display"
                         :columns="columns"
                         :data="data"
@@ -222,53 +282,8 @@ var tituloUser = "Refugios";
                                 <th class="px-4 py-3">Teléfonos</th>
 							</tr>
 						</thead>
-<!--						<tbody class="bg-white divide-y">-->
-<!--							<tr v-for="Refugio in Refugios.data" :key="Refugio.id" class="text-gray-700">-->
-<!--                                <td class="px-4 py-3 text-sm">-->
-<!--                                    {{ Refugio.id }}-->
-<!--                                </td>-->
-<!--								<td class="px-4 py-3 text-sm">-->
-<!--                                    <NavLink :href="route('refugio.edit',Refugio.id)" >-->
-<!--                                        <SecondaryButton title="Editar refugio">-->
-<!--                                            {{ Refugio.numero }}-->
-<!--                                        </SecondaryButton>-->
-<!--                                    </NavLink>-->
-<!--                                </td>-->
-<!--								<td class="px-4 py-3 text-sm">-->
-<!--                                    <DarkButton @click="editMapPointRefugio(Refugio)" title="Cambiar la geolocalización">-->
-<!--                                        {{ Refugio.refugio }}-->
-<!--                                    </DarkButton>-->
-<!--								</td>-->
-<!--                                <td class="px-4 py-3 text-sm">-->
-<!--                                    {{ Refugio.ubicacion }}-->
-<!--                                </td>-->
-<!--                                <td class="px-4 py-3 text-xs">-->
-<!--                                    {{ Refugio.infraestructura }}-->
-<!--                                </td>-->
-<!--                                <td class="px-4 py-3 text-sm">-->
-<!--                                    {{ Refugio.capacidad }}-->
-<!--                                </td>-->
-<!--                                <td class="px-4 py-3 text-sm">-->
-<!--                                    {{ Refugio.enlace }}-->
-<!--                                </td>-->
-<!--                                <td class="px-4 py-3 text-xs">-->
-<!--                                    {{ Refugio.telefonos }}-->
-<!--                                </td>-->
-<!--                                <td class="px-4 py-3 text-sm">-->
-<!--                                    <DangerButton @click="openModalEliminar(Refugio)" title="Eliminar refugio">-->
-<!--                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">-->
-<!--                                            <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />-->
-<!--                                        </svg>-->
-<!--                                    </DangerButton>-->
-<!--                                </td>-->
-<!--							</tr>-->
-<!--						</tbody>-->
 					</DataTable>
 				</div>
-<!--				<div-->
-<!--					class="px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase bg-gray-50 border-t sm:grid-cols-9">-->
-<!--					<pagination :links="Refugios.links" />-->
-<!--				</div>-->
 			</div>
 		</div>
         <Modal :show="showModalEliminar" @close="closeModalEliminar">

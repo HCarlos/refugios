@@ -1,9 +1,8 @@
 <script setup>
-import { Head, useForm } from "@inertiajs/vue3";
-import PrimaryButton from "@/Components/PrimaryButton.vue";
+import { useForm } from "@inertiajs/vue3";
 import InputGroup from "@/Components/InputGroup.vue";
 import SelectGroup from "@/Components/SelectGroup.vue";
-import {computed, ref} from "vue";
+import {ref} from "vue";
 import AlertSuccess from "@/Components/AlertSuccess.vue";
 import AceptarButton from "@/Components/AceptarButton.vue";
 
@@ -26,11 +25,10 @@ const form = useForm({
 const srcImg = ref('../storage/externo/1.gif');
 const msj = ref('');
 const classMsj = ref('hidden');
-const cLatitud = ref('(?:[0-8]\d|90)(?:[0-5]\d)(?:[0-5]\d)[NS]');
-const cLongitud = ref('(?:0\d{2}|1[0-7]\d|180)(?:[0-5]\d)(?:[0-5]\d)[EW]');
+const cLatitud = ref('^(\\+|-)?(?:90(?:(?:\\.0{1,14})?)|(?:[0-9]|[1-8][0-9])(?:(?:\\.[0-9]{1,14})?))$');
+const cLongitud = ref('^(\\-|-)?(?:180(?:(?:\\.0{1,14})?)|(?:[0-9]|[1-9][0-9]|1[0-7][0-9])(?:(?:\\.[0-9]{1,14})?))$');
 
 console.log(props.Refugio);
-
 
 if (props.Refugio !== 'undefined' && props.Refugio != null){
     form.id = props.Refugio.id;

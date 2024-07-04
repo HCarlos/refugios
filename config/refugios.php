@@ -23,6 +23,7 @@ return [
         'fmt_lista_catalogos'      => 'fmt_lista_catalogos.xlsx',
         'fmt_lista_usuarios'       => 'fmt_lista_usuarios.xlsx',
         'icono_video'              => 'icon-video.png',
+        'fmt_lista_refugios'       => 'refugios.xlsx',
     ],
 
     'menu_archivos'=>[

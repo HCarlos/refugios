@@ -3,6 +3,7 @@
 use App\Http\Controllers\Refugios\ColoniasController;
 use App\Http\Controllers\Refugios\RefugiosController;
 use App\Http\Controllers\Refugios\RutasController;
+use App\Http\Controllers\Refugios\XLSX\RefugiosStorageController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Middleware\TestMiddleware;
@@ -62,6 +63,8 @@ Route::middleware('auth')->group(function () {
     Route::post('getRefugiosFromColoniasAuth', [RefugiosController::class, 'getRefugiosFromColoniasAuth'])->name('getRefugiosFromColoniasAuth');
     Route::post('coloniarefugio.destroy', [ColoniasController::class, 'destroy'])->name('coloniarefugio.destroy');
     Route::post('coloniarefugio.add', [ColoniasController::class, 'add'])->name('coloniarefugio.add');
+
+    Route::get('ListaRefugios', [RefugiosStorageController::class, 'ListaRefugios'])->name('ListaRefugios');
 
 });
 
