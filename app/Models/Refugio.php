@@ -27,8 +27,8 @@ class Refugio extends Model {
     }
 
     public function colonias(){
-//        return $this->belongsToMany(Colonia::class);
         return $this->belongsToMany(Colonia::class,'colonia_refugio');
+//        return $this->HasMany('colonia_refugio', 'colonia_id','id');
     }
 
 

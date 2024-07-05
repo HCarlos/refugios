@@ -61,6 +61,7 @@ const classMsjNoHayDatos = ref(  'hidden');
 const msg = ref( (props.flash.success != null) ? props.flash.success : '');
 const table = ref();
 let dt;
+const selected = ref([]);
 const select_refugio_id = ref(0);
 
 onMounted(function () {
@@ -82,6 +83,7 @@ const getRefugiosFromDB = async () => {
     showButtonAgregar.value = false;
     showButtonPoint.value = false;
     console.log(frmColoniaRefugio.id);
+    ColoniaRefugio.value = [];
     try {
         const response = await axios.post("getRefugiosFromColoniasAuth", frmColoniaRefugio)
             .then(response => {
@@ -116,20 +118,21 @@ const columns = [
     {data: 'telefonos', title: 'TELEFONOS'}
 ];
 
-const options = {
+let options = {
     dom: 'Bftip',
     language: {
         url: 'https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-MX.json'
     },
+    buttons: ['csv', 'excel', 'pdf', 'print'],
     responsive: true,
     select: true,
-    serverSide: false,
     processing: true,
     paging: true,
-    infoEmpty: false,
-    infoPostFix: false,
-    infoFiltered: false,
-    lengthChange: true
+    lengthMenu: [
+        [10, 25, 50, 75, 100, -1],
+        ['10', '25', '50', '75', '100', 'Todos']
+    ],
+    displayLength: 10
 };
 
 
@@ -158,9 +161,11 @@ const llenarColoniaRefugio = (cr) => {
 
 const comboRefugios = async (e) => {
     classMsjNoHayDatos.value = 'hidden';
-    frmColoniaRefugio.nuevo_refugio_id = e.target.value;
-    frmColoniaRefugio.nuevo_refugio = e.target.text;
-    console.log(frmColoniaRefugio.nuevo_refugio_id+'_'+frmColoniaRefugio.colonia_id);
+    if(e.target.options.selectedIndex > -1) {
+        frmColoniaRefugio.nuevo_refugio_id = e.target.value;
+        frmColoniaRefugio.nuevo_refugio = e.target.options[e.target.options.selectedIndex].text;
+        console.log(frmColoniaRefugio.nuevo_refugio_id+'_'+frmColoniaRefugio.colonia_id);
+    }
 };
 
 const openModalEliminar = (b) => {
@@ -220,6 +225,7 @@ function itemSeleccionado() {
         let idx = Refugios.value.data.indexOf(this.data());
         if (idx >= 0) {
             frmColoniaRefugio.refugio_id = Refugios.value.data[idx].id;
+            frmColoniaRefugio.refugio = Refugios.value.data[idx].refugio;
             select_refugio_id.value = Refugios.value.data[idx].id;
             showButtonPoint.value = true;
             console.log(select_refugio_id.value + ' ' + Refugios.value.data[idx].id,' => ',Refugios.value.data[idx].refugio);
@@ -242,6 +248,10 @@ const ok = (m) =>{
     },3000);
 }
 
+const editRefugio = (r) => {
+    window.open("/refugio.edit/" + r);
+};
+
 const editMapPointRefugio = (r) => {
     window.open("/refugios-getPosition.php?id=" + r);
 };
@@ -262,7 +272,13 @@ var tituloUser = "Colonias DT";
             <div class="inline-flex overflow-hidden mb-4 w-full bg-white rounded-lg shadow-md">
                 <div class="px-4 py-2 -mx-3">
                     <div class="mx-3">
-                        <SelectGroup :opciones="opcionesColonias"  @change="getRefugios($event)" :errors="frmColoniaRefugio.errors.colonia_id" :class-especial="'em25 bg-yellow-50'" />
+                        <SelectGroup
+                            :opciones="opcionesColonias"
+                            @change="getRefugios($event)"
+                            :errors="frmColoniaRefugio.errors.colonia_id"
+                            :class-especial="'em25 bg-yellow-50'"
+
+                        />
                     </div>
                 </div>
                 <PrimaryButton :show="showButtonAgregar"  @click="openModalAgregarRefugio(frmColoniaRefugio)" title="Agregar refugio" :type="'default'" :classBtn="'px-3 py-2 mt-3 text-sm font-medium leading-5 text-white transition-colors duration-150 rojo-morena border border-transparent rounded-lg active:bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:shadow-outline-emerald'">
@@ -272,16 +288,14 @@ var tituloUser = "Colonias DT";
                         </svg>
                     </slot>
                 </PrimaryButton>
-                <NavLink :href="route('refugio.edit',select_refugio_id)" >
-                    <PrimaryButton :show="showButtonPoint"  title="Editar refugio" :type="'default'" :classBtn="'px-3 py-2 mt-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-emerald-600 border border-transparent rounded-lg active:bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:shadow-outline-emerald'">
-                        <slot name="icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
-                                <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32l8.4-8.4Z" />
-                                <path d="M5.25 5.25a3 3 0 0 0-3 3v10.5a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3V13.5a.75.75 0 0 0-1.5 0v5.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5V8.25a1.5 1.5 0 0 1 1.5-1.5h5.25a.75.75 0 0 0 0-1.5H5.25Z" />
-                            </svg>
-                        </slot>
+                <PrimaryButton :show="showButtonPoint" @click="editRefugio(select_refugio_id)"  title="Editar refugio" :type="'default'" :classBtn="'px-3 py-2 mt-3 ml-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-emerald-600 border border-transparent rounded-lg active:bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:shadow-outline-emerald'">
+                    <slot name="icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                            <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32l8.4-8.4Z" />
+                            <path d="M5.25 5.25a3 3 0 0 0-3 3v10.5a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3V13.5a.75.75 0 0 0-1.5 0v5.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5V8.25a1.5 1.5 0 0 1 1.5-1.5h5.25a.75.75 0 0 0 0-1.5H5.25Z" />
+                        </svg>
+                    </slot>
                     </PrimaryButton>
-                </NavLink>
                 <PrimaryButton :show="showButtonPoint" @click="editMapPointRefugio(select_refugio_id)" title="Editar ubicación" :type="'default'" :classBtn="'px-3 py-2 ml-2 mt-3 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-orange-600 border border-transparent rounded-lg active:bg-orange-600 hover:bg-orange-700 focus:outline-none focus:shadow-outline-orange'">
                     <slot name="icon">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
@@ -359,7 +373,13 @@ var tituloUser = "Colonias DT";
 
         <Modal :show="showModalAgregarRefugio" @close="closeModalAgregarRefugio">
             <div class="p-6">
-                <SelectGroup :opciones="opcionesRefugios" @change="comboRefugios($event)" :errors="frmColoniaRefugio.errors.refugio" :class-especial="'em25 bg-yellow-50'" />
+                <SelectGroup
+                    :opciones="opcionesRefugios"
+                    @change="comboRefugios($event)"
+                    :errors="frmColoniaRefugio.errors.refugio"
+                    :class-especial="'em25 bg-yellow-50'"
+                    v-model="selected"
+                />
                 <br/>
                 <br/>
                 <p>

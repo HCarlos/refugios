@@ -121,8 +121,9 @@ class RefugiosController extends Controller {
     public function getRefugiosFromColoniasAuth(Request $request){
 
 //       Aplica con Axios
-        $refugios =  $this->getrefugiosfromcolonias($request->id);
-        $colonia = Colonia::query()->where('id',$request->id)->first();
+        $colonia_id = $request->id;
+        $refugios =  $this->getrefugiosfromcolonias($colonia_id);
+        $colonia = Colonia::query()->where('id',$colonia_id)->first();
 
         return Response::json(['mensaje' => 'OK', 'refugios' => $refugios, 'colonia' => $colonia, 'status' => '200'], 200);
 
@@ -130,19 +131,21 @@ class RefugiosController extends Controller {
 
     public function getrefugiosfromcolonias($colonia_id){
 
-        $qry = Refugio::query()
-            ->whereHas('colonias', function ( Builder $q) use ($colonia_id) {
-                $q->where("colonia_id", '=', $colonia_id);
-            })->get();
-
-//dd( $qry->count() );
+        $qry = ColoniaRefugio::query()
+                ->where("colonia_id",$colonia_id)
+                ->get();
 
         $arr = [];
+
         foreach ($qry as $q) {
-            $arr[] = $q->numero;
+//            $arr[] = $q->refugio->numero;
+            $arr[] = $q->refugio_id;
         }
+
+//        dd($arr);
+
         $qry = Refugio::query()
-            ->whereIn('numero', $arr)
+            ->whereIn('id', $arr)
             ->where('activado','=',1)
             ->distinct()
             ->get();
