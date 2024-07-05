@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Refugios\AsignarColoniasARefugiosController;
 use App\Http\Controllers\Refugios\ColoniasController;
 use App\Http\Controllers\Refugios\RefugiosController;
 use App\Http\Controllers\Refugios\RutasController;
@@ -65,6 +66,11 @@ Route::middleware('auth')->group(function () {
     Route::post('coloniarefugio.add', [ColoniasController::class, 'add'])->name('coloniarefugio.add');
 
     Route::get('ListaRefugios', [RefugiosStorageController::class, 'ListaRefugios'])->name('ListaRefugios');
+
+    Route::get('asigar-colonias-a-refugios-index', [AsignarColoniasARefugiosController::class, 'index'])->name('asigar-colonias-a-refugios-index');
+    Route::post('getColoniasFromRefugiosAuth', [AsignarColoniasARefugiosController::class, 'getColoniasFromRefugiosAuth'])->name('getColoniasFromRefugiosAuth');
+    Route::post('removeColoniaFromRefugio', [AsignarColoniasARefugiosController::class, 'removeColoniaFromRefugio'])->name('removeColoniaFromRefugio');
+    Route::post('addColoniaFromRefugio', [AsignarColoniasARefugiosController::class, 'addColoniaFromRefugio'])->name('addColoniaFromRefugio');
 
 });
 

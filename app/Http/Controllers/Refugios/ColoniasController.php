@@ -94,6 +94,9 @@ class ColoniasController extends Controller{
             ->with('mensaje','Error');
     }
 
+    public static function getColoniasStatic(){
+            return  (new ColoniasController)->getQueryColonias();
+    }
 
 
 
