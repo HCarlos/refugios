@@ -29,7 +29,7 @@ html,body{
 
 margin:0px;
 
-height: 100%;
+height: 100% !important;
 
 }
 #users-contain {position:relative; width:96.7%;}
@@ -43,53 +43,42 @@ height: 100%;
 </style>
 
 </head>
-<body class="portfolio portfolio-4">
+<body>
   <!-- .................................... $header .................................... -->
-  <header class="navbar-fixed-top fondo-institucional">
-    <div class="container">
-      <div class="navbar fondo-institucional">
-          <div class="navbar-inner fondo-institucional" >
+  <header class="navbar-fixed-top fondo-institucional" >
+      <div class="navbar ">
           <a class="btn btn-navbar fondo-institucional" data-target="nav-collapse" data-toggle="collapse">
             <i class="icon-reorder"></i>
           </a>
-          <a class="brand span6 text-white" href="/">
-            <span style="color: #FFF;">H. Ayuntamiento Constitucional de Centro </span>
+          <a class="brand span6 text-white" href="#">
+            <span style="color: #FFF; margin-left: 2em !important;">H. Ayuntamiento Constitucional de Centro </span>
           </a>
 
           <nav class="nav-collapse collapse">
               <div class="pull-right mr-2 mt-05 " style="height: 40px !important;" ><a href="https://villahermosa.gob.mx"><img src="images/logo_centro_80_pixeles_002.png" height="20" style="height:40px !important;"> </img></a></div>
           </nav>
-        </div>
       </div>
-    </div>
   </header>
   <!-- .................................... $breadcrumb .................................... -->
-  <section class="section-breadcrumb section-color-graydarker">
-    <div class="container">
+  <div class=" section-color-graydarker" style=":0em !important; padding-bottom: 0px !important; ">
+    <div class="container" style="margin-top: 0px !important; padding: 0px !important;">
       <ul class="breadcrumb">
         <li class="active nombreRefugio"></li>
       </ul>
     </div>
-  </section>
+  </div>
   <!-- .................................... $Portfolio .................................... -->
-  <section class="section-content section-portfolio" id="section-portfolio">
+  <div id="section-portfolio" style="padding-top: 1em !important;">
     <div class="container">
-      <h2 class="section-title-">
+      <h2 style="padding-bottom: 0px !important;" >
           <i class="fa-solid fa-earth text-info"></i>
         Ubicación Google:
         <small id="domicilio"></small>
       </h2>
-      <div class="row">
-
           <!-- .................................... $MAP on background .................................... -->
-          <section class="section-content section-map-background" id="section-map-background">
-            <div class="map map-background" id="mapDen"></div>
+            <div class="map map-background" id="mapDen" style="height: 70vh !important; display: block !important; margin-bottom: 2em !important;" ></div>
 
-            <div class="hidden-phone">
-              <div class="container">
-               <div class="row">
-
-                      <div class="span3 offset8">
+                      <div class="span3 offset8" style="position: absolute !important; top: 45vh !important;">
                         <div class="box box-shadow">
                           <h3 class="box-title">
                             <strong>Ficha de Datos</strong>
@@ -113,19 +102,11 @@ height: 100%;
 
                         </div>
 
-                      </div>
-                    </div>
 
-
-                 </div>
-
-                </div>
-
-              </section>
 
     	 </div>
     </div>
-  </section>
+  </div>
 
   <!-- .................................... $post-footer .................................... -->
   <div class="post-footer section-content section-content-mini section-color-graydark">

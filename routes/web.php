@@ -48,7 +48,7 @@ Route::middleware('auth')->group(function () {
 
 
     // Refugios
-    Route::get('refugios', [RefugiosController::class, 'index'])->name('refugios.index');
+    Route::get('refugios', [RefugiosController::class, 'index'])->name('refugios');
     Route::get('refugio.create', [RefugiosController::class, 'create'])->name('refugio.create');
     Route::get('refugio.edit/{Id}', [RefugiosController::class, 'edit'])->name('refugio.edit');
     Route::post('refugio.save', [RefugiosController::class, 'save'])->name('refugio.save');
@@ -61,6 +61,12 @@ Route::middleware('auth')->group(function () {
 
     Route::get('colonias', [ColoniasController::class, 'index'])->name('colonias');
     Route::get('colonias-dt', [ColoniasController::class, 'indexDT'])->name('colonias-dt');
+    Route::get('colonia.create', [ColoniasController::class, 'create'])->name('colonia.create');
+    Route::get('colonia.edit/{Id}', [ColoniasController::class, 'edit'])->name('colonia.edit');
+    Route::post('colonia.save', [ColoniasController::class, 'save'])->name('colonia.save');
+    Route::post('colonia.update', [ColoniasController::class, 'update'])->name('colonia.update');
+    Route::post('colonia.destroy', [ColoniasController::class, 'destroy'])->name('colonia.destroy');
+
     Route::post('getRefugiosFromColoniasAuth', [RefugiosController::class, 'getRefugiosFromColoniasAuth'])->name('getRefugiosFromColoniasAuth');
     Route::post('coloniarefugio.destroy', [ColoniasController::class, 'destroy'])->name('coloniarefugio.destroy');
     Route::post('coloniarefugio.add', [ColoniasController::class, 'add'])->name('coloniarefugio.add');
