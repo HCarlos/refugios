@@ -179,12 +179,12 @@ const showImg = (e) => {
                 </InputGroup>
                 <SelectGroup :opciones="opcionesCategorias" v-model="form.categoria" :errors="form.errors.categoria" :class-especial="'em15 bg-yellow-50'" />
                 <SelectGroup :opciones="opcionesActivado" v-model="form.activado" :errors="form.errors.activado" :class-especial="'em15 bg-yellow-50'" />
-                <InputGroup v-model="form.latitud" :errors="form.errors.latitud" :placeholder="'Latitud'"  :type="'text'" :pattern="cLatitud" :class-especial="'em15 bg-yellow-50'">
+                <InputGroup v-model="form.latitud" :errors="form.errors.latitud" :placeholder="'Latitud'" :type="'text'" :class-especial="'em15 bg-yellow-50'">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5" />
                     </svg>
                 </InputGroup>
-                <InputGroup v-model="form.longitud" :errors="form.errors.longitud" :placeholder="'Longitud'"  :type="'text'" :pattern="cLongitud" :class-especial="'em15 bg-yellow-50'">
+                <InputGroup v-model="form.longitud" :errors="form.errors.longitud" :placeholder="'Longitud'"  :type="'text'" :class-especial="'em15 bg-yellow-50'">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5" />
                     </svg>
