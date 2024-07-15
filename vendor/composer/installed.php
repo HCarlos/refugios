@@ -3,7 +3,7 @@
         'name' => 'laravel/laravel',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '8002469123e1d49c653c23ce73ba82de30351c28',
+        'reference' => '684f0e161f08e0910bf1df128a824d1fbe7dacac',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -427,7 +427,7 @@
         'laravel/laravel' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '8002469123e1d49c653c23ce73ba82de30351c28',
+            'reference' => '684f0e161f08e0910bf1df128a824d1fbe7dacac',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -847,8 +847,8 @@
         'psr/log-implementation' => array(
             'dev_requirement' => false,
             'provided' => array(
-                0 => '3.0.0',
-                1 => '1.0|2.0|3.0',
+                0 => '1.0|2.0|3.0',
+                1 => '3.0.0',
             ),
         ),
         'psr/simple-cache' => array(
@@ -911,7 +911,7 @@
         'roave/security-advisories' => array(
             'pretty_version' => 'dev-latest',
             'version' => 'dev-latest',
-            'reference' => 'c31e886d98723c528ab99e920e7903ccb7391bd0',
+            'reference' => 'd44cb505c9515db5ff905ec510d69a0f80b366a2',
             'type' => 'metapackage',
             'install_path' => null,
             'aliases' => array(

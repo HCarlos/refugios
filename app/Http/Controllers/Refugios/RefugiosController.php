@@ -77,7 +77,6 @@ class RefugiosController extends Controller {
         if (!isset($Ref)) {
             return redirect('refugio.create/')->with( 'error',json_decode($Ref));
         }
-
         return redirect('refugio.show/'.$Ref->id)->with( 'success','Refugio actualizado');
     }
 

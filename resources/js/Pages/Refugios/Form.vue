@@ -18,7 +18,7 @@ const form = useForm({
     refugio:'', ubicacion:'', ubicacion_google:'',
     enlace:'', telefonos:'', observaciones:'',
     latitud:'', longitud:'', html:'', infraestructura:'',
-    activado:'0', poligono:'', categoria:'REFUGIO', capacidad:0,
+    activado:0, poligono:'', categoria:'REFUGIO', capacidad:0,
     imagen:'', refugiorutaid:-1
 });
 
@@ -43,7 +43,7 @@ if (props.Refugio !== 'undefined' && props.Refugio != null){
     form.longitud = props.Refugio.longitud;
     form.html = props.Refugio.html;
     form.infraestructura = props.Refugio.infraestructura;
-    form.activado = props.Refugio.activado;
+    form.activado = props.Refugio.activado ? 1 : 0;
     form.poligono = props.Refugio.poligono;
     form.categoria = props.Refugio.categoria;
     form.capacidad = props.Refugio.capacidad;
