@@ -83,7 +83,8 @@ class ColoniasController extends Controller{
 
 
     public function indexDT(){
-        $Refugios = Colonia::query()->orderBy('colonia')->get();
+        $Refugios = Refugio::query()->orderBy('refugio')->get();
+        //dd($Refugios);
         return Inertia::render('Colonias/ListaColoniasDT', [
             'Colonias' => $this->getQueryColonias(),
             'Refugios' => $Refugios,
@@ -105,15 +106,15 @@ class ColoniasController extends Controller{
     public function add(Request $request){
 
         $colonia_id = $request->id;
-        $nuevo_Colonia_id = $request->nuevo_Colonia_id;
+        $nuevo_refugio_id = $request->nuevo_refugio_id;
         $paso = false;
 
         $Col = Colonia::find($colonia_id);
 
         if ($Col !== null){
             try {
-                $ref = Colonia::find($nuevo_Colonia_id);
-                $Col->Colonias()->attach($ref->id);
+                $ref = Refugio::find($nuevo_refugio_id);
+                $Col->Refugios()->attach($ref->id);
                 $paso = true;
             }catch (\Exception $e){ }
 //            dd($e->getMessage());
@@ -124,7 +125,7 @@ class ColoniasController extends Controller{
                 ->with('mensaje','OK');
         }
         return redirect()->back()
-            ->with('error','El colonia que quiere agregar, no existen')
+            ->with('error','La colonia que quiere agregar, no existe')
             ->with('mensaje','Error');
 
 

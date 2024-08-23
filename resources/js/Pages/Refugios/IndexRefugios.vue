@@ -109,6 +109,8 @@ const closeModalEliminar = () => {
 };
 
 const eliminarRefugio = () => {
+    console.log("Eliminar refugio", select_refugio_id);
+    form.id = select_refugio_id.value;
     form.post(route('refugio.destroy',form.id),{
         onSuccess: () => {
             ok(props.flash.success);
@@ -231,8 +233,6 @@ var tituloUser = "Refugios";
                     </slot>
                 </PrimaryButton>
 
-
-
                 <PrimaryButton :show="showButtonPoint" @click="editRefugio(select_refugio_id)" title="Editar refugio" class="ml-2 mt-1" :type="'default'" :classBtn="'px-3 py-2 mt-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple'">
                     <slot name="icon">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
@@ -293,7 +293,7 @@ var tituloUser = "Refugios";
             <div class="p-6">
                 <p>
                     Quiéres eliminar este refugio
-                    <span class="text-2x1 font-medium text-gray-900">{{data.refugio}} ? </span>
+                    <span class="text-2x1 font-medium text-red-600">{{select_refugio_id}}</span> ?
                 </p>
 
             </div>

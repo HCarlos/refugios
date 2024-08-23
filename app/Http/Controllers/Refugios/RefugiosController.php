@@ -19,7 +19,7 @@ class RefugiosController extends Controller {
 
     public function index(){
         $refugios = Refugio::query()->orderBy('numero')->get();
-        //dd($refugios);
+        // dd($refugios);
         return Inertia::render('Refugios/IndexRefugios', [
             'Refugios' => $refugios,
         ]);

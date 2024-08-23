@@ -87,10 +87,10 @@ const getRefugiosFromDB = async () => {
     try {
         const response = await axios.post("getRefugiosFromColoniasAuth", frmColoniaRefugio)
             .then(response => {
-                console.log("Datos recibidos:", response.data.refugios.original.mensaje);
+                console.log("Datos recibidos: ", response.data.refugios.original.mensaje);
                 if (response.data.refugios.original.mensaje === 'OK') {
                     Refugios.value = response.data.refugios.original;
-                    console.log("Colonia recibida:", response.data.colonia.colonia);
+                    console.log("Colonia recibida: ", response.data.colonia.colonia);
                     ColoniaRefugio.value = response.data.colonia;
                     llenarColoniaRefugio(ColoniaRefugio.value);
                     showButtonAgregar.value = true;
@@ -228,9 +228,11 @@ function itemSeleccionado() {
             frmColoniaRefugio.refugio = Refugios.value.data[idx].refugio;
             select_refugio_id.value = Refugios.value.data[idx].id;
             showButtonPoint.value = true;
-            console.log(select_refugio_id.value + ' ' + Refugios.value.data[idx].id,' => ',Refugios.value.data[idx].refugio);
+            console.log(select_refugio_id.value + ' - ' + Refugios.value.data[idx].id,' => ',Refugios.value.data[idx].refugio);
         }
-    });
+        // console.log(opcionesRefugios);
+
+        });
 }
 
 

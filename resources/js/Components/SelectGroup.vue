@@ -1,7 +1,6 @@
 <template>
     <label class="block text-sm ">
         <span class="text-gray-700 dark:text-gray-400">{{labelText}}</span>
-        <!-- focus-within sets the color for the icon when input is focused -->
         <div class="relative text-gray-500 focus-within:text-gray-700 gray:focus-within:text-gray-700 ">
             <select
                 class="block w-full pl-10 mt-1 text-sm cols-1 text-dark text-dark-100 border-gray-700 bg-gray-50 focus:border-gray-700 focus:outline-none focus:shadow-outline-gray gray:focus:shadow-outline-gray form-input rounded-md "
@@ -35,6 +34,7 @@ import InputError from "@/Components/InputError.vue";
 const props = defineProps(
     ['textLabel','opciones','modelValue','isLegend','errors','classEspecial','change']
 );
+
 
 const labelText = props.textLabel == null ? '' : props.textLabel;
 // const disabledSelect = props.disabledSelect != null;

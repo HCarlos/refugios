@@ -317,7 +317,11 @@ var tituloUser = "Colonias";
 
         <Modal :show="showModalAgregarRefugio" @close="closeModalAgregarRefugio">
             <div class="p-6">
-                <SelectGroup :opciones="opcionesRefugios" @change="comboRefugios($event)" :errors="frmColoniaRefugio.errors.refugio" :class-especial="'em25 bg-yellow-50'" />
+                <SelectGroup
+                    :opciones="opcionesRefugios"
+                    @change="comboRefugios($event)"
+                    :errors="frmColoniaRefugio.errors.refugio"
+                    :class-especial="'em25 bg-yellow-50'" />
                 <br/>
                 <br/>
                 <p>
