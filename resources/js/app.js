@@ -6,6 +6,7 @@ import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy';
 import { useFavicon } from '@vueuse/core'
+import LaravelPermissionToVueJS from 'laravel-permission-to-vuejs'
 
 const appName = import.meta.env.VITE_APP_NAME || 'Danger-DevCH';
 
@@ -19,6 +20,7 @@ createInertiaApp({
         return createApp({ render: () => h(App, props) })
             .use(plugin)
             .use(ZiggyVue)
+            .use(LaravelPermissionToVueJS)
             .mount(el);
     },
     progress: {

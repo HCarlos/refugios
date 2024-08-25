@@ -65,7 +65,7 @@
       </li>
 
 
-      <li class="relative px-6 py-3">
+      <li v-if="can('all')" class="relative px-6 py-3">
           <NavLink :href="route('users.index')" :active="route().current('users.index')">
               <template #icon>
                   <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -88,8 +88,10 @@
 import NavLink from '@/Components/NavLink.vue'
 import { Link } from '@inertiajs/vue3';
 import { ref } from 'vue'
+import { is, can } from 'laravel-permission-to-vuejs'
 
 export default {
+    methods: {can},
   components: {
     NavLink,
     Link,
@@ -97,6 +99,7 @@ export default {
 
 
   setup() {
+
     let showingTwoLevelMenu = ref(false)
       const publicEnvVar = import.meta.env.VITE_APP_NAME;
 

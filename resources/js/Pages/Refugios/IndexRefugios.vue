@@ -19,11 +19,8 @@ import 'datatables.net-responsive';
 import 'datatables.net-buttons';
 import 'datatables.net-buttons/js/buttons.html5';
 
-// import jszip from 'jszip';
-
-// import * as XLSX from 'xlsx';
-// import * as fs from 'fs';
-// XLSX.set_fs(fs);
+import {can, reloadRolesAndPermissions} from "laravel-permission-to-vuejs";
+reloadRolesAndPermissions()
 
 DataTable.use(DataTablesCore);
 DataTable.use(Buttons);
@@ -43,9 +40,9 @@ const columns = [
     {data: 'infraestructura', title: 'INFRAESTRUCTURA'},
     {data: 'capacidad', title: 'CAPACIDAD'},
     {data: 'enlace', title: 'ENLACE'},
-    {data: 'telefonos', title: 'TELEFONOS'}
+    {data: 'telefonos', title: 'TELÉFONOS'},
+    {data: 'activado', title: 'Activo', render: (data) => (data === true) ? 'Si' : 'No'}
 ];
-
 
 let options = {
     dom: 'lftipr',
@@ -64,9 +61,12 @@ let options = {
     displayLength: 50,
     order: [
         [1, "asc"],
-    ],
+    ]
 };
 
+// rowCallback: (row, data) => {
+//     row.classList.toggle('bg-red-600 text-white', data.activado === 1);
+// }
 
 const form = useForm({
     id:'',
@@ -79,6 +79,7 @@ const form = useForm({
 
 const showModalEliminar = ref(false);
 const showButtonPoint = ref(false);
+const showButtonPointDelete = ref(false);
 const showButtonXLSX = ref(props.Refugios.length > 0);
 const msg = ref( (props.flash.success != null) ? props.flash.success : '');
 const classMsj = ref( (props.flash.success != null) ? '' : 'hidden');
@@ -129,15 +130,19 @@ const editMapPointRefugio = (r) => {
 
 function itemSeleccionado() {
     showButtonPoint.value = false;
+    showButtonPointDelete.value = false;
     select_refugio_id.value = 0;
     dt.rows({ selected: true }).every(function () {
         let idx = data.value.indexOf(this.data());
         if (idx >= 0) {
             select_refugio_id.value = data.value[idx].id;
             showButtonPoint.value = true;
+            showButtonPointDelete.value =  can('eliminar | all | sysop');
             console.log(select_refugio_id.value + ' ' + data.value[idx].id,' => ',data.value[idx].refugio);
+            console.log(data.value[idx].refugio);
         }
     });
+
 }
 
 const ok = (m) =>{
@@ -152,38 +157,10 @@ const ok = (m) =>{
 }
 
 const exportXSLX = (e) => {
-    // const XLSX = require('xlsx');
-
-/*
-    let public_path = process.env.NODE_ENV  ===  'production'  ?  './'  :  '/'
-
-    const workbook = XLSX.readFile("refugios.xlsx");
-    let first_sheet_name = workbook.SheetNames[0];
-    let worksheet = workbook.Sheets[first_sheet_name];
-    let cell = worksheet['D4'].v;
-    console.log(cell)
-    worksheet['D4'].v = 'NEW VALUE from NODE';
-    XLSX.utils.sheet_add_aoa(worksheet, [['NEW VALUE from NODE']], {origin: 'D4'});
-    XLSX.writeFile(workbook, 'test2.xlsx');
-*/
-
-
-    // let workbook = XLSX.readFile("refugios.xlsx");
-/*
-
-    var table_elt = document.getElementById("my-table-id");
-    var workbook = XLSX.utils.table_to_book(table_elt);
-    var ws = workbook.Sheets["Sheet1"];
-    XLSX.utils.sheet_add_aoa(ws, [["Created "+new Date().toISOString()]], {origin:-5});
-    XLSX.writeFile(workbook, "Report.xlsx");
-
-*/
 
     window.open("/ListaRefugios");
 
 }
-
-
 
 
 
@@ -200,18 +177,6 @@ var tituloUser = "Refugios";
 
 
 		</template>
-<!--        <div>-->
-<!--        <DataTable-->
-<!--            class="display"-->
-<!--            :columns="columns"-->
-<!--            :data="data"-->
-<!--            :options="{ select: true }"-->
-<!--            ref="table"-->
-<!--        />-->
-<!--        </div>-->
-
-
-
 
 		<div class="p-4 bg-white rounded-lg shadow-xs">
 			<div class="inline-flex overflow-hidden mb-4 w-full bg-white rounded-lg shadow-md">
@@ -248,7 +213,7 @@ var tituloUser = "Refugios";
                         </svg>
                     </slot>
                 </PrimaryButton>
-                <PrimaryButton :show="showButtonPoint" @click="openModalEliminar(data)" class="mb-2" title="Eliminar refugio" :class-btn="'px-3 py-2 ml-3 mt-3 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-lg active:bg-red-600 hover:bg-red-700 focus:outline-none focus:shadow-outline-red'">
+                <PrimaryButton :show="showButtonPointDelete" @click="openModalEliminar(data)" class="mb-2" title="Eliminar refugio" :class-btn="'px-3 py-2 ml-3 mt-3 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-lg active:bg-red-600 hover:bg-red-700 focus:outline-none focus:shadow-outline-red'">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
                     </svg>
@@ -272,8 +237,10 @@ var tituloUser = "Refugios";
                         ref="table"
                         @select="itemSeleccionado"
                         @deselect="itemSeleccionado"
+                       :class="data.activado ? 'bg-white-500' : ''"
                     >
 						<thead>
+
 							<tr class="text-xs font-bold tracking-wide text-left text-blue-500 uppercase bg-gray-300 border-b">
 								<th class="px-4 py-3">ID</th>
                                 <th class="px-4 py-3">Número</th>
@@ -283,6 +250,7 @@ var tituloUser = "Refugios";
                                 <th class="px-4 py-3">Capacidad</th>
                                 <th class="px-4 py-3">Enlace</th>
                                 <th class="px-4 py-3">Teléfonos</th>
+                                <th class="px-4 py-3">Activado</th>
 							</tr>
 						</thead>
 					</DataTable>

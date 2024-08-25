@@ -3,13 +3,24 @@
         'name' => 'laravel/laravel',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => 'f1a804441ecf4174f9d85c944db86642ada16145',
+        'reference' => '187986da1a57d2436a4136d9c0e24367b96a6f91',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
         'dev' => true,
     ),
     'versions' => array(
+        'ahmedsaoud31/laravel-permission-to-vuejs' => array(
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
+            'reference' => '5f481d8c44b9c546804702ed3a83bb4836779787',
+            'type' => 'plugin',
+            'install_path' => __DIR__ . '/../ahmedsaoud31/laravel-permission-to-vuejs',
+            'aliases' => array(
+                0 => '9999999-dev',
+            ),
+            'dev_requirement' => false,
+        ),
         'brick/math' => array(
             'pretty_version' => '0.12.1',
             'version' => '0.12.1.0',
@@ -427,7 +438,7 @@
         'laravel/laravel' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => 'f1a804441ecf4174f9d85c944db86642ada16145',
+            'reference' => '187986da1a57d2436a4136d9c0e24367b96a6f91',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

@@ -34,13 +34,13 @@ class ComposerStaticInitda9b7a1dc1dd923105198c572cc7df8d
         '3bd81c9b8fcc150b69d8b63b4d2ccf23' => __DIR__ . '/..' . '/spatie/flare-client-php/src/helpers.php',
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
         '801c31d8ed748cfa537fa45402288c95' => __DIR__ . '/..' . '/psy/psysh/src/functions.php',
+        '377b22b161c09ed6e5152de788ca020a' => __DIR__ . '/..' . '/spatie/laravel-permission/src/helpers.php',
         '98caa11a197f6516a8e48aa4abb5ccc6' => __DIR__ . '/..' . '/inertiajs/inertia-laravel/helpers.php',
         'c72349b1fe8d0deeedd3a52e8aa814d8' => __DIR__ . '/..' . '/mockery/mockery/library/helpers.php',
         'ce9671a430e4846b44e1c68c7611f9f5' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery.php',
         'a1cfe24d14977df6878b9bf804af2d1c' => __DIR__ . '/..' . '/nunomaduro/collision/src/Adapters/Phpunit/Autoload.php',
         'ec07570ca5a812141189b1fa81503674' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Assert/Functions.php',
         '320163ac6b93aebe3dc25b60a0533d56' => __DIR__ . '/..' . '/spatie/laravel-ignition/src/helpers.php',
-        '377b22b161c09ed6e5152de788ca020a' => __DIR__ . '/..' . '/spatie/laravel-permission/src/helpers.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -146,6 +146,7 @@ class ComposerStaticInitda9b7a1dc1dd923105198c572cc7df8d
             'Laravel\\Breeze\\' => 15,
             'LaravelLang\\Lang\\' => 17,
             'LaravelDaily\\Larastarters\\' => 26,
+            'LaravelAndVueJS\\' => 16,
         ),
         'I' => 
         array (
@@ -494,6 +495,10 @@ class ComposerStaticInitda9b7a1dc1dd923105198c572cc7df8d
         'LaravelDaily\\Larastarters\\' => 
         array (
             0 => __DIR__ . '/..' . '/laraveldaily/larastarters/src',
+        ),
+        'LaravelAndVueJS\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/ahmedsaoud31/laravel-permission-to-vuejs/src',
         ),
         'Intervention\\Image\\' => 
         array (
@@ -3376,6 +3381,8 @@ class ComposerStaticInitda9b7a1dc1dd923105198c572cc7df8d
         'Intervention\\Image\\Typography\\FontFactory' => __DIR__ . '/..' . '/intervention/image/src/Typography/FontFactory.php',
         'Intervention\\Image\\Typography\\Line' => __DIR__ . '/..' . '/intervention/image/src/Typography/Line.php',
         'Intervention\\Image\\Typography\\TextBlock' => __DIR__ . '/..' . '/intervention/image/src/Typography/TextBlock.php',
+        'LaravelAndVueJS\\LaravelAndVueJSServiceProvider' => __DIR__ . '/..' . '/ahmedsaoud31/laravel-permission-to-vuejs/src/LaravelAndVueJSServiceProvider.php',
+        'LaravelAndVueJS\\Traits\\LaravelPermissionToVueJS' => __DIR__ . '/..' . '/ahmedsaoud31/laravel-permission-to-vuejs/src/Traits/LaravelPermissionToVueJS.php',
         'LaravelDaily\\Larastarters\\Console\\InstallBreezeInertiaThemes' => __DIR__ . '/..' . '/laraveldaily/larastarters/src/Console/InstallBreezeInertiaThemes.php',
         'LaravelDaily\\Larastarters\\Console\\InstallBreezeThemes' => __DIR__ . '/..' . '/laraveldaily/larastarters/src/Console/InstallBreezeThemes.php',
         'LaravelDaily\\Larastarters\\Console\\InstallCommand' => __DIR__ . '/..' . '/laraveldaily/larastarters/src/Console/InstallCommand.php',

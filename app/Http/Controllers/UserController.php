@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Colonia;
 use App\Models\Refugio;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class UserController extends Controller{
@@ -14,13 +15,14 @@ class UserController extends Controller{
 
 
     public function dashboard(){
-        $users = User::query()->paginate(1000);
-        // dd($users->FullName);
+
+        // dd($roles);
         return Inertia::render('Dashboard', [
             'TotalUsuarios' => User::count(),
             'TotalRefugios' => Refugio::count(),
             'TotalColonias' => Colonia::count(),
             'TotalComunidades' => Colonia::query()->distinct('colonia1')->count(),
+            'Roles' => Auth::user()->arrayRoles(),
         ]);
     }
 

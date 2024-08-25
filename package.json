@@ -38,6 +38,7 @@
         "datatables.net-vue3": "^3.0.1",
         "file-saver": "^2.0.5",
         "jquery": "^3.7.1",
+        "laravel-permission-to-vuejs": "^3.0.7",
         "select2": "^4.1.0-rc.0",
         "vite-plugin-favicons-inject": "^2.2.0",
         "vue-chartjs": "^5.3.1",

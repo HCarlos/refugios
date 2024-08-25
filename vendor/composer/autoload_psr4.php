@@ -79,6 +79,7 @@ return array(
     'Laravel\\Breeze\\' => array($vendorDir . '/laravel/breeze/src'),
     'LaravelLang\\Lang\\' => array($vendorDir . '/laravel-lang/lang/src'),
     'LaravelDaily\\Larastarters\\' => array($vendorDir . '/laraveldaily/larastarters/src'),
+    'LaravelAndVueJS\\' => array($vendorDir . '/ahmedsaoud31/laravel-permission-to-vuejs/src'),
     'Intervention\\Image\\' => array($vendorDir . '/intervention/image/src'),
     'Intervention\\Gif\\' => array($vendorDir . '/intervention/gif/src'),
     'Inertia\\' => array($vendorDir . '/inertiajs/inertia-laravel/src'),

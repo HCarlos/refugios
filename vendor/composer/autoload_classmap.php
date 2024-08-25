@@ -2775,6 +2775,8 @@ return array(
     'Intervention\\Image\\Typography\\FontFactory' => $vendorDir . '/intervention/image/src/Typography/FontFactory.php',
     'Intervention\\Image\\Typography\\Line' => $vendorDir . '/intervention/image/src/Typography/Line.php',
     'Intervention\\Image\\Typography\\TextBlock' => $vendorDir . '/intervention/image/src/Typography/TextBlock.php',
+    'LaravelAndVueJS\\LaravelAndVueJSServiceProvider' => $vendorDir . '/ahmedsaoud31/laravel-permission-to-vuejs/src/LaravelAndVueJSServiceProvider.php',
+    'LaravelAndVueJS\\Traits\\LaravelPermissionToVueJS' => $vendorDir . '/ahmedsaoud31/laravel-permission-to-vuejs/src/Traits/LaravelPermissionToVueJS.php',
     'LaravelDaily\\Larastarters\\Console\\InstallBreezeInertiaThemes' => $vendorDir . '/laraveldaily/larastarters/src/Console/InstallBreezeInertiaThemes.php',
     'LaravelDaily\\Larastarters\\Console\\InstallBreezeThemes' => $vendorDir . '/laraveldaily/larastarters/src/Console/InstallBreezeThemes.php',
     'LaravelDaily\\Larastarters\\Console\\InstallCommand' => $vendorDir . '/laraveldaily/larastarters/src/Console/InstallCommand.php',

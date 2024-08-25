@@ -9,7 +9,7 @@ use Spatie\Permission\Traits\HasPermissions;
 class Role extends Model {
 
     use HasPermissions;
-    use SoftDeletes;
+//    use SoftDeletes;
 
     protected $guard_name = 'web'; // or whatever guard you want to use
     protected $table = 'roles';

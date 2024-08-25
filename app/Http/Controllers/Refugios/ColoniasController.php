@@ -135,13 +135,15 @@ class ColoniasController extends Controller{
 
         $colonia_id = $request->id;
         $numero     = $request->numero;
-        $Id         = $request->Colonia_id;
+        $Id         = $request->refugio_id;
         $paso       = false;
+
+        // dd($colonia_id.' - '.$Id);
 
         $Col = Colonia::find($colonia_id);
         if ($Col){
             try {
-                $Col->Colonias()->detach($Id);
+                $Col->Refugios()->detach($Id);
             }catch (\Exception $e){ }
             $paso = true;
         }

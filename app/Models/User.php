@@ -11,12 +11,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Sanctum\HasApiTokens;
+use LaravelAndVueJS\Traits\LaravelPermissionToVueJS;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles, LaravelPermissionToVueJS;
     use UserImport, UserAttributes, SoftDeletes;
 
 
@@ -86,11 +88,13 @@ class User extends Authenticatable
         return $this->belongsToMany(Permission::class);
     }
 
-    public function permissions() {
+    public function permissions(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
         return $this->belongsToMany(Permission::class);
     }
 
-    public function roles(){
+    public function roles(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
         return $this->belongsToMany(Role::class);
     }
 
@@ -145,6 +149,14 @@ class User extends Authenticatable
 
     public function sendEmailVerificationNotification(){
         $this->notify(new SendEmailAPIVerificationNotification());
+    }
+
+    public function arrayRoles(){
+        $roles = [];
+        foreach($this->roles()->get() as $r){
+            $roles[] = ["id" => $r->id, 'name' => $r->name ];
+        }
+        return $roles;
     }
 
 
