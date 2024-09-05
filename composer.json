@@ -14,13 +14,12 @@
         "laravel/framework": "^11.15.0",
         "laravel/sanctum": "^4.0.2",
         "laravel/tinker": "^2.9",
-        "phpoffice/phpspreadsheet": "2.1.0",
+        "phpoffice/phpspreadsheet": "^2.2",
         "spatie/laravel-permission": "^6.9.0",
         "tightenco/ziggy": "^2.2.1"
     },
     "require-dev": {
-        "roave/security-advisories": "dev-latest"
-        ,
+        "roave/security-advisories": "dev-latest",
         "fakerphp/faker": "^1.23.1",
         "laravel/pint": "^1.16.2",
         "laravel/sail": "^1.30.2",

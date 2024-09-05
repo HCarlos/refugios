@@ -55,7 +55,14 @@ height: 100% !important;
           </a>
 
           <nav class="nav-collapse collapse">
-              <div class="pull-right mr-2 mt-05 " style="height: 40px !important;" ><a href="https://villahermosa.gob.mx"><img src="images/logo_centro_80_pixeles_002.png" height="20" style="height:40px !important;"> </img></a></div>
+              <div class="pull-right mr-2 mt-05 " style="height: 40px !important;" >
+                  <a href="https://www.villahermosa.gob.mx/estructura_proteccion-civil/" target="_blank">
+                      <img src="images/logo_cpcm_80_pixeles_001.png" height="20" style="height:40px !important;" alt="Logo" />
+                  </a>
+                  <a href="https://villahermosa.gob.mx" target="_blank">
+                      <img src="images/logo_centro_80_pixeles_002.png" height="20" style="height:40px !important" alt="Logo" />
+                  </a>
+              </div>
           </nav>
       </div>
   </header>

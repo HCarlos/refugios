@@ -1,1 +1,0 @@
-import{o as s,c as a,i as o,B as n,d as l,r,n as c}from"./app-CQFRW4hv.js";const i=["type"],p={__name:"PrimaryButton",props:{type:{type:String,default:"submit"},classBtn:{type:String,default:""},show:{type:Boolean,default:!1}},setup(t){return(e,u)=>(s(),a("div",null,[o(l("button",{type:t.type,class:c(t.classBtn)},[r(e.$slots,"default")],10,i),[[n,t.show]])]))}};export{p as _};
