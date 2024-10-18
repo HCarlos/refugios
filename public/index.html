@@ -324,6 +324,7 @@
         var beach;
         for (var i = 0; i < beaches.length; i++) {
             beach = beaches[i];
+            var chref = "https://www.google.com/maps/place/"+beach[1]+","+beach[2]+"/@"+beach[1]+","+beach[2]+",17z/";
             var str = "";
             str += '<div class="panel panel-primary hide" id="ref-'+beach[4]+'" >';
             str += '<div class="panel-heading">';
@@ -348,6 +349,8 @@
             str += '<dd>'+beach[7]+'</dd>';
             str += '<dt>Observaciones:</dt>';
             str += '<dd>'+beach[11]+'</dd>';
+            str += '<dt>Abrir:</dt>';
+            str += '<dd><a href="'+chref+'" target="_blank" >Google Maps</a></dd>';
             str += '</dl>';
             str += '</div>';
             str += '</div>';
@@ -355,6 +358,12 @@
             $("#contTolTip").append(str);
        }
     }
+    // https://www.google.es/maps/place/@17.973793,-92.907599,17zc
+    // https://www.google.com/maps/place/17.973793,-92.907599/@17.9901533,-92.9501422,17z/
+    // https://www.google.com/maps/dir/17.9901647,-92.947576/17.973793,-92.907599/@17.9870776,-92.9709977,13z/
+    // https://www.google.com/maps/place/
+
+
 
     getRutas();
 
