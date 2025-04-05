@@ -136,7 +136,7 @@ height: 100% !important;
 
   <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 
-<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true&libraries=weather&key=AIzaSyB0mmrw3wLssGqd1eUKWAH43GEcn5bm8-s&callback=initMap&v=weekly"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true&libraries=weather&key=AIzaSyBUl6Jk2_5yVYdnwidOuU9c8_ZBk7gGnfo&callback=initMap&v=weekly"></script>
 
 
   <script>
